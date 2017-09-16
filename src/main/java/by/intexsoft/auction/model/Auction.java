@@ -57,5 +57,4 @@ public class Auction extends AbstractEntity {
 		return "Auction [tradingDay=" + tradingDay.tradingDate.getTime() + ", startTime=" + startTime.getTime() + ", duration=" + duration/1000
 				+ ", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot + "]";
 	}
-
 }

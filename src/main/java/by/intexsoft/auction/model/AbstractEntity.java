@@ -8,5 +8,4 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class AbstractEntity extends AbstractPersistable<Integer> {
 
 	private static final long serialVersionUID = 8293080385374044030L;
-	
 }

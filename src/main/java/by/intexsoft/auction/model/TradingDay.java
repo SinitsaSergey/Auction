@@ -31,7 +31,7 @@ public class TradingDay extends AbstractEntity{
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
-	 */
+	 */ 
 	@Override
 	public String toString() {
 		return "TradingDay [tradingDate=" + tradingDate + ", manager=" + manager + ", auctions=" + auctions + "]";

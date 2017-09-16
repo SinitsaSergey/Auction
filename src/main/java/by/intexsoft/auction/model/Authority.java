@@ -34,6 +34,4 @@ public class Authority extends AbstractEntity implements GrantedAuthority {
 	public String toString() {
 		return "Authority [" + authority + "]";
 	}
-	
-	
 }

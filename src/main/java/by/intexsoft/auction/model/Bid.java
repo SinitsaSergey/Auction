@@ -31,5 +31,4 @@ public class Bid extends AbstractEntity {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "auction_id")
 	public Auction auction;
-
 }

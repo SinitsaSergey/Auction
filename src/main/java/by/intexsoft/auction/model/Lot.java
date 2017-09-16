@@ -51,6 +51,4 @@ public class Lot extends AbstractEntity{
 		return "Lot [title=" + title + ", description=" + description + ", startPrice=" + startPrice + ", seller="
 				+ seller + ", status=" + status + "]";
 	}
-	
-	
 }

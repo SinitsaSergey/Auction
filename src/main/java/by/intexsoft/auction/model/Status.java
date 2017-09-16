@@ -15,7 +15,7 @@ public class Status extends AbstractEntity {
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
-	 */
+	 */ 
 	@Override
 	public String toString() {
 		return "Status [status=" + status + "]";

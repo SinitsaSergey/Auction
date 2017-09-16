@@ -57,5 +57,4 @@ public class User extends AbstractEntity{
 				+ lastName + ", email=" + email + ", phone=" + phone + ", registrated=" + registrated + ", authorities="
 				+ authorities + ", isBlocked=" + isBanned + "]";
 	}
-	
 }
