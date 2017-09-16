@@ -3,21 +3,6 @@
   <button (click)="switchLanguage('en')">en</button>
   <button (click)="switchLanguage('ru')">ru</button>
   <nav>
-    <div>
-      <div>
-        <p><!--*ngIf="isLoggedIn()">-->Приветствуем Вас, <b>welcomeName</b></p>
-      </div>
-      <div>
-   <span><!-- *ngIf="!isLoggedIn()">
-                <a routerLink="/login"><span>Войти</span></a>
-                <a routerLink="/registration" routerLinkActive="active">Регистрация</a>-->
-     <app-login></app-login>
-     <app-registration></app-registration>
-            </span>
-      </div>
-    </div>
-  </nav>
-  <nav>
     <a routerLink="/admin"><span>Админка</span></a>
     <a routerLink="/trading-day"><span>Аукционы сегодня</span></a>
     <a routerLink="/account"><span>Личный кабинет</span></a>

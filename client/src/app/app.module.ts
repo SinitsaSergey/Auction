@@ -19,6 +19,8 @@ import { TradingDayComponent } from './trading-day/trading-day.component';
 import { UserComponent } from './user/user.component';
 import { AccountComponent } from './account/account.component';
 import {LotService} from "./service/lot.service";
+import {AuthenticationService} from "./service/authentication.service";
+import {AuthenticationGuard} from "./guard/authentication.guard";
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import {LotService} from "./service/lot.service";
     })
   ],
   providers: [
-    {provide: 'lotService', useClass: LotService}
+    {provide: 'lotService', useClass: LotService},
+    AuthenticationService, AuthenticationGuard
     ],
   bootstrap: [AppComponent]
 })
