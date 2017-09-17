@@ -16,19 +16,20 @@ public class UserController {
 
 	//private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
-	/**
-	 * Registration new {@link User}
-	 */
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public ResponseEntity<?> registration(@RequestBody User user) {
 		//LOGGER.info("Start registration user");
 		try {
 			return new ResponseEntity<>(userService.registration(user), HttpStatus.CREATED);
 		} catch (Exception e) {
-			//LOGGER.info("Error in addUser. " + e.getLocalizedMessage());
+			//LOGGER.info("Error in aregistration. " + e.getLocalizedMessage());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
