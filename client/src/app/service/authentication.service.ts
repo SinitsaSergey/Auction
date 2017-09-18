@@ -1,4 +1,4 @@
-import {Http} from '@angular/http';
+import {Http, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 
@@ -13,6 +13,7 @@ export class AuthenticationService {
 
   constructor(private http: Http) {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('currentUser ' + currentUser);
     if (currentUser) {
       this.token = currentUser.token;
       this.username = currentUser.username;
@@ -20,8 +21,12 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post(LOGIN_URL, JSON.stringify({username: username, password: password}))
+    console.log('cred' + username + ' ' + password);
+    const body = JSON.stringify({username: username, password: password});
+    const options = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
+    return this.http.post(LOGIN_URL, body, options)
       .map(response => {
+        console.log(response.headers.get('Authorization'));
         const token = response.headers.get('Authorization').slice(7);
         if (!token) return false;
         this.token = token;
