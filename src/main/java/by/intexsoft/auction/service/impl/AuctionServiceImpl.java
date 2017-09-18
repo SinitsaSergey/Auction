@@ -1,9 +1,12 @@
 package by.intexsoft.auction.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import by.intexsoft.auction.model.Auction;
+import by.intexsoft.auction.model.TradingDay;
 import by.intexsoft.auction.repository.AuctionRepository;
 import by.intexsoft.auction.service.AuctionService;
 import by.intexsoft.auction.service.LotService;
@@ -34,5 +37,11 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 		auction.lot.status = statusService.findByStatus("registered");
 		lotService.save(auction.lot);
 		repository.delete(id);
+	}
+
+	@Override
+	public List<Auction> getForDay(TradingDay day) {
+		System.out.println(day.tradingDate);
+		return repository.findByTradingDayOrderByStartTime(day);
 	}
 }

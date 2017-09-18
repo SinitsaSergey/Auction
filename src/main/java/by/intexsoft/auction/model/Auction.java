@@ -22,7 +22,7 @@ public class Auction extends AbstractEntity {
 
 	private static final long serialVersionUID = 2493466916836151381L;
 	
-	@ManyToOne(fetch = LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "day_id")
 	public TradingDay tradingDay;
 	

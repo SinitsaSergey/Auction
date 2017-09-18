@@ -17,7 +17,7 @@
 	<import resource="classpath:jpa-repositories.xml" />
 	<context:annotation-config />
 	<context:component-scan base-package="by.intexsoft.auction.service" />
-	<!-- <context:component-scan base-package="by.intexsoft.adsboard.security" />-->
+	<context:component-scan base-package="by.intexsoft.auction.security" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<context:property-placeholder location="classpath:db.properties, classpath:hibernate.properties"

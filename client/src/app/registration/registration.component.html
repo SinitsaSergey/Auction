@@ -1,3 +1,10 @@
-<p>
-  registration works!
-</p>
+<div>
+  <input [(ngModel)]="user.username" placeholder="{{'username'| translate}}"/><br/>
+  <input type="password" [(ngModel)]="user.password" placeholder="{{'currentPassword'| translate}}"/><br/>
+  <input [(ngModel)]="user.firstName" placeholder="{{'first name'| translate}}"/><br/>
+  <input [(ngModel)]="user.lastName" placeholder="{{'last name'| translate}}"/><br/>
+  <input [(ngModel)]="user.email" placeholder="{{'email'| translate}}"/><br/>
+  <input type="tel" [(ngModel)]="user.phone" placeholder="{{'phone number'| translate}}"/><br/>
+  <button class="btn btn-default" (click)="insert(user)">{{'registration' | translate}}</button>
+</div>
+

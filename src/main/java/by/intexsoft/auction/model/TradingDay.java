@@ -1,6 +1,7 @@
 package by.intexsoft.auction.model;
 
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 import java.util.Calendar;
 import java.util.Set;
@@ -22,11 +23,11 @@ public class TradingDay extends AbstractEntity{
 	@Column (name = "trading_date", nullable = false)
 	public Calendar tradingDate;
 	
-	@ManyToOne(fetch = EAGER)
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "manager_id")
 	public User manager;
 	
-	@OneToMany(mappedBy = "tradingDay", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tradingDay", fetch = LAZY)
 	public Set<Auction> auctions;
 
 	/* (non-Javadoc)
@@ -34,6 +35,6 @@ public class TradingDay extends AbstractEntity{
 	 */ 
 	@Override
 	public String toString() {
-		return "TradingDay [tradingDate=" + tradingDate + ", manager=" + manager + ", auctions=" + auctions + "]";
+		return "TradingDay [tradingDate=" + tradingDate + ", manager=" + manager + "]";
 	}
 }

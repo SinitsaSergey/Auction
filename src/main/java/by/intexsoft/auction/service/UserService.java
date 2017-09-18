@@ -6,6 +6,4 @@ public interface UserService extends AbstractEntityService<User> {
 	
 	User getUserByUsername (String username);
 
-	User registration(User user);
-
 }
