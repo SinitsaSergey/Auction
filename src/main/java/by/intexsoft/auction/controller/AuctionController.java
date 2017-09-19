@@ -31,8 +31,6 @@ public class AuctionController {
 		if (date == null) return new ResponseEntity<> (auctionService.findAll(), HttpStatus.OK);
 		TradingDay currentDay = tradingDayService.getByTradingDate(date);
 		return new ResponseEntity<>(auctionService.getForDay(currentDay), HttpStatus.OK);
-		
-		
 	}
 
 

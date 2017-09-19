@@ -122,8 +122,12 @@ public class Runner {
 		auction1.duration = 120000;
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
 		auctionService.save(auction1);
+		
+		TradingDay tdDay = dayService.getByTradingDate("2017-09-02");
+		
+		System.out.println(tdDay.toString());
 
-		System.out.println(auctionService.getForDay(tradingDay));
+		System.out.println(tdDay.auctions);
 
 		context.close();
 	}

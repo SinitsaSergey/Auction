@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table (name = "trading_day")
 public class TradingDay extends AbstractEntity{
@@ -23,11 +25,12 @@ public class TradingDay extends AbstractEntity{
 	@Column (name = "trading_date", nullable = false)
 	public Calendar tradingDate;
 	
-	@ManyToOne(fetch = LAZY)
+	@ManyToOne(fetch = EAGER)
 	@JoinColumn(name = "manager_id")
 	public User manager;
 	
-	@OneToMany(mappedBy = "tradingDay", fetch = LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "tradingDay", fetch = EAGER)
 	public Set<Auction> auctions;
 
 	/* (non-Javadoc)
