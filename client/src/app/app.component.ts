@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthenticationService} from "./service/authentication.service";
@@ -16,16 +16,29 @@ export class AppComponent {
 
   constructor(private router: Router,
               private translate: TranslateService,
-              private authentication: AuthenticationService) {
+             private authenticationService: AuthenticationService
+              ) {
     translate.setDefaultLang('en');
   }
 
   public isLoggedIn(): boolean {
-    if (this.authentication.username) {
-      this.welcomeName = this.authentication.username;
+    this.initUser();
+    if (this.authenticationService.currentUser) {
+      this.welcomeName = this.authenticationService.currentUser.firstName;
       return true;
     }
     return false;
+  }
+
+  public logout(): void {
+    this.authenticationService.logout();
+  }
+
+  initUser(): void {
+    if (this.authenticationService.username === 'guest') {
+      return;
+    }
+    if (!this.authenticationService.currentUser) this.authenticationService.getCurrentUser();
   }
 
   switchLanguage(language: string) {

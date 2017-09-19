@@ -22,6 +22,7 @@ import {LotService} from "./service/lot.service";
 import {AuthenticationService} from "./service/authentication.service";
 import {AuthenticationGuard} from "./guard/authentication.guard";
 import {UserService} from "./service/user.service";
+import {AuctionService} from "./service/auction.service";
 
 @NgModule({
   declarations: [
@@ -53,8 +54,10 @@ import {UserService} from "./service/user.service";
   ],
   providers: [
     {provide: 'lotService', useClass: LotService},
-    {provide: "userService", useClass: UserService},
-    AuthenticationService, AuthenticationGuard
+    {provide: 'userService', useClass: UserService},
+    {provide: 'auctionService', useClass: AuctionService},
+    {provide: 'authenticationService', useClass: AuthenticationService},
+    AuthenticationService, AuthenticationGuard, UserService, AuctionService
     ],
   bootstrap: [AppComponent]
 })

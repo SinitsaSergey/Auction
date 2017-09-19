@@ -1,37 +1,38 @@
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
+import {User} from "../model/user";
+import {UserService} from "./user.service";
 
 const LOGIN_URL = 'api/login';
-//const HEADERS: Headers = new Headers({'Content-Type': 'application/json'});
+const HEADERS: Headers = new Headers({'Content-Type': 'application/json'});
 
 @Injectable()
 export class AuthenticationService {
 
   public token: string;
   public username = 'guest';
+  currentUser: User;
 
-  constructor(private http: Http) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('currentUser ' + currentUser);
-    if (currentUser) {
-      this.token = currentUser.token;
-      this.username = currentUser.username;
+  constructor(private http: Http, private userService: UserService) {
+    const authenticationData = JSON.parse(localStorage.getItem('authenticationData'));
+    if (authenticationData) {
+      this.token = authenticationData.token;
+      this.username = authenticationData.username;
+      this.getCurrentUser();
     }
   }
 
   login(username: string, password: string): Observable<boolean> {
-    console.log('cred' + username + ' ' + password);
     const body = JSON.stringify({username: username, password: password});
-    const options = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
+    const options = new RequestOptions({headers: HEADERS});
     return this.http.post(LOGIN_URL, body, options)
       .map(response => {
-        console.log(response.headers.get('Authorization'));
         const token = response.headers.get('Authorization').slice(7);
         if (!token) return false;
         this.token = token;
         this.username = username;
-        localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
+        localStorage.setItem('authenticationData', JSON.stringify({username: username, token: token}));
         return true;
         }
       );
@@ -40,7 +41,13 @@ export class AuthenticationService {
   logout(): void {
     this.token = null;
     this.username = 'guest';
-    localStorage.removeItem('currentUser');
+    this.currentUser = null;
+    localStorage.removeItem('authenticationData');
+  }
+
+  getCurrentUser(): void {
+    this.userService.getByUsername(this.username)
+      .then(user => this.currentUser = user);
   }
 
 }
