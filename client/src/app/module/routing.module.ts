@@ -9,6 +9,7 @@ import {TradingDayComponent} from '../trading-day/trading-day.component';
 import {AuctionComponent} from '../auction/auction.component';
 import {LotComponent} from '../lot/lot.component';
 import {AccountComponent} from '../account/account.component';
+import {AppComponent} from "../app.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},

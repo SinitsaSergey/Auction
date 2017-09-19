@@ -27,13 +27,4 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 		return repository.findByUsername(username);
 	}
 
-	@Override
-	public User registration(User user) {
-		Set<Authority> authorities = new HashSet<>();
-		authorities.add(authorityService.findByAuthority("USER_ROLE"));
-		user.authorities = authorities;
-		user.registrated = new Date();
-		return repository.save(user);
-	}
-
 }

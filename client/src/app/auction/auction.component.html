@@ -1,3 +1,15 @@
-<p>
-  auction works!
-</p>
+<div><p>Аукционы сегодня :{{tradingDate.toLocaleDateString()}}</p></div>
+<thead>
+<tr>
+  <th>Начало</th>
+  <th>Окончание</th>
+  <th>Лот</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let auction of auctions">
+  <td>{{convertStartTime(auction)}}</td>
+  <td>{{getFinishTime(auction)}}</td>
+  <td>{{auction.lot.title}}</td>
+</tr>
+</tbody>

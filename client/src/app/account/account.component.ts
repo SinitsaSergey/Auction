@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {AuthenticationService} from '../service/authentication.service';
 
 @Component({
   selector: 'app-account',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  welcomeName: string;
+
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }

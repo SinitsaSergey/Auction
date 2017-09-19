@@ -1,6 +1,7 @@
 package by.intexsoft.auction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,9 @@ public class LoginController {
 		User user = userService.getUserByUsername(requestUser.username);
 		String token = authenticationService.generateToken(user, requestUser.password);
 		if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		return new ResponseEntity<>(token, HttpStatus.OK);
+		HttpHeaders authHeader = new HttpHeaders();
+		authHeader.set("Authorization", token);
+		return new ResponseEntity<>(authHeader, HttpStatus.OK);
 	}
 
 }

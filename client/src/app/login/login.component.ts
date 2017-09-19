@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../service/authentication.service';
 
@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -26,10 +27,10 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(result => {
         if (result === true) {
-          this.router.navigate(['/home']);
+          this.router.navigateByUrl('/');
         } else {
           this.error = 'Username or password is incorrect';
-          this.loading = false;
+         this.loading = false;
         }
       });
   }
