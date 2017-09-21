@@ -12,8 +12,8 @@ export class AuctionService {
 
 getAllForDay(date: Date): Promise<Auction[]>{
     const year = date.getFullYear();
-    const month = '09';//date.getMonth();
-    const day = '02';//date.getDay();
+  const month = '09';//date.getMonth();
+  const day = '02';//date.getDay();
   return this.http.get(AUCTION_PATH + '?date=' + year + '-' + month + '-' + day)
     .toPromise()
     .then (response => response.json());

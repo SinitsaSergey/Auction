@@ -4,14 +4,11 @@ import static java.util.Calendar.OCTOBER;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -83,8 +80,6 @@ public class Runner {
 		admin.phone = "+375999999999";
 		admin.registrated = new Date();
 		Set<Authority> authorities1 = new HashSet<>();
-		authorities1.add(authorityService.findByAuthority("ROLE_USER"));
-		authorities1.add(authorityService.findByAuthority("ROLE_MANAGER"));
 		authorities1.add(authorityService.findByAuthority("ROLE_ADMIN"));
 		admin.authorities = authorities1;
 		userService.save(admin);
@@ -98,7 +93,6 @@ public class Runner {
 		manager.phone = "+375000000090";
 		manager.registrated = new Date();
 		Set<Authority> authorities11 = new HashSet<>();
-		authorities11.add(authorityService.findByAuthority("ROLE_USER"));
 		authorities11.add(authorityService.findByAuthority("ROLE_MANAGER"));
 		manager.authorities = authorities11;
 		userService.save(manager);
@@ -123,11 +117,14 @@ public class Runner {
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
 		auctionService.save(auction1);
 		
+		//Calendar tdDate = dayService.convertToCalendar("2017-09-02");
 		TradingDay tdDay = dayService.getByTradingDate("2017-09-02");
 		
 		System.out.println(tdDay.toString());
 
-		System.out.println(tdDay.auctions);
+		System.out.println(auctionService.getForDay(tdDay));
+		
+		System.out.println(userService.findAll());
 
 		context.close();
 	}

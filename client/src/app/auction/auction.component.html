@@ -1,15 +1,17 @@
 <div><p>Аукционы сегодня :{{tradingDate.toLocaleDateString()}}</p></div>
 <thead>
 <tr>
+  <th>Лот</th>
+  <th>Стартовая цена</th>
   <th>Начало</th>
   <th>Окончание</th>
-  <th>Лот</th>
 </tr>
 </thead>
 <tbody>
 <tr *ngFor="let auction of auctions">
+  <td>{{auction.lot.title}}</td>
+  <td>{{auction.lot.startPrice.toFixed(2)}}</td>
   <td>{{convertStartTime(auction)}}</td>
   <td>{{getFinishTime(auction)}}</td>
-  <td>{{auction.lot.title}}</td>
 </tr>
 </tbody>

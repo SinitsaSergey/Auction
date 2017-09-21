@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table
 public class Auction extends AbstractEntity {
@@ -57,5 +59,5 @@ public class Auction extends AbstractEntity {
 		return "Auction [tradingDay=" + tradingDay + ", startTime=" + startTime + ", duration=" + duration
 				+ ", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot + "]";
 	}
-	
+
 }

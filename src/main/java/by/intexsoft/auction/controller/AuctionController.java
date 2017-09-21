@@ -1,5 +1,8 @@
 package by.intexsoft.auction.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,7 @@ public class AuctionController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll(@RequestParam (value = "date", required = false) String date) {
 		if (date == null) return new ResponseEntity<> (auctionService.findAll(), HttpStatus.OK);
+		//Calendar currentDate = tradingDayService.convertToCalendar(date);
 		TradingDay currentDay = tradingDayService.getByTradingDate(date);
 		return new ResponseEntity<>(auctionService.getForDay(currentDay), HttpStatus.OK);
 	}

@@ -38,10 +38,9 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> getByParams(@RequestParam (value = "username", required = true) String username) {
-		User user = userService.getUserByUsername(username);
-		user.password = "[isHidden]";
-		return new ResponseEntity<>(user, HttpStatus.OK);
+	public ResponseEntity<?> getByParams(@RequestParam (value = "username", required = false) String username) {
+		if (username == null) return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -53,4 +52,21 @@ public class UserController {
 		user.authorities = authorities;
 		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
 	}
+	
+	@RequestMapping(value = "/role", method = RequestMethod.PUT)
+	public ResponseEntity<?> setRole(@RequestParam (value = "authority", required = true) String authority, @RequestBody User user) {
+		User updatingUser = userService.find(user.getId());
+		Set <Authority> authorities = new HashSet<>();
+		authorities.add(authorityService.findByAuthority("ROLE_"+authority.toUpperCase()));
+		updatingUser.authorities = authorities;
+		return new ResponseEntity<>(userService.save(updatingUser), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/ban", method = RequestMethod.PUT)
+	public ResponseEntity<?> setBan(@RequestParam (value = "blocked", required = true) boolean blocked, @RequestBody User user) {
+		User updatingUser = userService.find(user.getId());
+		updatingUser.isBanned = blocked;
+		return new ResponseEntity<>(userService.save(updatingUser), HttpStatus.OK);
+	}
+	
 }

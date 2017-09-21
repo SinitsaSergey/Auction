@@ -1,14 +1,10 @@
 package by.intexsoft.auction.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +22,18 @@ public class TradingDayServiceImpl extends AbstractServiceEntityImpl<TradingDay>
 	/* 
 	 * yyyy-mm-dd
 	 */
+	
 	@Override
-	public TradingDay getByTradingDate(String stringDate) {
-		List<Integer> dateParams = Arrays.asList(stringDate.split("-")).stream()
-                .map(s -> Integer.parseInt(s))
-                .collect(Collectors.toList());
-		return repository.findByTradingDate(new GregorianCalendar(dateParams.get(0), dateParams.get(1), dateParams.get(2)));
+	public TradingDay getByTradingDate(String dateString) {
+		Calendar tradingDate = convertToCalendar(dateString);
+		return repository.findByTradingDate(tradingDate);
+	}
+	
+	private Calendar convertToCalendar (String dateString) {
+		List<Integer> dateParams = Arrays.asList(dateString.split("-")).stream()
+				 .map(s -> Integer.parseInt(s))
+	                .collect(Collectors.toList());
+		return new GregorianCalendar(dateParams.get(0), dateParams.get(1), dateParams.get(2));
 	}
 
 }

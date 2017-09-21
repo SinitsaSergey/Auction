@@ -26,6 +26,7 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<boolean> {
     const body = JSON.stringify({username: username, password: password});
     const options = new RequestOptions({headers: HEADERS});
+    console.log(body);
     return this.http.post(LOGIN_URL, body, options)
       .map(response => {
         const token = response.headers.get('Authorization').slice(7);

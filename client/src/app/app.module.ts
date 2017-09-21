@@ -23,6 +23,8 @@ import {AuthenticationService} from "./service/authentication.service";
 import {AuthenticationGuard} from "./guard/authentication.guard";
 import {UserService} from "./service/user.service";
 import {AuctionService} from "./service/auction.service";
+import {AdminService} from "./service/admin.service";
+import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {AuctionService} from "./service/auction.service";
     LotComponent,
     TradingDayComponent,
     UserComponent,
-    AccountComponent
+    AccountComponent,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,7 @@ import {AuctionService} from "./service/auction.service";
     {provide: 'userService', useClass: UserService},
     {provide: 'auctionService', useClass: AuctionService},
     {provide: 'authenticationService', useClass: AuthenticationService},
-    AuthenticationService, AuthenticationGuard, UserService, AuctionService
+    AuthenticationService, AuthenticationGuard, UserService, AuctionService, AdminService
     ],
   bootstrap: [AppComponent]
 })
