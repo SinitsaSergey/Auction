@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users")
 public class User extends AbstractEntity{
 	
 	private static final long serialVersionUID = 4507851224901060824L;
@@ -43,7 +43,7 @@ public class User extends AbstractEntity{
 	public Date registrated;
 	
 	@ManyToMany(fetch = EAGER)
-	@JoinTable(name = "user_authority",
+	@JoinTable(name = "users_authorities",
 	  joinColumns = @JoinColumn(name = "user_id"),
 	  inverseJoinColumns = @JoinColumn(name = "authority_id"))
 	public Set<Authority> authorities;

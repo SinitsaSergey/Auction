@@ -1,4 +1,3 @@
-import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {RegistrationComponent} from '../registration/registration.component';
 import {LoginComponent} from '../login/login.component';
@@ -9,15 +8,19 @@ import {TradingDayComponent} from '../trading-day/trading-day.component';
 import {AuctionComponent} from '../auction/auction.component';
 import {LotComponent} from '../lot/lot.component';
 import {AccountComponent} from '../account/account.component';
-import {AppComponent} from "../app.component";
+import {ManagerComponent} from '../manager/manager.component';
+import {RouterModule, Routes} from '@angular/router';
+import {AuctionDetailsComponent} from "../auction-details/auction-details.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'admin', component: AdminComponent},
+  {path: 'manager', component: ManagerComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'trading-day', component: TradingDayComponent},
-  {path: 'auction', component: AuctionComponent},
+  {path: 'auction/details/:id', component: AuctionDetailsComponent},
+  {path: 'auction/:date', component: AuctionComponent},
   {path: 'account', component: AccountComponent},
   {path: 'lot', component: LotComponent},
   {path: '**', component: NotFoundComponent}

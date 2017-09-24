@@ -10,7 +10,7 @@ export class AccountComponent implements OnInit {
 
   welcomeName: string;
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor() { }
 
   ngOnInit() {
   }

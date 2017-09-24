@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table (name = "trading_day")
+@Table (name = "trading_days")
 public class TradingDay extends AbstractEntity{
 
 	private static final long serialVersionUID = 4112777822259677565L;

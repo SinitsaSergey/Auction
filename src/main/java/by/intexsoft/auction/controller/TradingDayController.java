@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import by.intexsoft.auction.model.TradingDay;
 import by.intexsoft.auction.model.User;
+import by.intexsoft.auction.service.AuthenticationService;
 import by.intexsoft.auction.service.TradingDayService;
 
 @RestController
@@ -23,12 +24,14 @@ import by.intexsoft.auction.service.TradingDayService;
 public class TradingDayController {
 
 	private TradingDayService tradingDayService;
+	private AuthenticationService authenticationService;
 
 	@Autowired
-	public TradingDayController(TradingDayService tradingDayService) {
+	public TradingDayController(TradingDayService tradingDayService, AuthenticationService authenticationService) {
 		this.tradingDayService = tradingDayService;
+		this.authenticationService = authenticationService;
 	}
-
+	
 	@RequestMapping(value = "/{date}", method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@PathVariable(value = "date") String date, @RequestBody User manager) {
 		TradingDay tradingDay = new TradingDay();
@@ -43,6 +46,12 @@ public class TradingDayController {
 	@RequestMapping(value = "/{date}", method = RequestMethod.GET)
 	public ResponseEntity<?> getByDate(@PathVariable(value = "date") String date) {
 		return new ResponseEntity<>(tradingDayService.getByTradingDate(date), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/my", method = RequestMethod.GET)
+	public ResponseEntity<?> getMyDays(){
+		User manager = authenticationService.getUser();
+		return new ResponseEntity<>(tradingDayService.getByManager(manager), HttpStatus.OK);
 	}
 
 }

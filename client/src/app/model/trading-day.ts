@@ -6,4 +6,5 @@ export class TradingDay{
   tradingDate: Date;
   manager: User;
   auctions: Auction[];
+
 }

@@ -1,30 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import {AppComponent} from './app.component';
+import {RegistrationComponent} from './registration/registration.component';
+import {LoginComponent} from './login/login.component';
+import {HomeComponent} from './home/home.component';
+import {NotFoundComponent} from './not-found/not-found.component';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 import {RoutingModule} from './module/routing.module';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { AdminComponent } from './admin/admin.component';
-import { AuctionComponent } from './auction/auction.component';
-import { LotComponent } from './lot/lot.component';
-import { TradingDayComponent } from './trading-day/trading-day.component';
-import { UserComponent } from './user/user.component';
-import { AccountComponent } from './account/account.component';
-import {LotService} from "./service/lot.service";
-import {AuthenticationService} from "./service/authentication.service";
-import {AuthenticationGuard} from "./guard/authentication.guard";
-import {UserService} from "./service/user.service";
-import {AuctionService} from "./service/auction.service";
-import {AdminService} from "./service/admin.service";
-import { ManagerComponent } from './manager/manager.component';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AdminComponent} from './admin/admin.component';
+import {AuctionComponent} from './auction/auction.component';
+import {LotComponent} from './lot/lot.component';
+import {TradingDayComponent} from './trading-day/trading-day.component';
+import {UserComponent} from './user/user.component';
+import {AccountComponent} from './account/account.component';
+import {LotService} from './service/lot.service';
+import {AuthenticationService} from './service/authentication.service';
+import {AuthenticationGuard} from './guard/authentication.guard';
+import {UserService} from './service/user.service';
+import {AuctionService} from './service/auction.service';
+import {AdminService} from './service/admin.service';
+import {ManagerComponent} from './manager/manager.component';
+import {ManagerService} from './service/manager.service';
+import {JWTInterceptor} from './service/JWTInterceptor';
+import {AuctionDetailsComponent} from './auction-details/auction-details.component';
 
 @NgModule({
   declarations: [
@@ -39,12 +41,12 @@ import { ManagerComponent } from './manager/manager.component';
     TradingDayComponent,
     UserComponent,
     AccountComponent,
-    ManagerComponent
+    ManagerComponent,
+    AuctionDetailsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     RoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -56,11 +58,12 @@ import { ManagerComponent } from './manager/manager.component';
     })
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
     {provide: 'lotService', useClass: LotService},
     {provide: 'userService', useClass: UserService},
     {provide: 'auctionService', useClass: AuctionService},
     {provide: 'authenticationService', useClass: AuthenticationService},
-    AuthenticationService, AuthenticationGuard, UserService, AuctionService, AdminService
+    AuthenticationService, AuthenticationGuard, UserService, AuctionService, AdminService, ManagerService
     ],
   bootstrap: [AppComponent]
 })

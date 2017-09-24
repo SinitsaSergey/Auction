@@ -1,5 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthenticationService} from "../service/authentication.service";
+import {Auction} from "../model/auction";
+import {AuctionService} from "../service/auction.service";
+import {DateUtils} from "../utils/date-utils";
 
 @Component({
   selector: 'app-home',
@@ -8,9 +11,21 @@ import {AuthenticationService} from "../service/authentication.service";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService) { }
+  auctions: Auction[];
+  tradingDate: Date;
+  convertStartTime = DateUtils.convertStartTime;
+  getFinishTime = DateUtils.getFinishTime;
+  convertToModel = DateUtils.convertToTransferModel;
+
+  constructor(private auctionService: AuctionService) { }
 
   ngOnInit() {
+    this.tradingDate = new Date();
+    this.getAuctionsForDay();
   }
 
+  getAuctionsForDay(): void {
+    this.auctionService.getAllForDay(this.convertToModel(this.tradingDate))
+      .then(auctions => this.auctions = auctions);
+  }
 }

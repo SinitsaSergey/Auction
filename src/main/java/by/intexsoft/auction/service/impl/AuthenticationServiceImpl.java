@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import by.intexsoft.auction.model.User;
 import by.intexsoft.auction.service.AuthenticationService;
+import by.intexsoft.auction.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtBuilder;
@@ -27,6 +29,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	private static final String KEY_WORD = "CHUCKNORRIS";
 	private static final String JWT_PREFIX = "Bearer";
 	private static final String HEADER = "Authorization";
+	
+	@Autowired
+	private UserService userService;
+	
+	private User user;
 
 	/*@Override
 	public String generateToken(HttpServletResponse response, Authentication authentication) {
@@ -50,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			return null;
 		Map<String, Object> tokenData = new HashMap<>();
 		tokenData.put("scopes", AuthorityUtils.authorityListToSet(user.authorities));
-		tokenData.put("email", user.username);
+		tokenData.put("username", user.username);
 		tokenData.put("password", user.password);
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.HOUR, EXPIRATION_HOURS);
@@ -67,12 +74,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		if (token == null) return null;
 		token = token.replaceAll(JWT_PREFIX, "");
 		Jws<Claims> tokenData = Jwts.parser().setSigningKey(KEY_WORD).parseClaimsJws(token);
-		String email = tokenData.getBody().get("email").toString();
+		String username = tokenData.getBody().get("username").toString();
+		System.out.println();
+		System.out.println(username);
+		this.user = userService.getUserByUsername(username);
+		System.out.println();
 		String password = tokenData.getBody().get("password").toString();
 		@SuppressWarnings("unchecked")
 		List authorities = tokenData.getBody().get("scopes", List.class);
 		//Date tokenExpiration = tokenData.getBody().get("expiration_time", Date.class);
-		return new UsernamePasswordAuthenticationToken(email, password,
+		return new UsernamePasswordAuthenticationToken(username, password,
 				AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", authorities)));
 	}
 
@@ -81,12 +92,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		if (token == null) return null;
 		token = token.replaceAll(JWT_PREFIX, "");
 		Jws<Claims> tokenData = Jwts.parser().setSigningKey(KEY_WORD).parseClaimsJws(token);
-		String email = tokenData.getBody().get("email").toString();
+		String username = tokenData.getBody().get("username").toString();
 		String password = tokenData.getBody().get("password").toString();
 		@SuppressWarnings("unchecked")
 		List authorities = tokenData.getBody().get("scopes", List.class);
 		//Date tokenExpiration = tokenData.getBody().get("expiration_time", Date.class);
-		return new UsernamePasswordAuthenticationToken(email, password,
+		return new UsernamePasswordAuthenticationToken(username, password,
 				AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", authorities)));
 	}
+
+	@Override
+	public User getUser() {
+		return this.user;
+	}
+
 }

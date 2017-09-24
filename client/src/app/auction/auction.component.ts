@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Auction} from "../model/auction";
 import {AuctionService} from "../service/auction.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {TradingDay} from "../model/trading-day";
+import {DateUtils} from "../utils/date-utils";
 
 @Component({
   selector: 'app-auction',
@@ -9,27 +12,22 @@ import {AuctionService} from "../service/auction.service";
 })
 export class AuctionComponent implements OnInit {
 
+  private sub: any;
+  date: string;
   auctions: Auction[];
-  tradingDate: Date;
+  convertStartTime = DateUtils.convertStartTime;
+  getFinishTime = DateUtils.getFinishTime;
 
-  constructor(private auctionService: AuctionService) { }
+  constructor(private router: ActivatedRoute,
+              private auctionService: AuctionService) {
+  }
 
   ngOnInit() {
-    this.tradingDate = new Date();
-    this.getAuctionsForDay();
-  }
-
-  getAuctionsForDay(): void {
-    this.auctionService.getAllForDay(this.tradingDate)
-      .then(auctions => this.auctions = auctions);
-  }
-
-  convertStartTime (auction: Auction): string {
-    return new Date(auction.startTime).toLocaleTimeString();
-  }
-
-  getFinishTime(auction: Auction): string {
-    return new Date (auction.startTime + auction.duration).toLocaleTimeString();
+    this.sub = this.router.params.subscribe(params => {
+      this.date = params['date'];
+      this.auctionService.getAllForDay(this.date)
+        .then(auctions => this.auctions = auctions);
+    });
   }
 
 }

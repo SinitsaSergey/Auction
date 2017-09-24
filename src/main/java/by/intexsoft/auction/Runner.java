@@ -57,19 +57,41 @@ public class Runner {
 		Status lotStatus1 = new Status();
 		lotStatus1.status = "on sale";
 		statusService.save(lotStatus1);
+		Status lotStatus2 = new Status();
+		lotStatus2.status = "queue";
+		statusService.save(lotStatus2);
+		Status lotStatus3 = new Status();
+		lotStatus3.status = "saled";
+		statusService.save(lotStatus3);
+		Status lotStatus4 = new Status();
+		lotStatus4.status = "confirmed";
+		statusService.save(lotStatus4);
 
-		User seller = new User();
-		seller.username = "username";
-		seller.password = "notpassword";
-		seller.firstName = "Имя";
-		seller.lastName = "Фамилия";
-		seller.email = "good@mail.com";
-		seller.phone = "+375000000000";
-		seller.registrated = new Date();
+		User user1 = new User();
+		user1.username = "username";
+		user1.password = "password";
+		user1.firstName = "Имя";
+		user1.lastName = "Фамилия";
+		user1.email = "good@mail.com";
+		user1.phone = "+375000000000";
+		user1.registrated = new Date();
 		Set<Authority> authorities = new HashSet<>();
 		authorities.add(authorityService.findByAuthority("ROLE_USER"));
-		seller.authorities = authorities;
-		userService.save(seller);
+		user1.authorities = authorities;
+		userService.save(user1);
+		
+		User user2 = new User();
+		user2.username = "username2";
+		user2.password = "password";
+		user2.firstName = "Имя2";
+		user2.lastName = "Фамилия2";
+		user2.email = "good2@mail.com";
+		user2.phone = "+375000000002";
+		user2.registrated = new Date();
+		Set<Authority> authorities2 = new HashSet<>();
+		authorities2.add(authorityService.findByAuthority("ROLE_USER"));
+		user2.authorities = authorities2;
+		userService.save(user2);
 
 		User admin = new User();
 		admin.username = "admin";
@@ -101,30 +123,37 @@ public class Runner {
 		lot1.title = "Какой-то лот";
 		lot1.description = "Продам что-нибудь за деньги";
 		lot1.startPrice = new BigDecimal(13).setScale(2, RoundingMode.HALF_EVEN);
-		lot1.seller = seller;
+		lot1.seller = user2;
 		lot1.status = statusService.findByStatus("registered");
 		lotService.save(lot1);
+		
+		Lot lot2 = new Lot();
+		lot2.title = "Какой-то лот2";
+		lot2.description = "Продам что-нибудь за деньги";
+		lot2.startPrice = new BigDecimal(15).setScale(2, RoundingMode.HALF_EVEN);
+		lot2.seller = user1;
+		lot2.status = statusService.findByStatus("registered");
+		lotService.save(lot2);
 
 		TradingDay tradingDay = new TradingDay();
 		tradingDay.tradingDate = new GregorianCalendar(2017, OCTOBER, 2);
 		tradingDay.manager = manager;
 		dayService.save(tradingDay);
 
-		Auction auction1 = new Auction(lot1);
+		Auction auction1 = new Auction(lot2);
 		auction1.tradingDay = tradingDay;
 		auction1.startTime = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
 		auction1.duration = 120000;
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
 		auctionService.save(auction1);
 		
-		//Calendar tdDate = dayService.convertToCalendar("2017-09-02");
-		TradingDay tdDay = dayService.getByTradingDate("2017-09-02");
+		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		
 		System.out.println(tdDay.toString());
 
 		System.out.println(auctionService.getForDay(tdDay));
 		
-		System.out.println(userService.findAll());
+		System.out.println(dayService.getByManager(manager));
 
 		context.close();
 	}

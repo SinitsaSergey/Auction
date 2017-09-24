@@ -2,7 +2,7 @@ import {User} from './user';
 import {Status} from './status';
 import {Auction} from './auction';
 
-export class Lot{
+export class Lot {
   id: number;
   title: string;
   description: string;
