@@ -10,5 +10,6 @@ export class Lot {
   seller: User;
   status: Status;
   auction: Auction;
+  added: Date;
 
 }

@@ -62,8 +62,8 @@ this.userService.setAs(authority, this.selectedUser)
   }
 
   getTradingDay() {
-    this.tradingDay = null;
-this.adminService.getTradingDay(this.tradingDate)
+    //this.tradingDay = null;
+this.adminService.getTradingDay(this.tradingDate.toString())
   .then(tradingDay => this.tradingDay = tradingDay);
   }
 }

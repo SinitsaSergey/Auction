@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -33,7 +34,7 @@ public class TradingDay extends AbstractEntity{
 	@JoinColumn(name = "manager_id")
 	public User manager;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "tradingDay", fetch = LAZY)
 	public Set<Auction> auctions;
 

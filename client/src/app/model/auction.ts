@@ -5,7 +5,7 @@ import {Bid} from "./bid";
 export class Auction{
   id: number;
   tradingDay: TradingDay;
-  startTime: number;
+  startTime: Date;
   duration: number;
   stepPrice: number;
   bidList: Bid[];

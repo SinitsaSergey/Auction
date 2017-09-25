@@ -55,7 +55,7 @@ public class Runner {
 		lotStatus.status = "registered";
 		statusService.save(lotStatus);
 		Status lotStatus1 = new Status();
-		lotStatus1.status = "on sale";
+		lotStatus1.status = "onsale";
 		statusService.save(lotStatus1);
 		Status lotStatus2 = new Status();
 		lotStatus2.status = "queue";
@@ -124,7 +124,7 @@ public class Runner {
 		lot1.description = "Продам что-нибудь за деньги";
 		lot1.startPrice = new BigDecimal(13).setScale(2, RoundingMode.HALF_EVEN);
 		lot1.seller = user2;
-		lot1.status = statusService.findByStatus("registered");
+		lot1.status = statusService.getByStatus("registered");
 		lotService.save(lot1);
 		
 		Lot lot2 = new Lot();
@@ -132,7 +132,7 @@ public class Runner {
 		lot2.description = "Продам что-нибудь за деньги";
 		lot2.startPrice = new BigDecimal(15).setScale(2, RoundingMode.HALF_EVEN);
 		lot2.seller = user1;
-		lot2.status = statusService.findByStatus("registered");
+		lot2.status = statusService.getByStatus("registered");
 		lotService.save(lot2);
 
 		TradingDay tradingDay = new TradingDay();
@@ -145,7 +145,7 @@ public class Runner {
 		auction1.startTime = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
 		auction1.duration = 120000;
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
-		auctionService.save(auction1);
+		auctionService.save(auction1, "onsale");
 		
 		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		

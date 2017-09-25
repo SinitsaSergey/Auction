@@ -14,13 +14,10 @@ import {DateUtils} from "../utils/date-utils";
 })
 export class ManagerComponent implements OnInit {
 
-  lots: Lot[];
-  newAuction: Auction;
   tradingDays: TradingDay[];
   manager: User;
   convertDate = DateUtils.convertToTransferModel;
-  getDate = DateUtils.getDate
-  ;
+  getDate = DateUtils.getDate;
 
   constructor(private managerService: ManagerService,
               @Inject ('authenticationService') private authenticationService: AuthenticationService

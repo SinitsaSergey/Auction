@@ -37,9 +37,13 @@ public class AuctionController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody Auction auction) {
-		auctionService.save(auction);
-		return new ResponseEntity<>(auction, HttpStatus.CREATED);
+	public ResponseEntity<?> insert(@RequestParam (value = "queue", required = true) boolean isQueue, @RequestBody Auction auction) {
+		System.out.println();
+		System.out.println("contr "+auction.toString());
+		System.out.println();
+		String status = "onsale";
+		if (isQueue) status = "queue";
+		return new ResponseEntity<>(auctionService.save(auction, status), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

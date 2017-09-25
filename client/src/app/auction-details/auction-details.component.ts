@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Auction} from '../model/auction';
 import {AuctionService} from '../service/auction.service';
 import {DateUtils} from '../utils/date-utils';
+import {Lot} from "../model/lot";
 
 @Component({
   selector: 'app-auction-details',

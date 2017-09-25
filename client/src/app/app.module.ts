@@ -63,7 +63,7 @@ import {AuctionDetailsComponent} from './auction-details/auction-details.compone
     {provide: 'userService', useClass: UserService},
     {provide: 'auctionService', useClass: AuctionService},
     {provide: 'authenticationService', useClass: AuthenticationService},
-    AuthenticationService, AuthenticationGuard, UserService, AuctionService, AdminService, ManagerService
+    AuthenticationService, AuthenticationGuard, UserService, AuctionService, AdminService, ManagerService, LotService
     ],
   bootstrap: [AppComponent]
 })

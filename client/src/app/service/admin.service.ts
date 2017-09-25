@@ -15,13 +15,11 @@ export class AdminService {
   insertTradingDay(date: Date, manager: User): Promise<TradingDay> {
     return this.http.post<TradingDay>(TRADING_DAY_PATH + date, manager)
       .toPromise();
-      //.then(response => response.json());
   }
 
-  getTradingDay (date: Date): Promise<TradingDay> {
+  getTradingDay (date: string): Promise<TradingDay> {
     return this.http.get<TradingDay>(TRADING_DAY_PATH + date)
       .toPromise();
-      //.then(response => response.json());
   }
 
 }

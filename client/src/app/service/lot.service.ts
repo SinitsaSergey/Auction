@@ -4,7 +4,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {HttpClient} from "@angular/common/http";
 
-const LOT_PATH = 'api/lot';
+const LOT_PATH = 'api/lot/';
 
 @Injectable()
 export class LotService implements LotService {
@@ -15,7 +15,12 @@ export class LotService implements LotService {
 insert (lot): Promise<Lot> {
   return this.http.post<Lot>(LOT_PATH, lot)
     .toPromise();
-    //.then(response => response.json());
 }
+
+getByStatus (status): Promise <Lot[]> {
+    return this.http.get <Lot[]>(LOT_PATH + '?status=' + status)
+      .toPromise();
+}
+
 
 }

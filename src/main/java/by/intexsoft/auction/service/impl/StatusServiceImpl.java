@@ -14,7 +14,7 @@ public class StatusServiceImpl extends AbstractServiceEntityImpl<Status> impleme
 	private StatusRepository repository;
 	
 	@Override
-	public Status findByStatus(String status) {
+	public Status getByStatus(String status) {
 		return repository.findByStatus(status);
 	}
 

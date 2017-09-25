@@ -1,7 +1,6 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Lot} from '../model/lot';
-import LotService from '../interface/lot.service';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {LotService} from "../service/lot.service";
 
 @Component({
   selector: 'app-lot',
@@ -10,7 +9,6 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class LotComponent implements OnInit {
 
-  @Input()
   lot: Lot;
 
   constructor(@Inject('lotService') private lotService: LotService ) {
