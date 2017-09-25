@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table (name = "lots")
 public class Lot extends AbstractEntity{
 	
 	private static final long serialVersionUID = -5711393423535091909L;

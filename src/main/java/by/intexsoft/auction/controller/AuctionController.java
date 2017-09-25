@@ -3,11 +3,14 @@ package by.intexsoft.auction.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import by.intexsoft.auction.model.Auction;
 import by.intexsoft.auction.model.TradingDay;
 import by.intexsoft.auction.service.AuctionService;
 import by.intexsoft.auction.service.TradingDayService;
@@ -18,7 +21,7 @@ public class AuctionController {
 	
 	private AuctionService auctionService;
 	private TradingDayService tradingDayService;
-
+	
 	@Autowired
 	public AuctionController(AuctionService auctionService, TradingDayService tradingDayService) {
 		super();
@@ -33,5 +36,18 @@ public class AuctionController {
 		return new ResponseEntity<>(auctionService.getForDay(currentDay), HttpStatus.OK);
 	}
 
-
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> insert(@RequestParam (value = "queue", required = true) boolean isQueue, @RequestBody Auction auction) {
+		System.out.println();
+		System.out.println("contr "+auction.toString());
+		System.out.println();
+		String status = "onsale";
+		if (isQueue) status = "queue";
+		return new ResponseEntity<>(auctionService.save(auction, status), HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> get (@PathVariable(value = "id") int auctionId) {
+		return new ResponseEntity<> (auctionService.find(auctionId), HttpStatus.OK);
+	}
 }

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table (name = "statuses")
 public class Status extends AbstractEntity {
 
 	private static final long serialVersionUID = -9164967956296811127L;

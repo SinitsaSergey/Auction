@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table
+@Table (name = "authorities")
 public class Authority extends AbstractEntity implements GrantedAuthority {
 
 	private static final long serialVersionUID = 2414844874810009406L;

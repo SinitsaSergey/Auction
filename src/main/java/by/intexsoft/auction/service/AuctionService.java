@@ -8,5 +8,7 @@ import by.intexsoft.auction.model.TradingDay;
 public interface AuctionService extends AbstractEntityService<Auction> {
 	
 	List<Auction> getForDay (TradingDay day);
+	
+	Auction save(Auction auction, String status);
 
 }

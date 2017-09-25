@@ -16,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-@Table
+@Table (name = "auctions")
 public class Auction extends AbstractEntity {
 
 	private static final long serialVersionUID = 2493466916836151381L;
@@ -57,5 +59,5 @@ public class Auction extends AbstractEntity {
 		return "Auction [tradingDay=" + tradingDay + ", startTime=" + startTime + ", duration=" + duration
 				+ ", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot + "]";
 	}
-	
+
 }

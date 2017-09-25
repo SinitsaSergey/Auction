@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Inject} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, Input, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthenticationService} from "./service/authentication.service";
@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(private router: Router,
               private translate: TranslateService,
-             private authenticationService: AuthenticationService
+             @Inject ('authenticationService') private authenticationService: AuthenticationService
               ) {
     translate.setDefaultLang('en');
   }

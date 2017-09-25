@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table (name = "bids")
 public class Bid extends AbstractEntity {
 	
 	private static final long serialVersionUID = 3137482467791075835L;
