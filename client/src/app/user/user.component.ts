@@ -11,6 +11,8 @@ import {UserService} from "../service/user.service";
 export class UserComponent implements OnInit {
 
   currentUser: User;
+  changing: boolean;
+  newPassword: string;
   confirmPassword: string;
 
   constructor(@Inject ('authenticationService') private authenticationService: AuthenticationService,
@@ -22,6 +24,11 @@ export class UserComponent implements OnInit {
 
   insert(): void {
     this.userService.update(this.currentUser)
+      .then(user => this.currentUser = user);
+  }
+
+  changePassword(): void {
+    this.userService.changePassword(this.newPassword)
       .then(user => this.currentUser = user);
   }
 

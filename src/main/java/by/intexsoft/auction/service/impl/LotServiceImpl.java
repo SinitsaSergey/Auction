@@ -2,14 +2,19 @@ package by.intexsoft.auction.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import by.intexsoft.auction.model.Lot;
 import by.intexsoft.auction.model.Status;
+import by.intexsoft.auction.model.User;
 import by.intexsoft.auction.repository.LotRepository;
+import by.intexsoft.auction.service.AuctionService;
+import by.intexsoft.auction.service.AuthenticationService;
 import by.intexsoft.auction.service.LotService;
 import by.intexsoft.auction.service.StatusService;
 
@@ -20,7 +25,13 @@ public class LotServiceImpl extends AbstractServiceEntityImpl<Lot> implements Lo
 	private LotRepository repository;
 
 	@Autowired
-	StatusService statusService;
+	private StatusService statusService;
+	
+	@Autowired
+	private AuctionService auctionService;
+	
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	@Override
 	public Lot save(Lot lot, String status) {
@@ -41,6 +52,16 @@ public class LotServiceImpl extends AbstractServiceEntityImpl<Lot> implements Lo
 		List<Lot> result = new ArrayList<Lot>(regLots);
 		result.addAll(queueLots);
 		return result;
+	}
+
+	@Override
+	public List<Lot> getByUser(User user) {
+		List<Lot> lots = repository.findBySeller(user);
+		for (Iterator<Lot> i = lots.iterator(); i.hasNext();) {
+			Lot lot = i.next();
+			lot.auction = auctionService.getByLot(lot);
+		}
+		return lots;
 	}
 
 }

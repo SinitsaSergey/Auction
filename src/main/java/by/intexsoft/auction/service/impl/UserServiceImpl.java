@@ -20,37 +20,50 @@ import by.intexsoft.auction.service.UserService;
 public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements UserService {
 
 	@Autowired
-    private PasswordEncoder passwordEncoder;
-	
+	private PasswordEncoder passwordEncoder;
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private AuthorityService authorityService;
-	
+
 	@Override
 	public User getUserByUsername(String username) {
 		return repository.findByUsername(username);
 	}
-	
+
 	@Override
-	public User save (User user) {
-		if (user.getId() == null) {
-			user.password = passwordEncoder.encode(user.password);
-			user.authorities = new HashSet<>();
-			user.authorities.add(authorityService.findByAuthority("ROLE_USER"));
-		}
+	public User save(User user) {
+		user.password = passwordEncoder.encode(user.password);
+		user.authorities = new HashSet<>();
+		user.authorities.add(authorityService.findByAuthority("ROLE_USER"));
 		user.email = user.email.toLowerCase();
 		return repository.save(user);
 	}
-	
-	/*@Override
-	public List<User> findAll () {
-		List <User> users = repository.findAll();
-		users.stream()
-		.map(user -> user.password = null)
-		.collect(Collectors.toList());
-		return users;
-	}*/
-	
+
+	@Override
+	public User changePassword(String username, String password) {
+		User user = repository.findByUsername(username);
+		user.password = passwordEncoder.encode(password);
+		return repository.save(user);
+	}
+
+	@Override
+	public User update(User user) {
+		User updatedUser = repository.findOne(user.getId());
+		updatedUser.username = user.username;
+		updatedUser.firstName = user.firstName;
+		updatedUser.lastName = user.lastName;
+		updatedUser.email = user.email;
+		updatedUser.phone = user.phone;
+		return repository.save(updatedUser);
+	}
+
+	/*
+	 * @Override public List<User> findAll () { List <User> users =
+	 * repository.findAll(); users.stream() .map(user -> user.password = null)
+	 * .collect(Collectors.toList()); return users; }
+	 */
+
 }

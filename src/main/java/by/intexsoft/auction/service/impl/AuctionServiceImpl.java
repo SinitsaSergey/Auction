@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import by.intexsoft.auction.model.Auction;
+import by.intexsoft.auction.model.Lot;
 import by.intexsoft.auction.model.TradingDay;
 import by.intexsoft.auction.repository.AuctionRepository;
 import by.intexsoft.auction.service.AuctionService;
@@ -39,5 +40,10 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 	public List<Auction> getForDay(TradingDay day) {
 		System.out.println(day.tradingDate);
 		return repository.findByTradingDayOrderByStartTime(day);
+	}
+
+	@Override
+	public Auction getByLot(Lot lot) {
+		return repository.findByLot(lot);
 	}
 }

@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {Http} from '@angular/http';
 import {User} from '../model/user';
 import {Authority} from "../model/authority";
 import {HttpClient} from "@angular/common/http";
+import {AuthenticationService} from "./authentication.service";
 
 const USER_PATH = 'api/user/';
 
@@ -14,6 +15,11 @@ export class UserService {
 
   insert(user): Promise<User> {
     return this.http.post<User>(USER_PATH, user)
+      .toPromise();
+  }
+
+  changePassword (newPassword): Promise<User> {
+    return this.http.put<User>(USER_PATH + 'password', newPassword)
       .toPromise();
   }
 

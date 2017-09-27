@@ -149,10 +149,7 @@ public class Runner {
 		
 		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		
-		PasswordEncoder pe = new BCryptPasswordEncoder();
-		String token = authenticationService.generateToken(admin, "admin");
-		
-		System.out.println(token);
+		System.out.println(lotService.getByUser(user1).get(0).auction);
 		
 		/*System.out.println(tdDay.toString());
 

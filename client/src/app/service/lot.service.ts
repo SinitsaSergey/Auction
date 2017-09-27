@@ -22,5 +22,9 @@ getByStatus (status): Promise <Lot[]> {
       .toPromise();
 }
 
+getMyLots (): Promise <Lot[]> {
+    return this.http.get<Lot[]>(LOT_PATH + 'my')
+      .toPromise();
+}
 
 }

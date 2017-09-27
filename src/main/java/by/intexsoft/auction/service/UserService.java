@@ -6,4 +6,8 @@ public interface UserService extends AbstractEntityService<User> {
 	
 	User getUserByUsername (String username);
 
+	User changePassword(String username, String password);
+
+	User update(User user);
+
 }
