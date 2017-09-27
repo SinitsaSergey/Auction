@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import by.intexsoft.auction.model.Auction;
 import by.intexsoft.auction.model.Authority;
@@ -40,6 +42,7 @@ public class Runner {
 		AuthorityService authorityService = context.getBean(AuthorityService.class);
 		StatusService statusService = context.getBean(StatusService.class);
 		AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
+		
 
 		Authority userRole = new Authority();
 		userRole.authority = "ROLE_USER";
@@ -118,22 +121,20 @@ public class Runner {
 		authorities11.add(authorityService.findByAuthority("ROLE_MANAGER"));
 		manager.authorities = authorities11;
 		userService.save(manager);
-
+		
 		Lot lot1 = new Lot();
 		lot1.title = "Какой-то лот";
 		lot1.description = "Продам что-нибудь за деньги";
 		lot1.startPrice = new BigDecimal(13).setScale(2, RoundingMode.HALF_EVEN);
 		lot1.seller = user2;
-		lot1.status = statusService.getByStatus("registered");
-		lotService.save(lot1);
+		lotService.save(lot1, "registered");
 		
 		Lot lot2 = new Lot();
 		lot2.title = "Какой-то лот2";
 		lot2.description = "Продам что-нибудь за деньги";
 		lot2.startPrice = new BigDecimal(15).setScale(2, RoundingMode.HALF_EVEN);
 		lot2.seller = user1;
-		lot2.status = statusService.getByStatus("registered");
-		lotService.save(lot2);
+		lotService.save(lot2, "registered");
 
 		TradingDay tradingDay = new TradingDay();
 		tradingDay.tradingDate = new GregorianCalendar(2017, OCTOBER, 2);
@@ -143,17 +144,22 @@ public class Runner {
 		Auction auction1 = new Auction(lot2);
 		auction1.tradingDay = tradingDay;
 		auction1.startTime = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
-		auction1.duration = 120000;
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
 		auctionService.save(auction1, "onsale");
 		
 		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		
-		System.out.println(tdDay.toString());
+		PasswordEncoder pe = new BCryptPasswordEncoder();
+		String token = authenticationService.generateToken(admin, "admin");
+		
+		System.out.println(token);
+		
+		/*System.out.println(tdDay.toString());
 
 		System.out.println(auctionService.getForDay(tdDay));
 		
-		System.out.println(dayService.getByManager(manager));
+		System.out.println(dayService.getByManager(manager));*/
+		
 
 		context.close();
 	}

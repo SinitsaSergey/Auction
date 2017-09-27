@@ -21,24 +21,17 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 	@Autowired
 	private LotService lotService;
 	
-	@Autowired
-	private StatusService statusService;
-	
 	@Override
 	public Auction save (Auction auction, String status) {
-		System.out.println();
-		System.out.println("save "+auction);
-		System.out.println();
-		auction.lot.status = statusService.getByStatus(status);
-		lotService.save(auction.lot);
+		lotService.save(auction.lot, status);
 		return repository.save(auction);
 	}
 	
 	@Override
 	public void delete (int id) {
-		Auction auction = repository.findOne(id);
-		auction.lot.status = statusService.getByStatus("registered");
-		lotService.save(auction.lot);
+		//Auction auction = repository.findOne(id);
+		//auction.lot.status = statusService.getByStatus("registered");
+		lotService.save(repository.findOne(id).lot, "registered");
 		repository.delete(id);
 	}
 

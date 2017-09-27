@@ -46,6 +46,7 @@
 				<prop key="hibernate.format_sql">${hibernate.format.sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.connection.pool_size">${hibernate.connection.pool.size}</prop>
+				<prop key="hibernate.jdbc.time_zone">${hibernate.jdbc.time_zone}</prop>
 			</props>
 		</property>
 	</bean>

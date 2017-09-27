@@ -17,8 +17,8 @@ export class LotComponent implements OnInit {
   ngOnInit() {
   }
 
-  insert(lot): void {
-    this.lotService.insert(lot)
+  insert(): void {
+    this.lotService.insert(this.lot)
       .then(lot => this.lot = lot);
   }
 

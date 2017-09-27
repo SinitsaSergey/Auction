@@ -15,9 +15,9 @@ export class HomeComponent implements OnInit {
   tradingDate: Date;
   convertStartTime = DateUtils.convertStartTime;
   getFinishTime = DateUtils.getFinishTime;
-  convertToModel = DateUtils.convertToTransferModel;
+  convertToModel = DateUtils.convertDateToModel;
 
-  constructor(private auctionService: AuctionService) { }
+  constructor(@Inject ('auctionService') private auctionService: AuctionService) { }
 
   ngOnInit() {
     this.tradingDate = new Date();

@@ -2,11 +2,11 @@ import {TradingDay} from './trading-day';
 import {Lot} from './lot';
 import {Bid} from "./bid";
 
-export class Auction{
+export class Auction {
   id: number;
   tradingDay: TradingDay;
   startTime: Date;
-  duration: number;
+ // duration: number;
   stepPrice: number;
   bidList: Bid[];
   lot: Lot;

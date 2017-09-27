@@ -12,6 +12,6 @@
   <td>{{auction.lot.title}}</td>
   <td>{{auction.lot.startPrice.toFixed(2)}}</td>
   <td>{{convertStartTime(auction)}}</td>
-  <td>{{getFinishTime(auction)}}</td>
+  <td>{{getFinishTime(auction).toLocaleTimeString()}}</td>
 </tr>
 </tbody>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {User} from "../model/user";
 import {UserService} from "../service/user.service";
 import {AdminService} from "../service/admin.service";
@@ -17,8 +17,8 @@ export class AdminComponent implements OnInit {
   tradingDate: Date;
   tradingDay: TradingDay;
 
-  constructor(private userService: UserService,
-              private adminService: AdminService) {
+  constructor(@Inject ('userService') private userService: UserService,
+              @Inject ('adminService') private adminService: AdminService) {
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {User} from "../model/user";
 import {UserService} from "./user.service";
 import {HttpClient} from "@angular/common/http";
@@ -15,7 +15,8 @@ export class AuthenticationService {
   public username = 'guest';
   currentUser: User;
 
-  constructor(private http: HttpClient, private userService: UserService) {
+  constructor(private http: HttpClient,
+              @Inject ('userService') private userService: UserService) {
     const authenticationData = JSON.parse(localStorage.getItem('authenticationData'));
     if (authenticationData) {
       this.token = authenticationData.token;

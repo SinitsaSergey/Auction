@@ -28,11 +28,11 @@ public class Auction extends AbstractEntity {
 	@JoinColumn(name = "day_id")
 	public TradingDay tradingDay;
 	
-	@Column(name = "start_time", nullable = false)
+	@Column(unique = true, name = "start_time", nullable = false)
 	public Calendar startTime;
 	
-	@Column(nullable = false)
-	public int duration;
+	/*@Column(nullable = false)
+	public int duration;*/
 	
 	@Column(name = "step_price", scale = 2)
 	public BigDecimal stepPrice;
@@ -56,8 +56,8 @@ public class Auction extends AbstractEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Auction [tradingDay=" + tradingDay + ", startTime=" + startTime + ", duration=" + duration
-				+ ", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot + "]";
+		return "Auction [tradingDay=" + tradingDay + ", startTime=" + startTime + /*", duration=" + duration
+				+ */", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot + "]";
 	}
 
 }

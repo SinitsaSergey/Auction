@@ -25,6 +25,9 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 	@Autowired
 	private UserRepository repository;
 	
+	@Autowired
+	private AuthorityService authorityService;
+	
 	@Override
 	public User getUserByUsername(String username) {
 		return repository.findByUsername(username);
@@ -32,7 +35,12 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 	
 	@Override
 	public User save (User user) {
-		if (user.getId() == null) user.password = passwordEncoder.encode(user.password);
+		if (user.getId() == null) {
+			user.password = passwordEncoder.encode(user.password);
+			user.authorities = new HashSet<>();
+			user.authorities.add(authorityService.findByAuthority("ROLE_USER"));
+		}
+		user.email = user.email.toLowerCase();
 		return repository.save(user);
 	}
 	

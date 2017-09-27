@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,20 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> registration(@RequestBody User user) {
 		// LOGGER.info("Start registration user");
+		user.registrated = new Date();
+		Set<Authority> authorities = new HashSet<>();
+		authorities.add(authorityService.findByAuthority("ROLE_USER"));
+		user.authorities = authorities;
+		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<?> update(@RequestBody User user) {
+		// LOGGER.info("Start update user");
+		int userId = user.getId();
+		
+		
+		
 		user.registrated = new Date();
 		Set<Authority> authorities = new HashSet<>();
 		authorities.add(authorityService.findByAuthority("ROLE_USER"));

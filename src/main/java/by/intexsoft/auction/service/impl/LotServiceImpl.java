@@ -23,8 +23,9 @@ public class LotServiceImpl extends AbstractServiceEntityImpl<Lot> implements Lo
 	StatusService statusService;
 
 	@Override
-	public Lot save(Lot lot) {
+	public Lot save(Lot lot, String status) {
 		lot.added = new Date();
+		lot.status = statusService.getByStatus(status);
 		return repository.save(lot);
 	}
 
@@ -37,7 +38,7 @@ public class LotServiceImpl extends AbstractServiceEntityImpl<Lot> implements Lo
 	public List<Lot> getFreeLots() {
 		List<Lot> regLots = repository.findByStatus(statusService.getByStatus("registered"));
 		List<Lot> queueLots = repository.findByStatus(statusService.getByStatus("queue"));
-		List <Lot> result = new ArrayList<Lot>(regLots);
+		List<Lot> result = new ArrayList<Lot>(regLots);
 		result.addAll(queueLots);
 		return result;
 	}

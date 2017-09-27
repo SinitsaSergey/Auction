@@ -11,4 +11,6 @@ public interface LotService extends AbstractEntityService<Lot> {
 	
 	List<Lot> getFreeLots ();
 
+	Lot save(Lot lot, String status);
+
 }

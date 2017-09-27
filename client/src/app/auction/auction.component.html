@@ -11,15 +11,12 @@
   <tr *ngFor="let auction of auctions" align="center">
     <td>{{auction.lot.title}}</td>
     <td>{{convertStartTime(auction)}}</td>
-    <td>{{getFinishTime(auction)}}</td>
+    <td>{{getFinishTime(auction).toLocaleTimeString()}}</td>
     <td>
       <button [routerLink]="['/auction/details', auction.id]">детали</button>
     </td>
     <td>
-      <button>удалить</button>
-    </td>
-    <td>
-      <button>изменить время</button>
+      <button (click)="remove(auction.id)">удалить</button>
     </td>
   </tr>
   </tbody>
@@ -48,8 +45,6 @@
       {{newAuction.startTime.toLocaleDateString()}} {{newAuction.startTime.toLocaleTimeString()}}
     </div>
     <div><input type="number" [(ngModel)]="newAuction.stepPrice" min="0.01" step="0.01">{{newAuction.stepPrice}}</div>
-    <div><input type="number" [(ngModel)]="newDuration" (change)="newAuction.duration = newDuration * 1000">{{newAuction.duration}}
     </div>
     <button (click)="insert()">Сохранить</button>
   </div>
-</div>

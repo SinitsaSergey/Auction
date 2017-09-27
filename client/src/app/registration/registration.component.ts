@@ -9,8 +9,8 @@ import {UserService} from '../service/user.service';
 })
 export class RegistrationComponent implements OnInit {
 
-  @Input()
   user: User;
+  confirmPassword: string;
 
   constructor(@Inject('userService') private userService: UserService) {
     this.user = new User;
@@ -19,8 +19,8 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-  insert(user): void {
-    this.userService.insert(user)
+  insert(): void {
+    this.userService.insert(this.user)
       .then(user => this.user = user);
   }
 

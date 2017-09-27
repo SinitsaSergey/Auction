@@ -1,3 +1,11 @@
-<p>
-  user works!
-</p>
+<button (click)="getCurrentUser()">Редактировать мой профиль</button>
+<div *ngIf="currentUser">
+  <input [(ngModel)]="currentUser.username" placeholder="{{'username'| translate}}"/><br/>
+  <input type="password" [(ngModel)]="currentUser.password" placeholder="{{'currentPassword'| translate}}"/><br/>
+  <input type="password" [(ngModel)]="confirmPassword" placeholder="{{'confirmPassword'| translate}}"/><br/>
+  <input [(ngModel)]="currentUser.firstName" placeholder="{{'first name'| translate}}"/><br/>
+  <input [(ngModel)]="currentUser.lastName" placeholder="{{'last name'| translate}}"/><br/>
+  <input [(ngModel)]="currentUser.email" placeholder="{{'email'| translate}}"/><br/>
+  <input type="tel" [(ngModel)]="currentUser.phone" placeholder="{{'phone number'| translate}}"/><br/>
+  <button class="btn btn-default" (click)="insert()">{{'registration' | translate}}</button>
+</div>

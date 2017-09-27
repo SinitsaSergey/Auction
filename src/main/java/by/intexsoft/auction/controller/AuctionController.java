@@ -37,10 +37,7 @@ public class AuctionController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestParam (value = "queue", required = true) boolean isQueue, @RequestBody Auction auction) {
-		System.out.println();
-		System.out.println("contr "+auction.toString());
-		System.out.println();
+	public ResponseEntity<?> insert(@RequestParam (value = "queue", required = true) Boolean isQueue, @RequestBody Auction auction) {
 		String status = "onsale";
 		if (isQueue) status = "queue";
 		return new ResponseEntity<>(auctionService.save(auction, status), HttpStatus.CREATED);
@@ -49,5 +46,11 @@ public class AuctionController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> get (@PathVariable(value = "id") int auctionId) {
 		return new ResponseEntity<> (auctionService.find(auctionId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete (@PathVariable(value = "id") int auctionId) {
+		auctionService.delete(auctionId);
+		return new ResponseEntity<> (HttpStatus.OK);
 	}
 }

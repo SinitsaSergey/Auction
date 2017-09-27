@@ -1,16 +1,17 @@
 <div *ngIf="auction">
   <label>Дата</label><br/>
-  <input readonly ngModel = {{(getDate(auction.tradingDay)).toLocaleDateString()}}><br/>
+  <input readonly ngModel={{(getDate(auction.tradingDay)).toLocaleDateString()}}><br/>
   <label>Лот</label><br/>
-  <input readonly ngModel = {{auction.lot.title}}><br/>
+  <input readonly ngModel={{auction.lot.title}}><br/>
   <label>Стартовая цена</label><br/>
-  <input readonly ngModel= {{auction.lot.startPrice.toFixed(2)}}><br/>
+  <input readonly ngModel={{auction.lot.startPrice.toFixed(2)}}><br/>
   <label>Шаг</label><br/>
-  <input type="number" [(ngModel)] = "auction.stepPrice" required min="0.01" step="0.01"><br/>
+  <input type="number" [(ngModel)]="auction.stepPrice" required min="0.01" step="0.01"><br/>
   <label>Владелец</label><br/>
-  <input readonly ngModel = {{auction.lot.seller.username}}><br/>
+  <input readonly ngModel={{auction.lot.seller.username}}><br/>
   <label>Начало в </label><br/>
-  <input type="time" value={{timeToString(auction.startTime)}}><br/>
-  <label>Продолжительность</label><br/>
-  <input ngModel = {{convertDuration(auction.duration)}}><br/>
+  <a *ngIf="!newStartTimeString" (click)="newStartTimeString={}">{{timeToString(auction.startTime)}}</a>
+  <input *ngIf="newStartTimeString" type="time" [(ngModel)]="newStartTimeString">
+  <br/>
+  <button (click)="insert()">Сохранить</button>
 </div>
