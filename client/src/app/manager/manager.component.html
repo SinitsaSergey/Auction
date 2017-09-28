@@ -1,7 +1,0 @@
-<h3> Мои рабочие дни: </h3>
-<div>
-  <a *ngFor="let tradingDay of tradingDays"
-     [routerLink]="['/auction', convertDate(getDate(tradingDay))]">
-    {{getDate(tradingDay).toLocaleDateString()}}<br/>
-  </a>
-</div>
