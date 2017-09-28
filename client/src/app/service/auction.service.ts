@@ -40,4 +40,14 @@ export class AuctionService {
       .toPromise();
   }
 
+  getCurrentPrice (id): Promise <number> {
+    return this.http.get<number>(AUCTION_PATH + id + '/price/')
+      .toPromise();
+  }
+
+  placeBid (id): Promise <number> {
+    return this.http.get<number>(AUCTION_PATH + id + '/bid/')
+      .toPromise();
+  }
+
 }

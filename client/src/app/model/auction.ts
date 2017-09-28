@@ -6,8 +6,8 @@ export class Auction {
   id: number;
   tradingDay: TradingDay;
   startTime: Date;
- // duration: number;
   stepPrice: number;
+  currentBid: number;
   bidList: Bid[];
   lot: Lot;
 }

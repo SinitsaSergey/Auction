@@ -26,6 +26,7 @@ export class AuctionComponent implements OnInit {
   startTimeString: string;
   convertStartTime = DateUtils.convertStartTime;
   getFinishTime = DateUtils.getFinishTime;
+  setTimeZone = DateUtils.setTimeZone;
   newAuction: Auction;
   selectedLot: Lot;
   tradingDay: TradingDay;
@@ -88,13 +89,14 @@ export class AuctionComponent implements OnInit {
     this.newAuction.startTime = new Date();
     const dateArray = this.date.split('-', 3);
     const timeArray = this.startTimeString.split(':', 2);
-    this.newAuction.startTime.setFullYear(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
-    this.newAuction.startTime.setHours(+timeArray[0], +timeArray[1], 0, 0);
+    this.newAuction.startTime.setUTCFullYear(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
+    this.newAuction.startTime.setUTCHours(+timeArray[0], +timeArray[1], 0, 0);
   }
 
   insert (): void {
     this.newAuction.lot = this.selectedLot;
     this.newAuction.tradingDay = this.tradingDay;
+    this.newAuction.currentBid = 0;
     this.auctionService.insert(this.newAuction, this.dayIsFull())
       .then(() => this.getAuctionsForDay());
   }

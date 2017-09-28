@@ -28,28 +28,36 @@ export class AuctionCurrentComponent implements OnInit {
       this.auctionService.getById(this.id)
         .then(auction => {
           this.currentAuction = auction;
-          this.currentPrice = auction.lot.startPrice;
         });
     });
-    this.refreshInterval = setInterval(() => this.getRestTime(), 1000);
+    this.refreshInterval = setInterval(() => this.getCurrentPrice(), 1000);
   }
 
-getRestTime(): number {
-   return this.restTime = (this.getFinishTime().getTime() - new Date().getTime()) / 1000;
-}
+  getRestTime(): number {
+    return this.restTime = (this.getFinishTime().getTime() - new Date().getTime()) / 1000;
+  }
 
-getFinishTime(): Date {
+  getCurrentPrice(): void {
+    this.auctionService.getCurrentPrice(this.currentAuction.id)
+      .then(price => this.currentPrice = price);
+  }
+
+  placeBid(): void {
+    this.auctionService.placeBid(this.currentAuction.id)
+      .then(price => this.currentPrice = price);
+  }
+
+  getFinishTime(): Date {
     return new Date(+this.currentAuction.startTime + 600000);
-}
+  }
 
-getDate (date): Date {
-    return new Date (date);
-}
+  getDate(date): Date {
+    return new Date(date);
+  }
 
   timeToString(time: number): string {
     const minutes = (time / 60).toFixed(0);
     const seconds = (time % 60).toFixed(0);
-   return (+minutes > 9 ? minutes : '0' + minutes) + ':' + (+seconds > 9 ? seconds : '0' + seconds);
+    return (+minutes > 9 ? minutes : '0' + minutes) + ':' + (+seconds > 9 ? seconds : '0' + seconds);
   }
-
 }

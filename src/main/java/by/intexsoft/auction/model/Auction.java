@@ -4,6 +4,7 @@ import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -15,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -36,6 +41,9 @@ public class Auction extends AbstractEntity {
 	
 	@Column(name = "step_price", scale = 2)
 	public BigDecimal stepPrice;
+	
+	@Column (name = "current_bid", scale =2)
+	public BigDecimal currentBid;
 
 	@OneToMany(mappedBy = "auction", fetch = FetchType.EAGER)
 	public Set<Bid> bidList;

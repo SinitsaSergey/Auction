@@ -4,6 +4,7 @@ import static java.util.Calendar.OCTOBER;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -143,17 +144,17 @@ public class Runner {
 
 		Auction auction1 = new Auction(lot2);
 		auction1.tradingDay = tradingDay;
-		auction1.startTime = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
+		Calendar calendar = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
+		auction1.startTime = calendar;
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
 		auctionService.save(auction1, "onsale");
 		
 		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		
-		System.out.println(lotService.getByUser(user1).get(0).auction);
 		
-		/*System.out.println(tdDay.toString());
+		System.out.println(auction1);
 
-		System.out.println(auctionService.getForDay(tdDay));
+		/*System.out.println(auctionService.getForDay(tdDay));
 		
 		System.out.println(dayService.getByManager(manager));*/
 		

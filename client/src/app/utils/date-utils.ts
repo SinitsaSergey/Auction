@@ -35,4 +35,8 @@ export class DateUtils {
     const minutes = time.getMinutes();
     return (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes);
   }
+
+  public static setTimeZone (hours: number): number {
+    return hours + 3;
+  }
 }

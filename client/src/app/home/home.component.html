@@ -1,9 +1,8 @@
+<div>{{getDate()}}</div>
 <div *ngIf="currentAuction">
   Текущий аукцион: {{currentAuction.lot.title}}
   <button [routerLink]="['/auction/current', currentAuction.id]">участвовать</button>
 </div>
-
-
 <div><p>Аукционы сегодня :{{tradingDate.toLocaleDateString()}}</p></div>
 <thead>
 <tr>
