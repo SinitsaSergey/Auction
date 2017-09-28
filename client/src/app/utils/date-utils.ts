@@ -23,4 +23,16 @@ export class DateUtils {
       '-' + (date.getUTCDate());
   }
 
+  public static convertToModel (date: Date): string {
+    return date.getUTCFullYear() +
+      '-' + (date.getUTCMonth() + 1) +
+      '-' + (date.getUTCDate() + 1);
+  }
+
+  public static timeToString(date: Date): string {
+    const time = new Date(date);
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    return (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes);
+  }
 }

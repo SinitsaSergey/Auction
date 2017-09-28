@@ -16,6 +16,7 @@ export class AuctionDetailsComponent implements OnInit {
   id: number;
   auction: Auction;
   getDate = DateUtils.getDate;
+  timeToString = DateUtils.timeToString;
   newStartTimeString: string;
 
   constructor(private router: ActivatedRoute,
@@ -28,13 +29,6 @@ export class AuctionDetailsComponent implements OnInit {
       this.auctionService.getById(this.id)
         .then(auction => this.auction = auction);
     });
-  }
-
-  timeToString(date: Date): string {
-    const time = new Date(date);
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-    return (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes);
   }
 
   insert(): void {

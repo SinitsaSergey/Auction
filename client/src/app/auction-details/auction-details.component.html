@@ -9,9 +9,10 @@
   <input type="number" [(ngModel)]="auction.stepPrice" required min="0.01" step="0.01"><br/>
   <label>Владелец</label><br/>
   <input readonly ngModel={{auction.lot.seller.username}}><br/>
+  <div *ngIf="auction.lot.status.status === 'onsale'">
   <label>Начало в </label><br/>
   <a *ngIf="!newStartTimeString" (click)="newStartTimeString={}">{{timeToString(auction.startTime)}}</a>
   <input *ngIf="newStartTimeString" type="time" [(ngModel)]="newStartTimeString">
-  <br/>
+    <br/></div>
   <button (click)="insert()">Сохранить</button>
 </div>

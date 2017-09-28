@@ -39,4 +39,5 @@ export class LotComponent implements OnInit {
     return new Date (date);
   }
 
+
 }

@@ -28,7 +28,7 @@ public class Auction extends AbstractEntity {
 	@JoinColumn(name = "day_id")
 	public TradingDay tradingDay;
 	
-	@Column(unique = true, name = "start_time", nullable = false)
+	@Column(unique = true, name = "start_time")
 	public Calendar startTime;
 	
 	/*@Column(nullable = false)

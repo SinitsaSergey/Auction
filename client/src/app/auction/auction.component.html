@@ -21,9 +21,11 @@
   </tr>
   </tbody>
 </div>
-<div>
-  <button *ngIf="!dayIsFull()" (click)="newAuction={}">Добавить аукцион</button>
-  <button *ngIf="dayIsFull()" (click)="newAuction={}">Добавить в очередь</button>
+<div *ngIf="!dayIsFull()">
+  <button (click)="newAuction={}">Добавить аукцион</button>
+</div>
+<div *ngIf="dayIsFull()">
+  <button (click)="newAuction={}">Добавить в очередь</button>
 </div>
 <div *ngIf="newAuction">
   <div *ngIf="!selectedLot">
@@ -41,10 +43,9 @@
       {{selectedLot.seller.username}}<br/>
       {{selectedLot.startPrice.toFixed(2)}}
     </div>
-    <div><input *ngIf="!dayIsFull()" type="time" [(ngModel)]="startTimeString" (change)="this.convertToDate()">
-      {{newAuction.startTime.toLocaleDateString()}} {{newAuction.startTime.toLocaleTimeString()}}
+    <div><input *ngIf="!dayIsFull()" type="time" step="600" [(ngModel)]="startTimeString" (change)="this.convertToDate()">
     </div>
     <div><input type="number" [(ngModel)]="newAuction.stepPrice" min="0.01" step="0.01">{{newAuction.stepPrice}}</div>
-    </div>
-    <button (click)="insert()">Сохранить</button>
   </div>
+  <button (click)="insert()">Сохранить</button>
+</div>

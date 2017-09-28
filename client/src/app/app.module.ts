@@ -27,6 +27,7 @@ import {ManagerComponent} from './manager/manager.component';
 import {ManagerService} from './service/manager.service';
 import {JWTInterceptor} from './service/JWTInterceptor';
 import {AuctionDetailsComponent} from './auction-details/auction-details.component';
+import { AuctionCurrentComponent } from './auction-current/auction-current.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {AuctionDetailsComponent} from './auction-details/auction-details.compone
     UserComponent,
     AccountComponent,
     ManagerComponent,
-    AuctionDetailsComponent
+    AuctionDetailsComponent,
+    AuctionCurrentComponent,
   ],
   imports: [
     BrowserModule,

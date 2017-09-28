@@ -9,7 +9,7 @@ import {LotService} from '../service/lot.service';
 import {isQuote} from "@angular/compiler";
 import {AdminService} from "../service/admin.service";
 
-const MAX_AUCTIONS = 72;
+const MAX_AUCTIONS = 2;
 const DURATION = 60000;
 
 @Component({
@@ -22,6 +22,7 @@ export class AuctionComponent implements OnInit {
   private sub: any;
   date: string;
   auctions: Auction[] = [];
+  queueAuctions: Auction[] = [];
   startTimeString: string;
   convertStartTime = DateUtils.convertStartTime;
   getFinishTime = DateUtils.getFinishTime;

@@ -76,11 +76,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/role", method = RequestMethod.PUT)
 	public ResponseEntity<?> setRole(@RequestParam (value = "authority", required = true) String authority, @RequestBody User user) {
-		User updatingUser = userService.find(user.getId());
-		Set <Authority> authorities = new HashSet<>();
-		authorities.add(authorityService.findByAuthority("ROLE_"+authority.toUpperCase()));
-		updatingUser.authorities = authorities;
-		return new ResponseEntity<>(userService.save(updatingUser), HttpStatus.OK);
+		return new ResponseEntity<>(userService.changeRole(user, authority), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/ban", method = RequestMethod.PUT)

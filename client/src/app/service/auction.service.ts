@@ -30,6 +30,7 @@ export class AuctionService {
   }
 
   insert (auction: Auction, isQueue: boolean): Promise<Auction> {
+    console.log(auction);
     return this.http.post<Auction>(AUCTION_PATH + '?queue=' + isQueue, auction)
       .toPromise();
   }

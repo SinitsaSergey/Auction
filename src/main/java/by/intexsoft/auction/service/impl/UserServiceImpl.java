@@ -48,6 +48,15 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 		user.password = passwordEncoder.encode(password);
 		return repository.save(user);
 	}
+	
+	@Override
+	public User changeRole(User user, String authority) {
+		User updatingUser = repository.findOne(user.getId());
+		Set <Authority> authorities = new HashSet<>();
+		authorities.add(authorityService.findByAuthority("ROLE_" + authority.toUpperCase()));
+		updatingUser.authorities = authorities;
+		return repository.save(updatingUser);
+	}
 
 	@Override
 	public User update(User user) {
@@ -60,10 +69,11 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 		return repository.save(updatedUser);
 	}
 
-	/*
-	 * @Override public List<User> findAll () { List <User> users =
-	 * repository.findAll(); users.stream() .map(user -> user.password = null)
-	 * .collect(Collectors.toList()); return users; }
-	 */
+	@Override
+	public User changeBan(User user, boolean blocked) {
+		User updatingUser = repository.findOne(user.getId());
+		updatingUser.isBanned = blocked;
+		return repository.save(updatingUser);
+	}
 
 }
