@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Auction} from '../model/auction';
 import {AuctionService} from '../service/auction.service';
@@ -16,9 +16,11 @@ export class AuctionDetailsComponent implements OnInit {
   id: number;
   auction: Auction;
   getDate = DateUtils.getDate;
+  timeToString = DateUtils.timeToString;
+  newStartTimeString: string;
 
   constructor(private router: ActivatedRoute,
-              private auctionService: AuctionService) {
+              @Inject('auctionService') private auctionService: AuctionService) {
   }
 
   ngOnInit() {
@@ -29,17 +31,17 @@ export class AuctionDetailsComponent implements OnInit {
     });
   }
 
-  timeToString (date: Date): string {
-    const time = new Date(date);
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-    return (hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes);
+  insert(): void {
+    this.convertToDate();
+    const isQueue = (this.auction.lot.status.status === 'queue');
+    this.auctionService.insert(this.auction, isQueue)
+      .then(auction => this.auction);
   }
 
-  convertDuration (duration: number): string {
-    const minutes = Math.floor(duration / 60000);
-    const seconds = ((duration % 60000) / 1000).toFixed(0);
-    return minutes + ':' + (+seconds < 10 ? '0' : '') + seconds;
+  public convertToDate(): void {
+    this.auction.startTime = new Date(this.auction.startTime);
+    const timeArray = this.newStartTimeString.split(':', 2);
+    this.auction.startTime.setHours(+timeArray[0], +timeArray[1], 0, 0);
   }
 
 }

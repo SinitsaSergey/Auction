@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import by.intexsoft.auction.model.User;
@@ -33,6 +34,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	private User user;
 
 	/*@Override
@@ -53,8 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public String generateToken(User user, String password) {
 		if (user == null || password == null)
 			return null;
-		if (!password.equals(user.password))
-			return null;
+		if (!passwordEncoder.matches(password, user.password)) return null;
 		Map<String, Object> tokenData = new HashMap<>();
 		tokenData.put("scopes", AuthorityUtils.authorityListToSet(user.authorities));
 		tokenData.put("username", user.username);
@@ -75,10 +78,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		token = token.replaceAll(JWT_PREFIX, "");
 		Jws<Claims> tokenData = Jwts.parser().setSigningKey(KEY_WORD).parseClaimsJws(token);
 		String username = tokenData.getBody().get("username").toString();
-		System.out.println();
-		System.out.println(username);
 		this.user = userService.getUserByUsername(username);
-		System.out.println();
 		String password = tokenData.getBody().get("password").toString();
 		@SuppressWarnings("unchecked")
 		List authorities = tokenData.getBody().get("scopes", List.class);

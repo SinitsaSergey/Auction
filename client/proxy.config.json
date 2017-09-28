@@ -1,6 +1,6 @@
 {
   "/api":{
-    "target": "http://localhost:8091/Auction",
+    "target": "http://localhost:8080/Auction",
     "secure": false
   }
 }

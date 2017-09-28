@@ -24,7 +24,7 @@ public class User extends AbstractEntity{
 	@Column(unique = true, nullable = false, length = 30)
 	public String username;
 	
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 120)
 	public String password;
 
 	@Column(name = "first_name", nullable = false, length = 50)

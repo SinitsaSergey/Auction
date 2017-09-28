@@ -1,3 +1,4 @@
-export class Status{
+export class Status {
+  id: number;
   status: string;
 }

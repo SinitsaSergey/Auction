@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import by.intexsoft.auction.model.Auction;
 import by.intexsoft.auction.model.TradingDay;
+import by.intexsoft.auction.model.User;
 import by.intexsoft.auction.service.AuctionService;
+import by.intexsoft.auction.service.AuthenticationService;
 import by.intexsoft.auction.service.TradingDayService;
 
 @RestController
@@ -21,13 +23,15 @@ public class AuctionController {
 	
 	private AuctionService auctionService;
 	private TradingDayService tradingDayService;
+	private AuthenticationService authenticationService;
 	
 	@Autowired
-	public AuctionController(AuctionService auctionService, TradingDayService tradingDayService) {
-		super();
+	public AuctionController(AuctionService auctionService, TradingDayService tradingDayService,
+			AuthenticationService authenticationService) {
 		this.auctionService = auctionService;
 		this.tradingDayService = tradingDayService;
-	}	
+		this.authenticationService = authenticationService;
+	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll(@RequestParam (value = "date", required = false) String date) {
@@ -37,10 +41,7 @@ public class AuctionController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestParam (value = "queue", required = true) boolean isQueue, @RequestBody Auction auction) {
-		System.out.println();
-		System.out.println("contr "+auction.toString());
-		System.out.println();
+	public ResponseEntity<?> insert(@RequestParam (value = "queue", required = true) Boolean isQueue, @RequestBody Auction auction) {
 		String status = "onsale";
 		if (isQueue) status = "queue";
 		return new ResponseEntity<>(auctionService.save(auction, status), HttpStatus.CREATED);
@@ -49,5 +50,22 @@ public class AuctionController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> get (@PathVariable(value = "id") int auctionId) {
 		return new ResponseEntity<> (auctionService.find(auctionId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}/price", method = RequestMethod.GET)
+	public ResponseEntity<?> getCurrentBid (@PathVariable(value = "id") int auctionId) {
+		return new ResponseEntity<> (auctionService.find(auctionId).currentBid, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}/bid", method = RequestMethod.GET)
+	public ResponseEntity<?> placeBid (@PathVariable(value = "id") int auctionId) {
+		User user = authenticationService.getUser();
+		return new ResponseEntity<> (auctionService.placeBid(auctionId, user), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete (@PathVariable(value = "id") int auctionId) {
+		auctionService.delete(auctionId);
+		return new ResponseEntity<> (HttpStatus.OK);
 	}
 }

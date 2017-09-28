@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Auction} from '../model/auction';
 import {AuctionService} from '../service/auction.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,6 +9,9 @@ import {LotService} from '../service/lot.service';
 import {isQuote} from "@angular/compiler";
 import {AdminService} from "../service/admin.service";
 
+const MAX_AUCTIONS = 2;
+const DURATION = 60000;
+
 @Component({
   selector: 'app-auction',
   templateUrl: './auction.component.html',
@@ -18,20 +21,22 @@ export class AuctionComponent implements OnInit {
 
   private sub: any;
   date: string;
-  auctions: Auction[];
+  auctions: Auction[] = [];
+  queueAuctions: Auction[] = [];
   startTimeString: string;
   convertStartTime = DateUtils.convertStartTime;
   getFinishTime = DateUtils.getFinishTime;
+  setTimeZone = DateUtils.setTimeZone;
   newAuction: Auction;
-  newDuration: number;
   selectedLot: Lot;
+  tradingDay: TradingDay;
   regLots: Lot[];
   freeLots: Lot[];
 
   constructor(private router: ActivatedRoute,
-              private auctionService: AuctionService,
-              private lotService: LotService,
-              private adminService: AdminService) {
+              @Inject ('auctionService') private auctionService: AuctionService,
+              @Inject ('lotService') private lotService: LotService,
+              @Inject ('adminService') private adminService: AdminService) {
   }
 
   ngOnInit() {
@@ -39,6 +44,7 @@ export class AuctionComponent implements OnInit {
       this.date = params['date'];
       this.getAuctionsForDay();
       this.getFreeLots();
+      this.getTradingDay();
     });
   }
 
@@ -47,8 +53,12 @@ export class AuctionComponent implements OnInit {
       .then(auctions => this.auctions = auctions);
   }
 
-  dayIsFull(): boolean {
+  /*dayIsFull(): boolean {
     return AuctionService.dayIsFull(this.auctions);
+  }*/
+
+  dayIsFull (): boolean {
+    return (this.auctions.length >= MAX_AUCTIONS);
   }
 
   getFreeLots(): void {
@@ -72,22 +82,30 @@ export class AuctionComponent implements OnInit {
 
   getTradingDay(): void {
     this.adminService.getTradingDay(this.date)
-      .then(tradingDay => this.newAuction.tradingDay = tradingDay);
+      .then(tradingDay => this.tradingDay = tradingDay);
   }
 
   public convertToDate (): void {
     this.newAuction.startTime = new Date();
     const dateArray = this.date.split('-', 3);
     const timeArray = this.startTimeString.split(':', 2);
-    this.newAuction.startTime.setFullYear(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
-    this.newAuction.startTime.setHours(+timeArray[0], +timeArray[1], 0, 1);
+    this.newAuction.startTime.setUTCFullYear(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
+    this.newAuction.startTime.setUTCHours(+timeArray[0], +timeArray[1], 0, 0);
   }
 
   insert (): void {
     this.newAuction.lot = this.selectedLot;
-    this.getTradingDay();
+    this.newAuction.tradingDay = this.tradingDay;
+    this.newAuction.currentBid = 0;
     this.auctionService.insert(this.newAuction, this.dayIsFull())
       .then(() => this.getAuctionsForDay());
   }
+
+  remove (id): void {
+    this.auctionService.remove(id)
+      .then(() => this.getAuctionsForDay());
+
+  }
+
 
 }

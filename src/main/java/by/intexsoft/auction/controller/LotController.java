@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.intexsoft.auction.model.Lot;
+import by.intexsoft.auction.model.User;
+import by.intexsoft.auction.service.AuthenticationService;
 import by.intexsoft.auction.service.LotService;
 import by.intexsoft.auction.service.StatusService;
 
@@ -21,11 +23,14 @@ public class LotController {
 
 	private LotService lotService;
 	private StatusService statusService;
+	private AuthenticationService authenticationService;
 
 	@Autowired
-	public LotController(LotService lotService, StatusService statusService) {
+	public LotController(LotService lotService, StatusService statusService,
+			AuthenticationService authenticationService) {
 		this.lotService = lotService;
 		this.statusService = statusService;
+		this.authenticationService = authenticationService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -41,8 +46,14 @@ public class LotController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@RequestBody Lot lot) {
-		lotService.save(lot);
-		return new ResponseEntity<>(lot, HttpStatus.CREATED);
+		lot.seller = authenticationService.getUser();
+		return new ResponseEntity<>(lotService.save(lot, "registered"), HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/my", method = RequestMethod.GET)
+	public ResponseEntity<?> getByCurrentUser() {
+		User currentUser = authenticationService.getUser();
+		return new ResponseEntity<> (lotService.getByUser(currentUser), HttpStatus.OK);
 	}
 
 }

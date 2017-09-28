@@ -11,6 +11,7 @@ import {AccountComponent} from '../account/account.component';
 import {ManagerComponent} from '../manager/manager.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuctionDetailsComponent} from "../auction-details/auction-details.component";
+import {AuctionCurrentComponent} from "../auction-current/auction-current.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'trading-day', component: TradingDayComponent},
   {path: 'auction/details/:id', component: AuctionDetailsComponent},
+  {path: 'auction/current/:id', component: AuctionCurrentComponent},
   {path: 'auction/:date', component: AuctionComponent},
   {path: 'account', component: AccountComponent},
   {path: 'lot', component: LotComponent},
