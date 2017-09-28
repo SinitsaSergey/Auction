@@ -1,0 +1,24 @@
+<div>
+  <form>
+    <input [(ngModel)]="selectedUsername" name="selectedUsername" placeholder="имя пользователя">
+    <button (click)="selectUser()">Поиск</button>
+  </form>
+  <div *ngIf="selectedUser">
+    {{selectedUser.username}}
+    {{selectedUser.authorities[0].authority}}
+    {{selectedUser.isBanned}}
+    <button *ngIf="isUser()" (click)="setAs('manager')">Назначить менеджером</button>
+    <button *ngIf="isManager()" (click)="setAs('user')">Убрать роль менеджера</button>
+    <button *ngIf="!selectedUser.isBanned" (click)="banUser(true)">Заблокировать пользователя</button>
+    <button *ngIf="selectedUser.isBanned" (click)="banUser(false)">Разблокировать пользователя</button>
+    <form *ngIf="isManager()">
+      Назначить распорядителем на:
+    <input type="date" [(ngModel)]="tradingDate" (change)="getTradingDay()" name="tradingDate">
+      <button *ngIf="!tradingDay" (click)="createTradingDay()">Назначить</button>
+    </form>
+    <div *ngIf="tradingDay">
+      На эту дату назначен:
+{{tradingDay.manager.username}}
+    </div>
+  </div>
+</div>

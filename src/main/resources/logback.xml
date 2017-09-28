@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="fileAppenderApplication" class="ch.qos.logback.core.FileAppender">
+		<file>logs/programm.log</file>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-3level %logger{128} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="fileAppenderExternal" class="ch.qos.logback.core.FileAppender">
+		<file>logs/external.log</file>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-3level %logger{128} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="logback.rootLogger" additivity="false">
+		<appender-ref ref="fileAppenderExternal" />
+	</logger>
+
+	<logger name="by.intexsoft.auction" level="debug" additivity="false">
+		<appender-ref ref="fileAppenderApplication" />
+	</logger>
+
+	<root level="error">
+		<appender-ref ref="fileAppenderExternal" />
+	</root>
+</configuration>

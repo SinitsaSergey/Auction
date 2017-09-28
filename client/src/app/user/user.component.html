@@ -1,0 +1,18 @@
+<div><button (click)="getCurrentUser()">Редактировать мой профиль</button>
+<div *ngIf="currentUser">
+  <input readonly ngModel={{currentUser.username}}/><br/>
+  <input [(ngModel)]="currentUser.firstName"/><br/>
+  <input [(ngModel)]="currentUser.lastName"/><br/>
+  <input [(ngModel)]="currentUser.email"/><br/>
+  <input type="tel" [(ngModel)]="currentUser.phone"/><br/>
+  <button class="btn btn-default" (click)="insert()">{{'registration' | translate}}</button>
+</div>
+</div>
+<div>
+  <button (click)="changing = true">Изменить пароль</button>
+<div *ngIf="changing">
+  <input type="password" [(ngModel)]="newPassword" placeholder="{{'newPassword'| translate}}"/><br/>
+  <input type="password" [(ngModel)]="confirmPassword" placeholder="{{'confirmPassword'| translate}}"/><br/>
+  <button class="btn btn-default" (click)="changePassword()">{{'registration' | translate}}</button>
+</div>
+</div>
