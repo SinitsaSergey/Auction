@@ -1,17 +1,19 @@
 <div>
   Аукционы на: {{date}}
-  <thead>
+  <div *ngIf="auctions.length>0"> <thead>
   <tr align="center">
     <th>Лот</th>
     <th>Начало</th>
     <th>Окончание</th>
+    <th>Статус</th>
+    <th>Продавец</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let auction of auctions" align="center">
     <td>{{auction.lot.title}}</td>
-    <td>{{convertStartTime(auction)}}</td>
-    <td>{{getFinishTime(auction).toLocaleTimeString()}}</td>
+    <td>{{auction.startTime | date:'HH:mm'}}</td>
+    <td>{{auction.finishTime | date:'HH:mm'}}</td>
     <td>
       <button [routerLink]="['/auction/details', auction.id]">детали</button>
     </td>
@@ -19,7 +21,7 @@
       <button (click)="remove(auction.id)">удалить</button>
     </td>
   </tr>
-  </tbody>
+  </tbody></div>
 </div>
 <div *ngIf="!dayIsFull()">
   <button (click)="newAuction={}">Добавить аукцион</button>
@@ -32,7 +34,7 @@
     <div *ngFor="let lot of getLots()">
       <p>
         <a href="javascript:void(0)" (click)="selectedLot = lot">{{lot.title}}</a>
-        {{getDate(lot.added).toLocaleDateString()}} {{getDate(lot.added).toLocaleTimeString()}} {{lot.status.status}}
+        {{lot.added | date: 'dd.MM.y HH:mm:ss'}}
       </p>
     </div>
   </div>
@@ -43,9 +45,9 @@
       {{selectedLot.seller.username}}<br/>
       {{selectedLot.startPrice.toFixed(2)}}
     </div>
-    <div><input *ngIf="!dayIsFull()" type="time" step="600" [(ngModel)]="startTimeString" (change)="this.convertToDate()">
+    <div><input *ngIf="!dayIsFull()" type="time" step="600" [(ngModel)]="startTimeString" (change)="convertToDate()">
     </div>
-    <div><input type="number" [(ngModel)]="newAuction.stepPrice" min="0.01" step="0.01">{{newAuction.stepPrice}}</div>
+    <div><input type="number" [(ngModel)]="newAuction.stepPrice" min="0.01" step="0.01"></div>
   </div>
   <button (click)="insert()">Сохранить</button>
 </div>

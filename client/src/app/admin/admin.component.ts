@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
   users: User[];
   selectedUsername: string;
   selectedUser: User;
-  tradingDate: Date;
+  stringDate: string;
   tradingDay: TradingDay;
 
   constructor(@Inject ('userService') private userService: UserService,
@@ -56,13 +56,12 @@ this.userService.setAs(authority, this.selectedUser)
   }
 
   createTradingDay(): void {
-    if (this.getTradingDay()) return;
-    this.adminService.insertTradingDay(this.tradingDate, this.selectedUser)
+    this.adminService.insertTradingDay(this.stringDate, this.selectedUser)
       .then(tradingDay => this.tradingDay = tradingDay);
   }
 
   getTradingDay() {
-this.adminService.getTradingDay(this.tradingDate.toString())
+this.adminService.getTradingDay(this.stringDate)
   .then(tradingDay => this.tradingDay = tradingDay);
   }
 }

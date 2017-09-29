@@ -20,33 +20,32 @@ import by.intexsoft.auction.service.LotService;
 
 @Service
 public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> implements AuctionService {
-	
+
 	@Autowired
 	private AuctionRepository repository;
-	
+
 	@Autowired
 	private LotService lotService;
-	
+
 	@Autowired
 	private BidService bidService;
-	
+
 	@Override
-	public Auction save (Auction auction, String status) {
+	public Auction save(Auction auction, String status) {
 		lotService.save(auction.lot, status);
 		return repository.save(auction);
 	}
-	
+
 	@Override
-	public void delete (int id) {
-		//Auction auction = repository.findOne(id);
-		//auction.lot.status = statusService.getByStatus("registered");
+	public void delete(int id) {
+		// Auction auction = repository.findOne(id);
+		// auction.lot.status = statusService.getByStatus("registered");
 		lotService.save(repository.findOne(id).lot, "registered");
 		repository.delete(id);
 	}
 
 	@Override
 	public List<Auction> getForDay(TradingDay day) {
-		System.out.println(day.tradingDate);
 		return repository.findByTradingDayOrderByStartTime(day);
 	}
 
@@ -56,16 +55,37 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 	}
 
 	@Override
-	public BigDecimal placeBid(int auctionId, User user) {
-		Auction auction = repository.findOne(auctionId);
+	public BigDecimal placeBid(int id, User user) {
+		Auction auction = repository.findOne(id);
 		Bid bid = new Bid();
 		bid.bidder = user;
 		bid.value = auction.currentBid.add(auction.stepPrice);
 		bid.bidTime = new Timestamp(new Date().getTime());
 		bidService.save(bid);
 		auction.currentBid = bid.value;
+		auction.bidTime = bid.bidTime;
 		auction.bidList.add(bid);
 		repository.save(auction);
 		return bid.value;
+	}
+
+	@Override
+	public void validIsNotExpired(int id) {
+		Auction auction = repository.findOne(id);
+		if (timeExpired(auction) && bidExist(auction)) lotService.save(repository.findOne(id).lot, "saled");
+		if (timeExpired(auction) && !bidExist(auction)) repository.delete(id);
+		if (noRecentBids(auction) && bidExist(auction)) lotService.save(repository.findOne(id).lot, "saled");
+	}
+	
+	private boolean timeExpired (Auction auction) {
+		return (auction.finishTime.getTime().compareTo(new Date()) == -1);
+	}
+	
+	private boolean bidExist (Auction auction) {
+		return (!auction.currentBid.equals(auction.lot.startPrice));
+	}
+	
+	private boolean noRecentBids (Auction auction) {
+		return (new Date().getTime() - auction.bidTime.getTime()>30000);
 	}
 }

@@ -24,9 +24,6 @@ export class AuctionComponent implements OnInit {
   auctions: Auction[] = [];
   queueAuctions: Auction[] = [];
   startTimeString: string;
-  convertStartTime = DateUtils.convertStartTime;
-  getFinishTime = DateUtils.getFinishTime;
-  setTimeZone = DateUtils.setTimeZone;
   newAuction: Auction;
   selectedLot: Lot;
   tradingDay: TradingDay;
@@ -53,10 +50,6 @@ export class AuctionComponent implements OnInit {
       .then(auctions => this.auctions = auctions);
   }
 
-  /*dayIsFull(): boolean {
-    return AuctionService.dayIsFull(this.auctions);
-  }*/
-
   dayIsFull (): boolean {
     return (this.auctions.length >= MAX_AUCTIONS);
   }
@@ -76,10 +69,6 @@ export class AuctionComponent implements OnInit {
     }
   }
 
-  getDate (date: Date) {
-    return new Date(date);
-  }
-
   getTradingDay(): void {
     this.adminService.getTradingDay(this.date)
       .then(tradingDay => this.tradingDay = tradingDay);
@@ -96,12 +85,15 @@ export class AuctionComponent implements OnInit {
   insert (): void {
     this.newAuction.lot = this.selectedLot;
     this.newAuction.tradingDay = this.tradingDay;
-    this.newAuction.currentBid = 0;
+    this.newAuction.finishTime = new Date (this.newAuction.startTime.getTime() + DURATION);
+    this.newAuction.currentBid = this.newAuction.lot.startPrice;
+    this.newAuction.bidTime = new Date();
     this.auctionService.insert(this.newAuction, this.dayIsFull())
       .then(() => this.getAuctionsForDay());
   }
 
   remove (id): void {
+    confirm('Вы уверены?');
     this.auctionService.remove(id)
       .then(() => this.getAuctionsForDay());
 

@@ -16,8 +16,6 @@ export class ManagerComponent implements OnInit {
 
   tradingDays: TradingDay[];
   manager: User;
-  convertDate = DateUtils.convertToModel;
-  getDate = DateUtils.getDate;
 
   constructor(@Inject ('managerService') private managerService: ManagerService,
               @Inject ('authenticationService') private authenticationService: AuthenticationService) {

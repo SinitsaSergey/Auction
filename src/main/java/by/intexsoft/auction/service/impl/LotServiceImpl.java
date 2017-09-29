@@ -1,5 +1,6 @@
 package by.intexsoft.auction.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -35,7 +36,7 @@ public class LotServiceImpl extends AbstractServiceEntityImpl<Lot> implements Lo
 
 	@Override
 	public Lot save(Lot lot, String status) {
-		lot.added = new Date();
+		lot.added = new Timestamp (new Date().getTime());
 		lot.status = statusService.getByStatus(status);
 		return repository.save(lot);
 	}

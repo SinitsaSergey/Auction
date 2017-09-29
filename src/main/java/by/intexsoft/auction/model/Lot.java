@@ -4,7 +4,7 @@ import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +41,7 @@ public class Lot extends AbstractEntity{
 	public Auction auction;
 	
 	@Column
-	public Date added;
+	public Timestamp added;
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

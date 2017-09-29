@@ -49,16 +49,19 @@ public class AuctionController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> get (@PathVariable(value = "id") int auctionId) {
+		auctionService.validIsNotExpired(auctionId);
 		return new ResponseEntity<> (auctionService.find(auctionId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}/price", method = RequestMethod.GET)
 	public ResponseEntity<?> getCurrentBid (@PathVariable(value = "id") int auctionId) {
+		auctionService.validIsNotExpired(auctionId);
 		return new ResponseEntity<> (auctionService.find(auctionId).currentBid, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}/bid", method = RequestMethod.GET)
 	public ResponseEntity<?> placeBid (@PathVariable(value = "id") int auctionId) {
+		auctionService.validIsNotExpired(auctionId);
 		User user = authenticationService.getUser();
 		return new ResponseEntity<> (auctionService.placeBid(auctionId, user), HttpStatus.OK);
 	}

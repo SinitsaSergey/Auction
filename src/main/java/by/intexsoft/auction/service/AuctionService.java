@@ -18,4 +18,6 @@ public interface AuctionService extends AbstractEntityService<Auction> {
 
 	BigDecimal placeBid(int auctionId, User user);
 
+	void validIsNotExpired(int auctionId);
+	
 }

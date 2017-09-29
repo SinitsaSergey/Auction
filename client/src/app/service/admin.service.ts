@@ -12,7 +12,7 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  insertTradingDay(date: Date, manager: User): Promise<TradingDay> {
+  insertTradingDay(date: string, manager: User): Promise<TradingDay> {
     return this.http.post<TradingDay>(TRADING_DAY_PATH + date, manager)
       .toPromise();
   }
