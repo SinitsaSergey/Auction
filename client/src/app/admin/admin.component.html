@@ -1,23 +1,22 @@
 <div>
-  <form>
-    <input [(ngModel)]="selectedUsername" name="selectedUsername" placeholder="имя пользователя">
-    <button (click)="selectUser()">Поиск</button>
+  <form #userSearchForm="ngForm" (ngSubmit)="selectUser()">
+    <label>Поиск пользователя:</label>
+    <input [(ngModel)]="selectedUsername" name="selectedUsername" required placeholder="имя пользователя">
+    <button [disabled]="!userSearchForm.valid">Поиск</button>
   </form>
-  <div *ngIf="selectedUser">
-    {{selectedUser.username}}
-    {{selectedUser.authorities[0].authority}}
-    {{selectedUser.isBanned}}
-    <button *ngIf="isUser()" (click)="setAs('manager')">Назначить менеджером</button>
-    <button *ngIf="isManager()" (click)="setAs('user')">Убрать роль менеджера</button>
-    <button *ngIf="!selectedUser.isBanned" (click)="banUser(true)">Заблокировать пользователя</button>
-    <button *ngIf="selectedUser.isBanned" (click)="banUser(false)">Разблокировать пользователя</button>
+  <div *ngIf="selectedUser">Найдено:
+    <div>Имя пользователя: {{selectedUser.username}}</div>
+    <div *ngIf="isManager()">Роль: Менеджер <button (click)="setAs('user')">Убрать роль менеджера</button></div>
+    <div *ngIf="isUser()">Роль: Пользователь <button (click)="setAs('manager')">Назначить менеджером</button></div>
+    <div *ngIf="!selectedUser.isBanned">Не в блоке <button (click)="banUser(true)">Заблокировать пользователя</button></div>
+    <div *ngIf="selectedUser.isBanned">В блоке <button (click)="banUser(false)">Разблокировать пользователя</button></div>
     <form *ngIf="isManager()">
       Назначить распорядителем на:
-    <input type="date" [(ngModel)]="tradingDate" (change)="getTradingDay()" name="tradingDate">
+    <input type="date" [(ngModel)]="stringDate" (change)="getTradingDay()" name="tradingDate">
       <button *ngIf="!tradingDay" (click)="createTradingDay()">Назначить</button>
     </form>
     <div *ngIf="tradingDay">
-      На эту дату назначен:
+      На эту дату уже назначен
 {{tradingDay.manager.username}}
     </div>
   </div>

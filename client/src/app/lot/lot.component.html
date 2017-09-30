@@ -1,5 +1,6 @@
 <div>
-  <button (click)="lot={}">Добавить лот на продажу</button>
+  <button *ngIf="!lot" (click)="lot={}">Добавить лот на продажу</button>
+  <button *ngIf="lot" (click)="lot=null">Скрыть меню</button>
   <form class="form-horizontal" *ngIf="lot" #lotForm="ngForm" (ngSubmit)="insert()">
     <p>
       <label>Название лота</label>
@@ -20,7 +21,8 @@
 </div>
 
 <div>
-  <button (click)="getMyLots()">Мои лоты</button>
+  <button *ngIf="!myLots" (click)="getMyLots()">Мои лоты</button>
+  <button *ngIf="myLots" (click)="myLots=null">Мои лоты</button>
   <thead *ngIf="myLots">
   <tr>
     <th>Лот</th>
@@ -32,11 +34,13 @@
   <tr *ngFor="let myLot of myLots">
     <td>{{myLot.title}}</td>
     <td>{{myLot.startPrice.toFixed(2)}}</td>
-    <td *ngIf="myLot.auction">
-      `{{getDate(myLot.auction.startTime).toLocaleDateString()}}
-      {{getDate(myLot.auction.startTime).toLocaleTimeString()}}`
+    <td *ngIf="myLot.status.status === 'onsale'">
+      {{myLot.auction.startTime | date: 'dd.MM.y HH:mm:ss'}}
     </td>
-    <td *ngIf="!myLot.auction">не назначено</td>
+    <td *ngIf="myLot.status.status === 'registered'">не назначено</td>
+    <td *ngIf="myLot.status.status === 'saled'">ожидает подтверждения</td>
+    <td *ngIf="myLot.status.status === 'confirmed'">продано</td>
+    <td *ngIf="myLot.status.status === 'canceled'">отменено</td>
   </tr>
   </tbody>
 </div>

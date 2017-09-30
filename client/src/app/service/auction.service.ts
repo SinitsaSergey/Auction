@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Auction} from '../model/auction';
 import {HttpClient} from "@angular/common/http";
+import {Status} from "../model/status";
 
 const AUCTION_PATH = 'api/auction/';
 
@@ -10,14 +11,6 @@ export class AuctionService {
 
   constructor(private http: HttpClient) {
   }
-
-  /*static dayIsFull(auctions: Auction[]): boolean {
-    let sum = 0;
-    for (const auction of auctions) {
-      sum += auction.duration;
-    }
-    return (sum > (12 * 60) * 60 * 1000);
-  }*/
 
   getAllForDay(date: string): Promise<Auction[]> {
     return this.http.get<Auction[]>(AUCTION_PATH + '?date=' + date)
@@ -50,4 +43,8 @@ export class AuctionService {
       .toPromise();
   }
 
+  getFinishTime(id: number): Promise<number> {
+    return this.http.get<number>(AUCTION_PATH + id + '/finish/')
+      .toPromise();
+  }
 }

@@ -1,5 +1,6 @@
 package by.intexsoft.auction.model;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -21,7 +23,7 @@ public class Bid extends AbstractEntity {
 	@Column(scale = 2)
 	public BigDecimal value;
 	
-	@OneToOne
+	@ManyToOne(fetch = EAGER)
     @JoinColumn(name = "bidder_id")
 	public User bidder;
 	

@@ -1,11 +1,11 @@
 package by.intexsoft.auction.model;
 
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,12 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table (name = "auctions")
@@ -33,17 +27,20 @@ public class Auction extends AbstractEntity {
 	@JoinColumn(name = "day_id")
 	public TradingDay tradingDay;
 	
-	@Column(unique = true, name = "start_time")
-	public Calendar startTime;
+	@Column(name = "start_time")
+	public Date startTime;
 	
-	/*@Column(nullable = false)
-	public int duration;*/
+	@Column(name = "finish_time")
+	public Date finishTime;
 	
 	@Column(name = "step_price", scale = 2)
 	public BigDecimal stepPrice;
 	
 	@Column (name = "current_bid", scale =2)
 	public BigDecimal currentBid;
+	
+	@Column (name = "bid_time")
+	public Date bidTime;
 
 	@OneToMany(mappedBy = "auction", fetch = FetchType.EAGER)
 	public Set<Bid> bidList;
@@ -64,8 +61,8 @@ public class Auction extends AbstractEntity {
 	 */
 	@Override
 	public String toString() {
-		return "Auction [tradingDay=" + tradingDay + ", startTime=" + startTime + /*", duration=" + duration
-				+ */", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot + "]";
+		return "Auction [tradingDay=" + tradingDay.tradingDate + ", startTime=" + startTime + ", finishTime=" + finishTime
+				+ ", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot.title + "]";
 	}
 
 }

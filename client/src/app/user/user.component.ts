@@ -24,12 +24,12 @@ export class UserComponent implements OnInit {
 
   insert(): void {
     this.userService.update(this.currentUser)
-      .then(user => this.currentUser = user);
+      .then(() => this.currentUser = null);
   }
 
   changePassword(): void {
     this.userService.changePassword(this.newPassword)
-      .then(user => this.currentUser = user);
+      .then(() => this.changing = false);
   }
 
   getCurrentUser(): void {

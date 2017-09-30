@@ -1,6 +1,7 @@
 <div *ngIf="auction">
-  <label>Дата</label><br/>
-  <input readonly ngModel={{(getDate(auction.tradingDay)).toLocaleDateString()}}><br/>
+  <div>
+    Дата аукциона: {{auction.tradingDay.tradingDate | date: 'dd.MM.y'}}
+  </div>
   <label>Лот</label><br/>
   <input readonly ngModel={{auction.lot.title}}><br/>
   <label>Стартовая цена</label><br/>
@@ -11,7 +12,7 @@
   <input readonly ngModel={{auction.lot.seller.username}}><br/>
   <div *ngIf="auction.lot.status.status === 'onsale'">
   <label>Начало в </label><br/>
-  <a *ngIf="!newStartTimeString" (click)="newStartTimeString={}">{{timeToString(auction.startTime)}}</a>
+  <a *ngIf="!newStartTimeString" (click)="newStartTimeString={}">{{auction.startTime | date: 'HH:mm'}}</a>
   <input *ngIf="newStartTimeString" type="time" [(ngModel)]="newStartTimeString">
     <br/></div>
   <button (click)="insert()">Сохранить</button>

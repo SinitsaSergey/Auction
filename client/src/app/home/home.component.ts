@@ -15,19 +15,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   currentAuction: Auction;
   auctions: Auction[];
-  tradingDate: Date;
-  convertStartTime = DateUtils.convertStartTime;
-  getFinishTime = DateUtils.getFinishTime;
   convertToModel = DateUtils.convertDateToModel;
+  getNow = DateUtils.getNow;
   refreshInterval: any;
+
 
   constructor(@Inject('auctionService') private auctionService: AuctionService) {
   }
 
   ngOnInit() {
-    this.tradingDate = new Date();
     this.getAuctionsForDay();
-    this.refreshInterval = setInterval(() => {this.getCurrentAuction();}, 1000);
+    this.refreshInterval = setInterval(() => {
+      this.getAuctionsForDay();
+      this.getCurrentAuction();
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -35,21 +36,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getAuctionsForDay(): void {
-    this.auctionService.getAllForDay(this.convertToModel(this.tradingDate))
+    this.auctionService.getAllForDay(this.convertToModel(new Date()))
       .then(auctions => this.auctions = auctions);
   }
 
-  getDate() {
-    return new Date();
-  }
-
   isActual(auction: Auction): boolean {
-    return auction.startTime > this.getDate() && auction.lot.status.status === 'onsale';
+    return +auction.startTime > this.getNow()
+      && auction.lot.status.status === 'onsale';
   }
 
   getCurrentAuction(): void {
-    for (const auction of this.auctions){
-      if (auction.startTime < this.getDate() && auction.lot.status.status === 'onsale'){
+    this.currentAuction = null;
+    for (const auction of this.auctions) {
+      if (+auction.startTime < this.getNow()
+        && +auction.finishTime > this.getNow()
+        && auction.lot.status.status === 'onsale') {
         this.currentAuction = auction;
       }
     }

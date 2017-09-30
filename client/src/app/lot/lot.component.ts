@@ -24,8 +24,8 @@ export class LotComponent implements OnInit {
 
   insert(): void {
     this.lotService.insert(this.lot)
-      .then(lot => {
-        this.lot = lot;
+      .then(() => {
+        this.lot = null;
         this.getMyLots();
       });
   }
@@ -34,10 +34,4 @@ export class LotComponent implements OnInit {
     this.lotService.getMyLots()
       .then(lots => this.myLots = lots);
   }
-
-  getDate (date) {
-    return new Date (date);
-  }
-
-
 }

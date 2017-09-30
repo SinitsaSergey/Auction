@@ -1,18 +1,24 @@
 <div><button (click)="getCurrentUser()">Редактировать мой профиль</button>
 <div *ngIf="currentUser">
-  <input readonly ngModel={{currentUser.username}}/><br/>
-  <input [(ngModel)]="currentUser.firstName"/><br/>
-  <input [(ngModel)]="currentUser.lastName"/><br/>
-  <input [(ngModel)]="currentUser.email"/><br/>
-  <input type="tel" [(ngModel)]="currentUser.phone"/><br/>
-  <button class="btn btn-default" (click)="insert()">{{'registration' | translate}}</button>
+  <form #userForm="ngForm" (ngSubmit)="insert()">
+  <input readonly placeholder={{currentUser.username}}/><br/>
+    <label>Имя</label>
+  <input [(ngModel)]="currentUser.firstName" placeholder={{currentUser.firstName}} [ngModelOptions]="{standalone: true}" required/><br/>
+    <label>Фамилия</label>
+  <input [(ngModel)]="currentUser.lastName" placeholder={{currentUser.lastName}} [ngModelOptions]="{standalone: true}" required/><br/>
+    <label>E-mail</label>
+  <input [(ngModel)]="currentUser.email" placeholder={{currentUser.email}} [ngModelOptions]="{standalone: true}" required/><br/>
+    <label>Контактный телефон</label>
+  <input type="tel" [(ngModel)]="currentUser.phone" placeholder={{currentUser.phone}} [ngModelOptions]="{standalone: true}"  required/><br/>
+  <button [disabled]="!userForm.valid">Сохранить</button>
+  </form>
 </div>
 </div>
 <div>
   <button (click)="changing = true">Изменить пароль</button>
 <div *ngIf="changing">
-  <input type="password" [(ngModel)]="newPassword" placeholder="{{'newPassword'| translate}}"/><br/>
-  <input type="password" [(ngModel)]="confirmPassword" placeholder="{{'confirmPassword'| translate}}"/><br/>
-  <button class="btn btn-default" (click)="changePassword()">{{'registration' | translate}}</button>
+  <input type="password" [(ngModel)]="newPassword" placeholder="новый пароль"/><br/>
+  <input type="password" [(ngModel)]="confirmPassword" placeholder="подтвердите пароль"/><br/>
+  <button class="btn btn-default" (click)="changePassword()">Сохранить</button>
 </div>
 </div>
