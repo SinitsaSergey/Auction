@@ -19,7 +19,7 @@ import {UserComponent} from './user/user.component';
 import {AccountComponent} from './account/account.component';
 import {LotService} from './service/lot.service';
 import {AuthenticationService} from './service/authentication.service';
-import {AuthenticationGuard} from './guard/authentication.guard';
+import {AuthenticationGuard} from './security/authentication.guard';
 import {UserService} from './service/user.service';
 import {AuctionService} from './service/auction.service';
 import {AdminService} from './service/admin.service';
@@ -67,7 +67,8 @@ import { AuctionCurrentComponent } from './auction-current/auction-current.compo
     {provide: 'authenticationService', useClass: AuthenticationService},
     {provide: 'auctionService', useClass: AuctionService},
     {provide: 'adminService', useClass: AdminService},
-    {provide: 'managerService', useClass: ManagerService}
+    {provide: 'managerService', useClass: ManagerService},
+    AuthenticationGuard
     ],
   bootstrap: [AppComponent]
 })

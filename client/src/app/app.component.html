@@ -3,14 +3,15 @@
   <button (click)="switchLanguage('en')">en</button>
   <button (click)="switchLanguage('ru')">ru</button>
   <div style="margin-right: 5px">
-    <p *ngIf="isLoggedIn()">Приветствуем Вас, <b>{{welcomeName}}</b></p>
+    <p *ngIf="isLoggedIn()">Добро пожаловать, <b>{{welcomeName}}!</b></p>
   </div>
   <nav>
     <a routerLink="/admin"><span>Кабинет администратора</span></a>
-    <a routerLink="/manager"><span>Кабинет менеджера</span></a>
-    <a routerLink="/account"><span>Личный кабинет</span></a>
-    <a routerLink="/login"><span>Войти</span></a>
-    <a routerLink="/registration"><span>Регистрация</span></a>
+    <a *ngIf="isManager()" routerLink="/manager"><span>Кабинет менеджера</span></a>
+    <a *ngIf="isUser()" routerLink="/account"><span>Личный кабинет</span></a>
+    <a *ngIf="!isLoggedIn()" routerLink="/login"><span>Войти</span></a>
+    <a *ngIf="!isLoggedIn()" routerLink="/registration"><span>Регистрация</span></a>
+    <a *ngIf="isLoggedIn()" routerLink="/" (click)="logout()"><span>Выход</span></a>
   </nav>
     <div>
       <router-outlet ></router-outlet>
