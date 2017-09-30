@@ -28,6 +28,24 @@ export class AppComponent {
     return false;
   }
 
+  public isAdmin(): boolean {
+    if (!this.authenticationService.currentUser) return false;
+    if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_ADMIN') return true;
+    return false;
+  }
+
+  public isManager(): boolean {
+    if (!this.authenticationService.currentUser) return false;
+    if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_MANAGER') return true;
+    return false;
+  }
+
+  public isUser(): boolean {
+    if (!this.authenticationService.currentUser) return false;
+    if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_USER') return true;
+    return false;
+  }
+
   public logout(): void {
     this.authenticationService.logout();
   }
