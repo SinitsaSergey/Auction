@@ -5,10 +5,13 @@ import static java.util.Calendar.OCTOBER;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -70,6 +73,9 @@ public class Runner {
 		Status lotStatus4 = new Status();
 		lotStatus4.status = "confirmed";
 		statusService.save(lotStatus4);
+		Status lotStatus5 = new Status();
+		lotStatus5.status = "canceled";
+		statusService.save(lotStatus5);
 
 		User user1 = new User();
 		user1.username = "username";
@@ -123,7 +129,7 @@ public class Runner {
 		manager.authorities = authorities11;
 		userService.save(manager);
 		
-		Lot lot1 = new Lot();
+		/*Lot lot1 = new Lot();
 		lot1.title = "Какой-то лот";
 		lot1.description = "Продам что-нибудь за деньги";
 		lot1.startPrice = new BigDecimal(13).setScale(2, RoundingMode.HALF_EVEN);
@@ -156,13 +162,21 @@ public class Runner {
 		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		
 		
-		auctionService.validIsNotExpired(auction1.getId());
+		auctionService.validIsNotExpired(auction1.getId());*/
+		
+		Date date = new Date();
+		Calendar cal = new GregorianCalendar(2017, 02, 03);
+		System.out.println(cal.toString());
+		cal.setTime(date);
+		System.out.println(cal.toString());
+		
+		
 		
 		/*System.out.println(auctionService.getForDay(tdDay));
 		
 		System.out.println(dayService.getByManager(manager));*/
 		
 
-		context.close();
+		//context.close();
 	}
 }

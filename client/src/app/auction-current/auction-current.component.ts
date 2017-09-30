@@ -15,9 +15,11 @@ export class AuctionCurrentComponent implements OnInit, OnDestroy {
   id: number;
   currentAuction: Auction;
   getNow = DateUtils.getNow;
-  restTime: number;
   currentPrice: number;
+  currentStatus: string;
   refreshInterval: any;
+  enableTrading = true;
+  timer: number;
 
   constructor(private router: ActivatedRoute,
               @Inject('auctionService') private auctionService: AuctionService) {
@@ -29,9 +31,12 @@ export class AuctionCurrentComponent implements OnInit, OnDestroy {
       this.auctionService.getById(this.id)
         .then(auction => {
           this.currentAuction = auction;
+          this.currentStatus = 'onsale';
         });
     });
-    this.refreshInterval = setInterval(() => this.getCurrentPrice(), 1000);
+    this.refreshInterval = setInterval(() => {
+      this.getCurrentPrice();
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -39,7 +44,12 @@ export class AuctionCurrentComponent implements OnInit, OnDestroy {
   }
 
   getRestTime(): number {
-    return this.restTime = (+this.currentAuction.finishTime - new Date().getTime()) / 1000;
+    const restTime = (+this.currentAuction.finishTime - Date.now()) / 1000;
+    if (restTime <= 0) {
+      this.enableTrading = false;
+      return 0;
+    }
+    return restTime;
   }
 
   getCurrentPrice(): void {
@@ -47,9 +57,15 @@ export class AuctionCurrentComponent implements OnInit, OnDestroy {
       .then(price => this.currentPrice = price);
   }
 
+getFinishTime(): void {
+    this.auctionService.getFinishTime(this.currentAuction.id)
+      .then(time => this.currentAuction.finishTime = new Date (time));
+}
+
   placeBid(): void {
     this.auctionService.placeBid(this.currentAuction.id)
       .then(price => this.currentPrice = price);
+    this.getFinishTime();
   }
 
   timeToString(time: number): string {

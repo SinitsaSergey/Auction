@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.EAGER;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,10 +28,10 @@ public class Auction extends AbstractEntity {
 	public TradingDay tradingDay;
 	
 	@Column(name = "start_time")
-	public Calendar startTime;
+	public Date startTime;
 	
 	@Column(name = "finish_time")
-	public Calendar finishTime;
+	public Date finishTime;
 	
 	@Column(name = "step_price", scale = 2)
 	public BigDecimal stepPrice;
@@ -39,7 +40,7 @@ public class Auction extends AbstractEntity {
 	public BigDecimal currentBid;
 	
 	@Column (name = "bid_time")
-	public Timestamp bidTime;
+	public Date bidTime;
 
 	@OneToMany(mappedBy = "auction", fetch = FetchType.EAGER)
 	public Set<Bid> bidList;

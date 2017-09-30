@@ -71,4 +71,9 @@ public class AuctionController {
 		auctionService.delete(auctionId);
 		return new ResponseEntity<> (HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/{id}/finish", method = RequestMethod.GET)
+	public ResponseEntity<?> getFinishTime (@PathVariable(value = "id") int auctionId) {
+		return new ResponseEntity<> (auctionService.find(auctionId).finishTime.getTime(), HttpStatus.OK);
+	}
 }

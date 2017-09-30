@@ -4,8 +4,10 @@
   {{currentAuction.lot.description}}
   {{currentAuction.startTime | date: 'HH:mm:ss'}}
   {{currentAuction.finishTime | date: 'HH:mm:ss'}}
-  <p>Осталось: {{timeToString(getRestTime())}}</p>
+  {{currentStatus}}
+  <p *ngIf="enableTrading">Осталось: {{timeToString(getRestTime())}}</p>
+  <p *ngIf="!enableTrading">Аукцион завершен</p>
   <p>Текущая цена: {{currentPrice}}</p>
-  <button (click)="placeBid()">ставка +{{currentAuction.stepPrice.toFixed(2)}}</button>
+  <button *ngIf="enableTrading" (click)="placeBid()">ставка +{{currentAuction.stepPrice.toFixed(2)}}</button>
 </div>
 

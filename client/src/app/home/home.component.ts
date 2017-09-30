@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getAuctionsForDay();
     this.refreshInterval = setInterval(() => {
+      this.getAuctionsForDay();
       this.getCurrentAuction();
     }, 1000);
   }

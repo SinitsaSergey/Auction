@@ -6,7 +6,6 @@
     <th>Начало</th>
     <th>Окончание</th>
     <th>Статус</th>
-    <th>Продавец</th>
   </tr>
   </thead>
   <tbody>
@@ -14,6 +13,11 @@
     <td>{{auction.lot.title}}</td>
     <td>{{auction.startTime | date:'HH:mm'}}</td>
     <td>{{auction.finishTime | date:'HH:mm'}}</td>
+    <td *ngIf="auction.lot.status.status === 'onsale'">В продаже</td>
+    <td *ngIf="auction.lot.status.status === 'queue'">В очереди</td>
+    <td *ngIf="auction.lot.status.status === 'saled'">Торги окончены</td>
+    <td *ngIf="auction.lot.status.status === 'confirmed'">Подтверждено</td>
+    <td *ngIf="auction.lot.status.status === 'canceled'">Отменено</td>
     <td>
       <button [routerLink]="['/auction/details', auction.id]">детали</button>
     </td>
@@ -24,10 +28,10 @@
   </tbody></div>
 </div>
 <div *ngIf="!dayIsFull()">
-  <button (click)="newAuction={}">Добавить аукцион</button>
+  <button (click)="getNewAuction()">Добавить аукцион</button>
 </div>
 <div *ngIf="dayIsFull()">
-  <button (click)="newAuction={}">Добавить в очередь</button>
+  <button (click)="getNewAuction()">Добавить в очередь</button>
 </div>
 <div *ngIf="newAuction">
   <div *ngIf="!selectedLot">

@@ -5,7 +5,7 @@ import {AuctionService} from '../service/auction.service';
 import {DateUtils} from '../utils/date-utils';
 import {Lot} from "../model/lot";
 
-const DURATION = 600000;
+const DURATION = 60000;
 
 @Component({
   selector: 'app-auction-details',
@@ -39,9 +39,9 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   public convertToDate(): void {
-    this.auction.startTime = new Date(Date.parse(this.newStartTimeString));
    const timeArray = this.newStartTimeString.split(':', 2);
-    this.auction.startTime.setUTCHours(+timeArray[0], +timeArray[1], 0, 0);
+    this.auction.startTime = new Date (this.auction.startTime);
+    this.auction.startTime.setHours(+timeArray[0], +timeArray[1], 0, 0);
     this.auction.finishTime = new Date (this.auction.startTime.getTime() + DURATION);
   }
 
