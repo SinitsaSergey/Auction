@@ -27,7 +27,16 @@ import {ManagerComponent} from './manager/manager.component';
 import {ManagerService} from './service/manager.service';
 import {JWTInterceptor} from './service/JWTInterceptor';
 import {AuctionDetailsComponent} from './auction-details/auction-details.component';
-import { AuctionCurrentComponent } from './auction-current/auction-current.component';
+import {AuctionCurrentComponent} from './auction-current/auction-current.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {
+  MdButtonModule, MdCardModule, MdDatepickerModule, MdExpansionModule, MdGridListModule, MdIconModule, MdInputModule,
+  MdMenuModule,
+  MdNativeDateModule, MdProgressSpinnerModule, MdSelectModule,
+  MdTabsModule,
+  MdToolbarModule
+} from "@angular/material";
+import {MaterialDesignModule} from "./module/material-design.module";
 
 @NgModule({
   declarations: [
@@ -51,6 +60,7 @@ import { AuctionCurrentComponent } from './auction-current/auction-current.compo
     FormsModule,
     RoutingModule,
     HttpClientModule,
+    MaterialDesignModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
