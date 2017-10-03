@@ -38,7 +38,11 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 		user.password = passwordEncoder.encode(user.password);
 		user.authorities = new HashSet<>();
 		user.authorities.add(authorityService.findByAuthority("ROLE_USER"));
+		user.registrated = new Date();
 		user.email = user.email.toLowerCase();
+		System.out.println();
+		System.out.println("save "+user);
+		System.out.println();
 		return repository.save(user);
 	}
 

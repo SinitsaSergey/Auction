@@ -1,11 +1,11 @@
 <div>
-  <input [(ngModel)]="user.username" placeholder="{{'username'| translate}}"/><br/>
-  <input type="password" [(ngModel)]="user.password" placeholder="{{'currentPassword'| translate}}"/><br/>
+  <input [(ngModel)]="user.username" placeholder="{{'username'| translate}}"/><br/>{{user.username}}
+  <input type="password" [(ngModel)]="user.password" placeholder="{{'currentPassword'| translate}}"/><br/>{{user.password}}
   <input type="password" [(ngModel)]="confirmPassword" placeholder="{{'confirmPassword'| translate}}"/><br/>
-  <input [(ngModel)]="user.firstName" placeholder="{{'first name'| translate}}"/><br/>
-  <input [(ngModel)]="user.lastName" placeholder="{{'last name'| translate}}"/><br/>
-  <input [(ngModel)]="user.email" placeholder="{{'email'| translate}}"/><br/>
-  <input type="tel" [(ngModel)]="user.phone" placeholder="{{'phone number'| translate}}"/><br/>
+  <input [(ngModel)]="user.firstName" placeholder="{{'first name'| translate}}"/><br/>{{user.firstName}}
+  <input [(ngModel)]="user.lastName" placeholder="{{'last name'| translate}}"/><br/>{{user.lastName}}
+  <input [(ngModel)]="user.email" placeholder="{{'email'| translate}}"/><br/>{{user.email}}
+  <input type="tel" [(ngModel)]="user.phone" placeholder="{{'phone number'| translate}}"/><br/>{{user.phone}}
   <button class="btn btn-default" (click)="insert()">{{'registration' | translate}}</button>
 </div>
 

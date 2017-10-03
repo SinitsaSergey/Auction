@@ -37,6 +37,7 @@ import {
   MdToolbarModule
 } from "@angular/material";
 import {MaterialDesignModule} from "./module/material-design.module";
+import { TimerComponent } from './timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {MaterialDesignModule} from "./module/material-design.module";
     ManagerComponent,
     AuctionDetailsComponent,
     AuctionCurrentComponent,
+    TimerComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,9 @@
-@import '~@angular/material/prebuilt-themes/purple-green.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~https://fonts.googleapis.com/icon?family=Roboto';
+@import url(http://allfont.ru/allfont.css?fonts=a_lcdnovaobl);
+
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -25,10 +28,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
-body {
-  line-height: 1;
-  font-family: Roboto;
-}
 ol, ul {
   list-style: none;
 }
@@ -52,12 +51,37 @@ html, body {
 
 body {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  width: 50%;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  font-family: Roboto;
 }
 
-.loading-app {
+html {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: #000000;
+}
+
+span.common {
+  font-size: 24px;
+}
+
+.warnMessage {
+  font-size: 18px;
+  color: red;
+  text-align: center;
+}
+
+
+/*.loading-app {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80%;
-}
+}*/

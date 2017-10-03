@@ -11,6 +11,7 @@ import {forEach} from "@angular/router/src/utils/collection";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit, OnDestroy {
 
   currentAuction: Auction;
@@ -18,14 +19,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   convertToModel = DateUtils.convertDateToModel;
   getNow = DateUtils.getNow;
   refreshInterval: any;
-
+  noAuctionsMessage = 'На сегодня нет доступных аукционов';
 
   constructor(@Inject('auctionService') private auctionService: AuctionService) {
   }
 
   ngOnInit() {
     this.getAuctionsForDay();
-    this.refreshInterval = setInterval(() => {
+   this.refreshInterval = setInterval(() => {
       this.getAuctionsForDay();
       this.getCurrentAuction();
     }, 1000);
@@ -37,7 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getAuctionsForDay(): void {
     this.auctionService.getAllForDay(this.convertToModel(new Date()))
-      .then(auctions => this.auctions = auctions);
+      .then(auctions => {
+        this.auctions = auctions;
+      });
   }
 
   isActual(auction: Auction): boolean {
@@ -47,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getCurrentAuction(): void {
     this.currentAuction = null;
+    if (!this.auctions) return;
     for (const auction of this.auctions) {
       if (+auction.startTime < this.getNow()
         && +auction.finishTime > this.getNow()
@@ -54,6 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.currentAuction = auction;
       }
     }
+  }
+
+  auctionsExist(): boolean {
+   if (!this.auctions) return false;
+    if (this.auctions.length > 0) return true;
+    return false;
   }
 
 }

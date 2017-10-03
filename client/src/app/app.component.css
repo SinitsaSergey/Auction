@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Time";
+  src: url(../assets/fonts/a_lcdnovaobl_[allfont.ru].ttf);
+}
+
+.lang button {
+  background-color: white;
+}
+
+div.head {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  margin-left: -9px;
+  margin-right: -9px;
+  margin-bottom: -28px;
+  border-left: 2px;
+  border-right: 2px;
+  border-color: blue;
+}
+
+/*<body {
+  line-height: 1;
+  font-family: Roboto;
+}*/
+
+.leftLogo {
+  margin: 7px 7px 7px 0;
+  width: 90%;
+  height: 128px;
+}
+
+.mainMenu {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.mainMenu button {
+  margin: 3px;
+  border-radius: 5px;
+  width: auto;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.time {
+  font-family: Time;
+}
+
+.goToTop {
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0.4;
+}
+
+p {
+  font-size: 24px;
+}
+
+#welcomeMessage {
+  margin-top: 5px;
+  margin-bottom: -5px;
+  text-align: center;
+  font-size: 18px;
+  color: grey;
+}
+

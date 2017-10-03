@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   insert(): void {
+    console.log ('comp +' + this.user);
     this.userService.insert(this.user)
       .then(user => this.user = user);
   }

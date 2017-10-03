@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
 
 const USER_PATH = 'api/user/';
+const REGISTRATION_PATH = '/api/registration/';
 
 @Injectable()
 export class UserService {
@@ -13,8 +14,9 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  insert(user): Promise<User> {
-    return this.http.post<User>(USER_PATH, user)
+  insert(user: User): Promise<User> {
+    console.log(user);
+    return this.http.post<User>(REGISTRATION_PATH, user)
       .toPromise();
   }
 

@@ -16,7 +16,8 @@ import {AuthenticationGuard} from "../security/authentication.guard";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'admin', component: AdminComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard],
+    data: {roles: ['ROLE_ADMIN']}},
   {path: 'manager', component: ManagerComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_MANAGER']}},
   {path: 'registration', component: RegistrationComponent},

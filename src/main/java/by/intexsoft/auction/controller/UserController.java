@@ -31,7 +31,6 @@ public class UserController {
 	// LoggerFactory.getLogger(UserController.class);
 
 	private UserService userService;
-	private AuthorityService authorityService;
 	private AuthenticationService authenticationService;
 	
 	
@@ -39,7 +38,6 @@ public class UserController {
 	public UserController(UserService userService, AuthorityService authorityService,
 			AuthenticationService authenticationService) {
 		this.userService = userService;
-		this.authorityService = authorityService;
 		this.authenticationService = authenticationService;
 	}
 
@@ -49,16 +47,6 @@ public class UserController {
 		return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> registration(@RequestBody User user) {
-		// LOGGER.info("Start registration user");
-		user.registrated = new Date();
-		Set<Authority> authorities = new HashSet<>();
-		authorities.add(authorityService.findByAuthority("ROLE_USER"));
-		user.authorities = authorities;
-		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
-	}
-	
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@RequestBody User user) {
 		// LOGGER.info("Start update user");

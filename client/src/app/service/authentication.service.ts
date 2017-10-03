@@ -5,7 +5,7 @@ import {User} from "../model/user";
 import {UserService} from "./user.service";
 import {HttpClient} from "@angular/common/http";
 
-const LOGIN_URL = 'api/login';
+const LOGIN_URL = 'api/login/';
 const HEADERS: Headers = new Headers({'Content-Type': 'application/json'});
 
 @Injectable()
@@ -29,7 +29,6 @@ export class AuthenticationService {
     const body = JSON.stringify({username: username, password: password});
     return this.http.post<boolean>(LOGIN_URL, body, {observe: 'response'})
       .map(response => {
-        console.log(response);
         const token = response.headers.get('Authorization').slice(7);
         if (!token) return false;
         this.token = token;
@@ -56,7 +55,9 @@ export class AuthenticationService {
   }*/
 
   logout(): void {
+    console.log(this.token);
     this.token = null;
+
     this.username = 'guest';
     this.currentUser = null;
     localStorage.removeItem('authenticationData');

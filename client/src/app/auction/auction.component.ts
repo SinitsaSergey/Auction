@@ -8,7 +8,7 @@ import {LotService} from '../service/lot.service';
 import {AdminService} from "../service/admin.service";
 
 const MAX_AUCTIONS = 2;
-const DURATION = 60000;
+const DURATION = 600000;
 
 @Component({
   selector: 'app-auction',
