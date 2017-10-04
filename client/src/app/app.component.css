@@ -40,7 +40,8 @@ div.head {
 .mainMenu button {
   margin: 3px;
   border-radius: 5px;
-  width: auto;
+  width: 24%;
+  text-align: center;
 }
 
 h1 {
@@ -54,7 +55,10 @@ h1 {
 .goToTop {
   display: flex;
   justify-content: flex-end;
-  opacity: 0.4;
+  opacity: 0.5;
+  position: fixed;
+  bottom: 2%;
+  right: 20%;
 }
 
 p {
@@ -68,4 +72,12 @@ p {
   font-size: 18px;
   color: grey;
 }
+
+.langIcon {
+  margin-right: 5px;
+}
+
+
+
+
 

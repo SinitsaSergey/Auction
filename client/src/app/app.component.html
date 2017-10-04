@@ -1,14 +1,11 @@
 <div class="head">
   <img src="assets/img/logo.png" class="leftLogo" (click)="goHome()">
-  <button md-icon-button style="color:#bdbaba" [mdMenuTriggerFor]='langMenu'>
-    <md-icon>language</md-icon>
-  </button>
-  <md-menu #langMenu='mdMenu' style="width: 5px">
-    <button color='primary' md-menu-item (click)="switchLanguage('en')"><span>Eng</span></button>
-    <button color='primary' md-menu-item (click)="switchLanguage('ru')"><span>Rus</span></button>
-  </md-menu>
+  <div>
+    <img class="langIcon" src="assets/img/Russia.png" (click)="switchLanguage('ru')">
+    <img class="langIcon" src="assets/img/UK.png" (click)="switchLanguage('en')">
+  </div>
 </div>
-<app-timer></app-timer>
+
 <div id="welcomeMessage" *ngIf="isLoggedIn()">Добро пожаловать, {{welcomeName}}!</div>
 <div>
   <nav class="mainMenu">
@@ -16,9 +13,15 @@
     </button>
     <button md-raised-button color="primary" *ngIf="isManager()" routerLink="/manager"><span>Кабинет менеджера</span>
     </button>
-    <button md-raised-button color="primary" *ngIf="isUser()" routerLink="/account"><span>Личный кабинет</span></button>
+    <button md-raised-button color="primary" *ngIf="isUser()" [mdMenuTriggerFor]="accountMenu">
+      <span>Личный кабинет</span></button>
+    <md-menu class="nestedMenu" #accountMenu="mdMenu">
+      <button routerLink="/lot">Мои лоты</button>
+      <br/>
+      <button routerLink="/user">Мой профиль</button>
+    </md-menu>
     <button md-raised-button color="primary" routerLink="/"><span>Список аукционов</span></button>
-    <button md-raised-button color="primary" routerLink="/"><span>Правила торгов</span></button>
+    <button md-raised-button color="primary" routerLink="/specification"><span>Правила торгов</span></button>
     <button md-raised-button color="primary" *ngIf="!isLoggedIn()" routerLink="/login"><span>Войти</span></button>
     <button md-raised-button color="primary" *ngIf="!isLoggedIn()" routerLink="/registration"><span>Регистрация</span>
     </button>

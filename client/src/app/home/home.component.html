@@ -1,30 +1,30 @@
 <!--<div>Сегодня: {{getNow() | date:'dd.MM.y'}}</div>-->
 <div id="currentAuction" *ngIf="currentAuction">
-  Текущий аукцион: {{currentAuction.lot.title}}
+  <div>Текущий аукцион: {{currentAuction.lot.title}}<br/>
+  Время окончания: {{currentAuction.finishTime | date:'HH:mm'}}</div>
   <button md-raised-button class="auctionButton" [routerLink]="['/auction/current', currentAuction.id]">участвовать</button>
 </div>
 <div class="warnMessage" *ngIf="!auctionsExist()">{{noAuctionsMessage}}</div>
 
-<div class="mainTable">
+<div *ngIf="auctionsExist()" class="mainTable">
   <div class="titleColumn">
     <div class="mainTableHead">
-      <div class="common" style="border-color: #000000">Название лота</div>
+      <div class="common" style="border-color: #000000">название лота</div>
       <div class="common" *ngFor="let auction of auctions">{{auction.lot.title}}</div>
     </div>
   </div>
   <div class="priceColumn">
     <div class="mainTableHead">
-      <div class="common" style="border-color: #000000">Цена</div>
+      <div class="common" style="border-color: #000000">цена</div>
       <div class="common" *ngFor="let auction of auctions">{{auction.lot.startPrice.toFixed(2)}}</div>
     </div>
   </div>
   <div class="timeColumn">
     <div class="mainTableHead">
-      <div class="common" style="border-color: #000000">Старт торгов</div>
+      <div class="common" style="border-color: #000000">старт торгов</div>
     <div class="common" *ngFor="let auction of auctions">{{auction.startTime | date:'HH:mm'}}</div>
     </div>
   </div>
-
 </div>
 
 <!--

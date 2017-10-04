@@ -1,0 +1,13 @@
+div.scrolling-content {
+  overflow: scroll;
+  height: 480px;
+  padding: 5px;
+  border: solid 1px black;
+  margin-top: 10px;
+  color: #2e2e2e;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 18px;
+}

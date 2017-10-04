@@ -1,0 +1,20 @@
+.userComponent {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.userPanel{
+  margin-top: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.userPanel button {
+  opacity: 0.8;
+}
+
+.userContent{
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,47 @@
+.lotComponent {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.lotPanel{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.lotPanel button {
+  opacity: 0.8;
+}
+
+.lotContent{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.lotContentTable {
+  display: flex;
+  justify-content: center;
+}
+
+.lotTableHead {
+  border-top: 2px;
+  border-bottom: 2px;
+  border-color:#19053e;
+  border-style: double;
+}
+
+.lotTableHead th {
+  font-size: 20px;
+  color: #19053e;
+}
+
+.lotTableRow td {
+  border-bottom: solid 1px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.lotTable {
+  width: 80%;
+}

@@ -16,9 +16,10 @@ export class AdminComponent implements OnInit {
   selectedUser: User;
   stringDate: string;
   tradingDay: TradingDay;
+  loading = false;
 
-  constructor(@Inject ('userService') private userService: UserService,
-              @Inject ('adminService') private adminService: AdminService) {
+  constructor(@Inject('userService') private userService: UserService,
+              @Inject('adminService') private adminService: AdminService) {
   }
 
   ngOnInit() {
@@ -30,12 +31,12 @@ export class AdminComponent implements OnInit {
       .then(users => this.users = users);
   }
 
-  setAs (authority: string): void {
-this.userService.setAs(authority, this.selectedUser)
-  .then(user => this.selectedUser = user);
+  setAs(authority: string): void {
+    this.userService.setAs(authority, this.selectedUser)
+      .then(user => this.selectedUser = user);
   }
 
-  selectUser(): void{
+  selectUser(): void {
     this.userService.getByUsername(this.selectedUsername)
       .then(user => this.selectedUser = user);
   }
@@ -45,12 +46,12 @@ this.userService.setAs(authority, this.selectedUser)
       .then(user => this.selectedUser = user);
   }
 
-  isManager (): boolean {
+  isManager(): boolean {
     if (this.selectedUser.authorities[0].authority === 'ROLE_MANAGER') return true;
     return false;
   }
 
-  isUser (): boolean {
+  isUser(): boolean {
     if (this.selectedUser.authorities[0].authority === 'ROLE_USER') return true;
     return false;
   }
@@ -61,7 +62,10 @@ this.userService.setAs(authority, this.selectedUser)
   }
 
   getTradingDay() {
-this.adminService.getTradingDay(this.stringDate)
-  .then(tradingDay => this.tradingDay = tradingDay);
+    this.loading = true;
+    this.tradingDay = null;
+    this.adminService.getTradingDay(this.stringDate)
+      .then(tradingDay => this.tradingDay = tradingDay);
+    this.loading = false;
   }
 }

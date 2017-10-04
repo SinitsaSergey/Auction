@@ -1,0 +1,13 @@
+.submitButton {
+  background-color: #673ab7;
+  opacity: 0.9;
+  color: white;
+}
+
+div.adminPanel {
+  margin-top: 30px;
+}
+
+.adminContent {
+  margin-top: 10px;
+}

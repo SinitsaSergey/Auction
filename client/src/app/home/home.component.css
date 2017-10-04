@@ -29,9 +29,10 @@ div.timeColumn{
 }
 
 div.common {
-  font-size: 24px;
-  border-bottom: 2px;
-  border-top: 2px;
+  font-size: 20px;
+  color: rgba(46, 46, 46, 0.75);
+  border-bottom: 1px;
+  border-top: 1px;
   border-color: rgba(87, 87, 87, 0.33);
   border-style: solid;
 }
@@ -40,15 +41,21 @@ div.common {
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
+  margin-left: 10%;
   border: solid 2px;
   border-color: #9c9c9c;
   font-size: 30px;
   align-content: center;
   background-color: #bdbaba;
+  width: 70%;
+}
+
+#currentAuction div {
+  font-size: 18px;
 }
 
 button.auctionButton {
-  background-color: black;
+  background-color: rgba(67, 67, 67, 0.93);
   color: #ffffff;
 }
 
@@ -62,7 +69,6 @@ div.tableHead {
   border-top: 2px;
   border-color: rgba(87, 87, 87, 0.33);
   border-style: solid;
-  opacity: 0.9;
 }
 
 div.tableBody {
@@ -74,6 +80,7 @@ div.tableBody {
 .tableHead span {
   font-size: 18px;
   text-align: center;
+  color: rgba(20, 20, 20, 0.86);
 }
 
 .tableBody span {
@@ -95,4 +102,8 @@ div.tableBody {
 
 .warnMessage {
   padding-top: 30px;
+}
+
+#deleteLot {
+  color: red;
 }

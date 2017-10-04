@@ -17,6 +17,10 @@ repositories {
     mavenCentral()
 }
 
+war {
+from 'client/dist'
+}
+
 dependencies {
 	compile 'org.springframework:spring-webmvc:4.3.9.RELEASE'
 	compile 'org.springframework.data:spring-data-jpa:1.11.4.RELEASE'

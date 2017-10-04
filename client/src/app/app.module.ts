@@ -38,6 +38,7 @@ import {
 } from "@angular/material";
 import {MaterialDesignModule} from "./module/material-design.module";
 import { TimerComponent } from './timer/timer.component';
+import { SpecificationComponent } from './specification/specification.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { TimerComponent } from './timer/timer.component';
     AuctionDetailsComponent,
     AuctionCurrentComponent,
     TimerComponent,
+    SpecificationComponent,
   ],
   imports: [
     BrowserModule,

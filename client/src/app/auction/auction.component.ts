@@ -7,7 +7,7 @@ import {Lot} from '../model/lot';
 import {LotService} from '../service/lot.service';
 import {AdminService} from "../service/admin.service";
 
-const MAX_AUCTIONS = 2;
+const MAX_AUCTIONS = 4;
 const DURATION = 600000;
 
 @Component({
