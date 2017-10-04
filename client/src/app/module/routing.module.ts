@@ -16,6 +16,7 @@ import {AuthenticationGuard} from "../security/authentication.guard";
 import {SpecificationComponent} from "../specification/specification.component";
 import {User} from "../model/user";
 import {UserComponent} from "../user/user.component";
+import {LotDetailsComponent} from "../lot-details/lot-details.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
     data: {roles: ['ROLE_USER']}},
   {path: 'lot', component: LotComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_USER']}},
+  {path: 'lot/details/:id', component: LotDetailsComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

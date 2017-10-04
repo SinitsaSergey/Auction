@@ -9,12 +9,20 @@
     <form class="lotForm" *ngIf="lot" #lotForm="ngForm" (ngSubmit)="insert()">
       <md-form-field>
         <input name="title" mdInput [(ngModel)]="lot.title" placeholder="Название" required>
-      </md-form-field><br/>
+      </md-form-field>
+      <br/>
       <md-form-field>
-        <textarea name="description" mdInput [(ngModel)]="lot.description" placeholder="Краткое описание" required></textarea>
-      </md-form-field><br/>
+        <textarea name="description" mdInput [(ngModel)]="lot.description" placeholder="Краткое описание"
+                  required></textarea>
+      </md-form-field>
+      <br/>
       <md-form-field>
-        <input name="startPrice" mdInput type="number" [(ngModel)]="lot.startPrice" placeholder="Стартовая цена" required min="0.01" step="0.01">
+        <input name="startPrice" mdInput type="number" [(ngModel)]="lot.startPrice" placeholder="Стартовая цена"
+               required min="0.01" step="0.01">
+      </md-form-field>
+      <br/>
+      <md-form-field>
+        <input name="imagePath" mdInput [(ngModel)]="lot.imagePath" placeholder="URL адрес изображения">
       </md-form-field>
       <p>
         <button md-raised-button color="primary" class="submitButton" [disabled]="!lotForm.valid">Отправить</button>
@@ -43,11 +51,18 @@
         <td *ngIf="myLot.status.status === 'saled'">ожидает подтверждения</td>
         <td *ngIf="myLot.status.status === 'confirmed'">продано</td>
         <td *ngIf="myLot.status.status === 'canceled'">отменено</td>
-        <td><button md-button md-icon-button><md-icon>arrow_right</md-icon></button></td>
-        <td><button md-button md-icon-button><md-icon>close</md-icon></button></td>
+        <td>
+          <button md-button md-icon-button [routerLink]="['/lot/details', myLot.id]">
+            <md-icon>arrow_right</md-icon>
+          </button>
+        </td>
+        <td>
+          <button md-button md-icon-button (click)="remove(myLot.id)">
+            <md-icon>close</md-icon>
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-

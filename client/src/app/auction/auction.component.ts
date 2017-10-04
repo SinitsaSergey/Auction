@@ -19,6 +19,7 @@ export class AuctionComponent implements OnInit, OnDestroy {
 
   private sub: any;
   date: string;
+  loading = false;
   auctions: Auction[] = [];
   queueAuctions: Auction[] = [];
   startTimeString: string;

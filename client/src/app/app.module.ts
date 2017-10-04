@@ -39,6 +39,7 @@ import {
 import {MaterialDesignModule} from "./module/material-design.module";
 import { TimerComponent } from './timer/timer.component';
 import { SpecificationComponent } from './specification/specification.component';
+import { LotDetailsComponent } from './lot-details/lot-details.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { SpecificationComponent } from './specification/specification.component'
     AuctionCurrentComponent,
     TimerComponent,
     SpecificationComponent,
+    LotDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -40,4 +40,9 @@ export class LotComponent implements OnInit {
     this.myLots = null;
     this.lot = new Lot;
   }
+
+  remove(id): void {
+    this.lotService.remove(id);
+    this.getMyLots();
+  }
 }
