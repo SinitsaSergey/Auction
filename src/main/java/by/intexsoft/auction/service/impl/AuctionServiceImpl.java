@@ -42,9 +42,8 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 
 	@Override
 	public void delete(int id) {
-		// Auction auction = repository.findOne(id);
-		// auction.lot.status = statusService.getByStatus("registered");
-		lotService.save(repository.findOne(id).lot, "registered");
+		Auction auction = repository.findOne(id);
+		lotService.save(auction.lot, "registered");
 		repository.delete(id);
 	}
 

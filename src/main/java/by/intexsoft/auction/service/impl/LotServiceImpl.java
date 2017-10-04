@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import by.intexsoft.auction.model.Auction;
 import by.intexsoft.auction.model.Lot;
 import by.intexsoft.auction.model.Status;
 import by.intexsoft.auction.model.User;
@@ -63,6 +64,14 @@ public class LotServiceImpl extends AbstractServiceEntityImpl<Lot> implements Lo
 			lot.auction = auctionService.getByLot(lot);
 		}
 		return lots;
+	}
+	
+	@Override
+	public void delete (int id) {
+		Lot lot = repository.findOne(id);
+		Auction auction = auctionService.getByLot(lot);
+		if (auction != null) auctionService.delete(auction.getId());
+		repository.delete(id);
 	}
 
 }

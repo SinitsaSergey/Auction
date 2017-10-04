@@ -152,8 +152,8 @@ public class Runner {
 		auction1.tradingDay = tradingDay;
 		Calendar calendar = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
 		Calendar finish = new GregorianCalendar (2017, Calendar.OCTOBER, 2, 9, 1);
-		auction1.startTime = calendar;
-		auction1.finishTime = finish;
+		auction1.startTime = new Date();
+		auction1.finishTime = new Date();
 		auction1.currentBid = new BigDecimal(16).setScale(2, RoundingMode.HALF_EVEN);
 		auction1.bidTime = new Timestamp(new Date().getTime());
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
@@ -162,21 +162,21 @@ public class Runner {
 		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
 		
 		
-		auctionService.validIsNotExpired(auction1.getId());*/
+		auctionService.validIsNotExpired(auction1.getId());
 		
-		Date date = new Date();
-		Calendar cal = new GregorianCalendar(2017, 02, 03);
-		System.out.println(cal.toString());
-		cal.setTime(date);
-		System.out.println(cal.toString());
+		int lotId = lot2.getId();
+		
+		lotService.delete(lotId);
+		//auctionService.delete(auction1.getId());
+		System.out.println(lot2==null);
+		System.out.println(auction1==null);
 		
 		
-		
-		/*System.out.println(auctionService.getForDay(tdDay));
+		System.out.println(auctionService.getForDay(tdDay));
 		
 		System.out.println(dayService.getByManager(manager));*/
 		
 
-		//context.close();
+		context.close();
 	}
 }

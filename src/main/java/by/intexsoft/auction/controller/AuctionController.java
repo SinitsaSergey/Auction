@@ -69,7 +69,7 @@ public class AuctionController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete (@PathVariable(value = "id") int auctionId) {
 		auctionService.delete(auctionId);
-		return new ResponseEntity<> (HttpStatus.OK);
+		return new ResponseEntity<> (true, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}/finish", method = RequestMethod.GET)

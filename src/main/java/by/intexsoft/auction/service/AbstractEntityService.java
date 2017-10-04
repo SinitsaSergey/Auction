@@ -13,5 +13,5 @@ public interface AbstractEntityService <T extends AbstractEntity> {
 	T save(T entity);
 	
 	void delete(int id);
-
+	
 }

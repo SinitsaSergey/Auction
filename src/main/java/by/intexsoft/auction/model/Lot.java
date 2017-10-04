@@ -6,6 +6,7 @@ import static javax.persistence.FetchType.LAZY;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -39,6 +40,9 @@ public class Lot extends AbstractEntity{
 	@OneToOne(fetch = LAZY)
 	@JoinColumn(name = "auction_id")
 	public Auction auction;
+	
+	@Column (name = "image_path")
+	public String imagePath;
 	
 	@Column
 	public Timestamp added;
