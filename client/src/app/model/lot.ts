@@ -10,6 +10,7 @@ export class Lot {
   seller: User;
   status: Status;
   auction: Auction;
+  imagePath: string;
   added: Date;
 
 }

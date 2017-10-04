@@ -1,1 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~https://fonts.googleapis.com/icon?family=Roboto';
+@import url(http://allfont.ru/allfont.css?fonts=a_lcdnovaobl);
+
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Global flex settings */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  height: 1200px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  font-family: Roboto;
+}
+
+html {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: #000000;
+}
+
+span.common {
+  font-size: 24px;
+}
+
+.warnMessage {
+  font-size: 18px;
+  color: red;
+  text-align: center;
+}
+
+.successMessage {
+  font-size: 18px;
+  color: green;
+  text-align: center;
+}
+
+.submitButton {
+  opacity: 0.7;
+}
+
+.nestedMenu{
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+}
+
+.nestedMenu button{
+  background-color: #673ab7;
+  color: white;
+  width: 100%;
+  height: 36px;
+}
+
+.mat-menu-content {
+  width: 190px;
+  margin-top: 28px;
+}

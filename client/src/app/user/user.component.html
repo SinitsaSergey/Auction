@@ -1,24 +1,76 @@
-<div><button (click)="getCurrentUser()">Редактировать мой профиль</button>
-<div *ngIf="currentUser">
-  <form #userForm="ngForm" (ngSubmit)="insert()">
-  <input readonly placeholder={{currentUser.username}}/><br/>
-    <label>Имя</label>
-  <input [(ngModel)]="currentUser.firstName" placeholder={{currentUser.firstName}} [ngModelOptions]="{standalone: true}" required/><br/>
-    <label>Фамилия</label>
-  <input [(ngModel)]="currentUser.lastName" placeholder={{currentUser.lastName}} [ngModelOptions]="{standalone: true}" required/><br/>
-    <label>E-mail</label>
-  <input [(ngModel)]="currentUser.email" placeholder={{currentUser.email}} [ngModelOptions]="{standalone: true}" required/><br/>
-    <label>Контактный телефон</label>
-  <input type="tel" [(ngModel)]="currentUser.phone" placeholder={{currentUser.phone}} [ngModelOptions]="{standalone: true}"  required/><br/>
-  <button [disabled]="!userForm.valid">Сохранить</button>
-  </form>
-</div>
-</div>
-<div>
-  <button (click)="changing = true">Изменить пароль</button>
-<div *ngIf="changing">
-  <input type="password" [(ngModel)]="newPassword" placeholder="новый пароль"/><br/>
-  <input type="password" [(ngModel)]="confirmPassword" placeholder="подтвердите пароль"/><br/>
-  <button class="btn btn-default" (click)="changePassword()">Сохранить</button>
-</div>
+<div class="userComponent">
+  <div class="userPanel">
+    <button md-raised-button color="primary" (click)="getCurrentUser()">Редактировать профиль</button>
+    <button md-raised-button color="primary" (click)="changeOn()">Изменить пароль</button>
+  </div>
+  <div *ngIf="failedMessage" class="warnMessage">{{failedMessage}}</div>
+  <div *ngIf="successMessage" class="successMessage">{{successMessage}}</div>
+  <div class="userContent">
+    <form *ngIf="currentUser" class="regForm" #regForm="ngForm" (ngSubmit)="insert()">
+      <md-form-field>
+        <input readonly [(ngModel)]="currentUser.username" mdInput value ={{currentUser.username}} required
+               [ngModelOptions]="{standalone: true}"/>
+      </md-form-field>
+      <table cellspacing="0">
+        <tr>
+          <td>
+            <md-form-field>
+              <input [(ngModel)]="currentUser.firstName" mdInput value={{currentUser.firstName}} required
+                     minlength="1" maxlength="30" [ngModelOptions]="{standalone: true}"/>
+            </md-form-field>
+          </td>
+          <td>
+            <md-form-field>
+              <input [(ngModel)]="currentUser.lastName" mdInput value={{currentUser.lastName}} required
+                     [ngModelOptions]="{standalone: true}"/>
+            </md-form-field>
+          </td>
+        </tr>
+      </table>
+      <table cellspacing="0">
+        <tr>
+          <td>
+            <md-form-field>
+              <input [(ngModel)]="currentUser.email" mdInput value={{currentUser.email}} required
+                     [ngModelOptions]="{standalone: true}"/>
+            </md-form-field>
+          </td>
+          <td>
+            <md-form-field>
+              <input [(ngModel)]="currentUser.phone" mdInput value={{currentUser.phone}} required
+                     [ngModelOptions]="{standalone: true}"/>
+            </md-form-field>
+          </td>
+        </tr>
+      </table>
+      <div>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <button md-raised-button class="submitButton" color="primary" [disabled]="loading">Отправить</button>
+      </div>
+    </form>
+    <form *ngIf="changing" class="regForm" #passwordForm="ngForm" (ngSubmit)="changePassword()">
+      <table cellspacing="0">
+        <tr>
+          <td>
+            <md-form-field>
+              <input type="password" mdInput [(ngModel)]="newPassword" placeholder=" Новый Пароль" required
+                     [ngModelOptions]="{standalone: true}"/>
+            </md-form-field>
+          </td>
+          <td>
+            <md-form-field>
+              <input type="password" mdInput [(ngModel)]="confirmPassword" placeholder="Повторите пароль" required
+                     [ngModelOptions]="{standalone: true}"/>
+            </md-form-field>
+          </td>
+        </tr>
+      </table>
+      <div>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <button md-raised-button class="submitButton" color="primary" [disabled]="loading">Сохранить</button>
+      </div>
+    </form>
+  </div>
 </div>

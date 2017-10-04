@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthenticationService} from "./service/authentication.service";
+import {DateUtils} from "./utils/date-utils";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,6 @@ import {AuthenticationService} from "./service/authentication.service";
 export class AppComponent {
 
   welcomeName: string;
-  title = 'Аукцион';
 
   constructor(private router: Router,
               private translate: TranslateService,
@@ -20,7 +20,7 @@ export class AppComponent {
   }
 
   public isLoggedIn(): boolean {
-    this.initUser();
+   this.initUser();
     if (this.authenticationService.currentUser) {
       this.welcomeName = this.authenticationService.currentUser.firstName;
       return true;
@@ -30,20 +30,20 @@ export class AppComponent {
 
   public isAdmin(): boolean {
     if (!this.authenticationService.currentUser) return false;
-    if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_ADMIN') return true;
+   if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_ADMIN') return true;
     return false;
   }
 
   public isManager(): boolean {
-    if (!this.authenticationService.currentUser) return false;
-    if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_MANAGER') return true;
-    return false;
+   if (!this.authenticationService.currentUser) return false;
+   if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_MANAGER') return true;
+   return false;
   }
 
   public isUser(): boolean {
-    if (!this.authenticationService.currentUser) return false;
-    if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_USER') return true;
-    return false;
+   if (!this.authenticationService.currentUser) return false;
+   if (this.authenticationService.currentUser.authorities[0].authority === 'ROLE_USER') return true;
+   return false;
   }
 
   public logout(): void {
@@ -63,6 +63,10 @@ export class AppComponent {
 
   goHome(): void {
     this.router.navigateByUrl('');
+  }
+
+  goToTop(): void {
+    window.scrollTo(0,0);
   }
 
 }

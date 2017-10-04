@@ -1,0 +1,16 @@
+form.regForm {
+  margin-left: 25%;
+}
+
+h2 {
+  margin-top: 30px;
+  margin-left: 20%;
+}
+
+div.warnMessage {
+  margin-top: 20px;
+}
+
+div.successMessage {
+  margin-top: 30px;
+}

@@ -1,0 +1,11 @@
+.timer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.timer span{
+  font-family: 'a_LCDNovaObl', arial;
+  font-size: 24px;
+  color: #9c9c9c;
+  background: black;
+}

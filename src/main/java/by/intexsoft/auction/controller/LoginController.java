@@ -32,13 +32,19 @@ public class LoginController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> login (@RequestBody User requestUser){
-		if (requestUser.username==null||requestUser.password==null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		System.out.println();
+		System.out.println(requestUser);
+		System.out.println();
+		if (requestUser.username==null||requestUser.password==null) return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 		User user = userService.getUserByUsername(requestUser.username);
 		String token = authenticationService.generateToken(user, requestUser.password);
-		if (token == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		if (token == null) return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
 		HttpHeaders authHeader = new HttpHeaders();
 		authHeader.set("Authorization", token);
-		return new ResponseEntity<>(authHeader, HttpStatus.OK);
+		System.out.println();
+		System.out.println(authHeader);
+		System.out.println();
+		return new ResponseEntity<>(true, authHeader, HttpStatus.OK);
 	}
 
 }

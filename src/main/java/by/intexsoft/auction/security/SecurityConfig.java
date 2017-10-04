@@ -31,9 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/api/lot").permitAll()
-		.antMatchers(HttpMethod.POST, "/api/login").permitAll()
-		.antMatchers(HttpMethod.POST, "/api/user").permitAll()
+		.antMatchers(HttpMethod.POST, "/api/login/").permitAll()
+		.antMatchers(HttpMethod.POST, "/api/registration/").permitAll()
 		//.antMatchers("/api/**").hasAuthority("ROLE_ADMIN")
 		.anyRequest().authenticated().and()
 				.addFilterBefore(new TokenFilter(authenticationService), UsernamePasswordAuthenticationFilter.class)

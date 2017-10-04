@@ -1,23 +1,35 @@
-<div>
+<div class = "adminPanel">
   <form #userSearchForm="ngForm" (ngSubmit)="selectUser()">
     <label>Поиск пользователя:</label>
     <input [(ngModel)]="selectedUsername" name="selectedUsername" required placeholder="имя пользователя">
-    <button [disabled]="!userSearchForm.valid">Поиск</button>
+    <button class="submitButton" [disabled]="!userSearchForm.valid">Поиск</button>
   </form>
-  <div *ngIf="selectedUser">Найдено:
-    <div>Имя пользователя: {{selectedUser.username}}</div>
-    <div *ngIf="isManager()">Роль: Менеджер <button (click)="setAs('user')">Убрать роль менеджера</button></div>
-    <div *ngIf="isUser()">Роль: Пользователь <button (click)="setAs('manager')">Назначить менеджером</button></div>
-    <div *ngIf="!selectedUser.isBanned">Не в блоке <button (click)="banUser(true)">Заблокировать пользователя</button></div>
-    <div *ngIf="selectedUser.isBanned">В блоке <button (click)="banUser(false)">Разблокировать пользователя</button></div>
+  <div class="adminContent" *ngIf="selectedUser">
+    <div><h2>Имя пользователя: {{selectedUser.username}}</h2></div>
+    <div *ngIf="isManager()">Роль: Менеджер
+      <button class="submitButton" (click)="setAs('user')">Убрать роль менеджера</button>
+    </div>
+    <div *ngIf="isUser()">Роль: Пользователь
+      <button class="submitButton" (click)="setAs('manager')">Назначить менеджером</button>
+    </div>
+    <div *ngIf="!selectedUser.isBanned">Не в блоке
+      <button class="submitButton" (click)="banUser(true)">Заблокировать пользователя</button>
+    </div>
+    <div *ngIf="selectedUser.isBanned">В блоке
+      <button class="submitButton" (click)="banUser(false)">Разблокировать пользователя</button>
+    </div>
     <form *ngIf="isManager()">
       Назначить распорядителем на:
-    <input type="date" [(ngModel)]="stringDate" (change)="getTradingDay()" name="tradingDate">
-      <button *ngIf="!tradingDay" (click)="createTradingDay()">Назначить</button>
+      <input type="date" [(ngModel)]="stringDate" (change)="getTradingDay()" name="tradingDate">
+      <div>
+        <img *ngIf="loading"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        <button [disabled]="loading" class="submitButton" *ngIf="!tradingDay" (click)="createTradingDay()">Назначить</button>
+      </div>
     </form>
     <div *ngIf="tradingDay">
       На эту дату уже назначен
-{{tradingDay.manager.username}}
+      {{tradingDay.manager.username}}
     </div>
   </div>
 </div>

@@ -22,6 +22,16 @@ getByStatus (status): Promise <Lot[]> {
       .toPromise();
 }
 
+getById (id): Promise<Lot> {
+    return this.http.get<Lot>(LOT_PATH + id)
+      .toPromise();
+}
+
+remove (id): Promise<any> {
+    return this.http.delete(LOT_PATH + id)
+      .toPromise();
+}
+
 getMyLots (): Promise <Lot[]> {
     return this.http.get<Lot[]>(LOT_PATH + 'my')
       .toPromise();

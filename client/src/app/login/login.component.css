@@ -1,0 +1,18 @@
+form.loginForm{
+  margin-left: 35%;
+}
+
+h2 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 30%;
+}
+
+button.submitButton {
+  margin-top: 10px;
+  width: 35px;
+}
+
+.form-control {
+  margin: 3px 0px 3px 0px;
+}

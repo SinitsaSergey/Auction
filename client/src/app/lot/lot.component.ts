@@ -31,7 +31,18 @@ export class LotComponent implements OnInit {
   }
 
   getMyLots(): void {
+    this.lot = null;
     this.lotService.getMyLots()
       .then(lots => this.myLots = lots);
+  }
+
+  createLot() {
+    this.myLots = null;
+    this.lot = new Lot;
+  }
+
+  remove(id): void {
+    this.lotService.remove(id);
+    this.getMyLots();
   }
 }

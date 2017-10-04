@@ -1,4 +1,5 @@
-<div>{{getNow() | date: 'HH:mm:ss'}}</div>
+<div class="auctionsForDay">
+<div id="currentDate">{{getNow() | date: 'HH:mm:ss'}}</div>
 <div *ngIf="currentAuction">
   {{currentAuction.lot.title}}
   {{currentAuction.lot.description}}
@@ -10,4 +11,4 @@
   <p>Текущая цена: {{currentPrice}}</p>
   <button *ngIf="enableTrading" (click)="placeBid()">ставка +{{currentAuction.stepPrice.toFixed(2)}}</button>
 </div>
-
+</div>

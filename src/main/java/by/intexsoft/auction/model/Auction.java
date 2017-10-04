@@ -3,8 +3,6 @@ package by.intexsoft.auction.model;
 import static javax.persistence.FetchType.EAGER;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
@@ -55,10 +53,7 @@ public class Auction extends AbstractEntity {
 	public Auction (Lot lot) {
 		this.lot = lot;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
 	@Override
 	public String toString() {
 		return "Auction [tradingDay=" + tradingDay.tradingDate + ", startTime=" + startTime + ", finishTime=" + finishTime

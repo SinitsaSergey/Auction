@@ -1,11 +1,64 @@
-<div>
-  <input [(ngModel)]="user.username" placeholder="{{'username'| translate}}"/><br/>
-  <input type="password" [(ngModel)]="user.password" placeholder="{{'currentPassword'| translate}}"/><br/>
-  <input type="password" [(ngModel)]="confirmPassword" placeholder="{{'confirmPassword'| translate}}"/><br/>
-  <input [(ngModel)]="user.firstName" placeholder="{{'first name'| translate}}"/><br/>
-  <input [(ngModel)]="user.lastName" placeholder="{{'last name'| translate}}"/><br/>
-  <input [(ngModel)]="user.email" placeholder="{{'email'| translate}}"/><br/>
-  <input type="tel" [(ngModel)]="user.phone" placeholder="{{'phone number'| translate}}"/><br/>
-  <button class="btn btn-default" (click)="insert()">{{'registration' | translate}}</button>
-</div>
+<h2 *ngIf="!successMessage">Пожалуйста, заполните все поля для регистрации</h2>
+<div *ngIf="failedMessage" class="warnMessage">{{failedMessage}}</div>
+<div *ngIf="successMessage" class="successMessage">{{successMessage}}</div>
+<form *ngIf="!successMessage" class="regForm" #regForm="ngForm" (ngSubmit)="insert()">
+  <md-form-field>
+    <input [(ngModel)]="user.username" mdInput placeholder="Имя пользователя" required
+           [ngModelOptions]="{standalone: true}"/>
+  </md-form-field>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <md-form-field>
+          <input type="password" mdInput [(ngModel)]="user.password" placeholder="Пароль" required
+                 [ngModelOptions]="{standalone: true}"/>
+        </md-form-field>
+      </td>
+      <td>
+        <md-form-field>
+          <input type="password" mdInput [(ngModel)]="confirmPassword" placeholder="Повторите пароль" required
+                 [ngModelOptions]="{standalone: true}"/>
+        </md-form-field>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <md-form-field>
+          <input [(ngModel)]="user.firstName" mdInput placeholder="Имя" required
+                 [ngModelOptions]="{standalone: true}"/>
+        </md-form-field>
+      </td>
+      <td>
+        <md-form-field>
+          <input [(ngModel)]="user.lastName" mdInput placeholder="Фамилия" required
+                 [ngModelOptions]="{standalone: true}"/>
+        </md-form-field>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <md-form-field>
+          <input [(ngModel)]="user.email" mdInput placeholder="Электронная почта" required
+                 [ngModelOptions]="{standalone: true}"/>
+        </md-form-field>
+      </td>
+      <td>
+        <md-form-field>
+          <input [(ngModel)]="user.phone" mdInput placeholder="Контактный телефон" required
+                 [ngModelOptions]="{standalone: true}"/>
+        </md-form-field>
+      </td>
+    </tr>
+  </table>
+  <div>
+    <img *ngIf="loading"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    <button md-raised-button class="submitButton" color="primary" [disabled]="loading">Отправить</button>
+  </div>
+</form>
+
 

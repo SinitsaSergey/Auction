@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   model: any = {};
   loading = false;
-  error = '';
+  errorMessage: string;
 
   constructor(private router: Router,
               @Inject ('authenticationService') private authenticationService: AuthenticationService) {
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         if (result === true) {
           this.router.navigateByUrl('/');
         } else {
-          this.error = 'Username or password is incorrect';
+          this.errorMessage = 'Имя пользователя или пароль введены неверно';
          this.loading = false;
         }
       });

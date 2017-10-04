@@ -13,14 +13,20 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuctionDetailsComponent} from "../auction-details/auction-details.component";
 import {AuctionCurrentComponent} from "../auction-current/auction-current.component";
 import {AuthenticationGuard} from "../security/authentication.guard";
+import {SpecificationComponent} from "../specification/specification.component";
+import {User} from "../model/user";
+import {UserComponent} from "../user/user.component";
+import {LotDetailsComponent} from "../lot-details/lot-details.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'admin', component: AdminComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard],
+    data: {roles: ['ROLE_ADMIN']}},
   {path: 'manager', component: ManagerComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_MANAGER']}},
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'specification', component: SpecificationComponent},
   {path: 'trading-day', component: TradingDayComponent},
   {path: 'auction/details/:id', component: AuctionDetailsComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_MANAGER']}},
@@ -28,10 +34,11 @@ const appRoutes: Routes = [
     data: {roles: ['ROLE_USER']}},
   {path: 'auction/:date', component: AuctionComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_MANAGER']}},
-  {path: 'account', component: AccountComponent, canActivate: [AuthenticationGuard],
+  {path: 'user', component: UserComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_USER']}},
   {path: 'lot', component: LotComponent, canActivate: [AuthenticationGuard],
     data: {roles: ['ROLE_USER']}},
+  {path: 'lot/details/:id', component: LotDetailsComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

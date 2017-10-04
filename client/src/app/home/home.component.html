@@ -1,21 +1,67 @@
-<div>Сегодня: {{getNow() | date:'dd.MM.y'}}</div>
-<div>Текущее время: {{getNow() | date:'HH:mm:ss Z'}}</div>
-<div *ngIf="currentAuction">
-  Текущий аукцион: {{currentAuction.lot.title}}
-  <button [routerLink]="['/auction/current', currentAuction.id]">участвовать</button>
+<!--<div>Сегодня: {{getNow() | date:'dd.MM.y'}}</div>-->
+<div id="currentAuction" *ngIf="currentAuction">
+  <div>Текущий аукцион: {{currentAuction.lot.title}}<br/>
+  Время окончания: {{currentAuction.finishTime | date:'HH:mm'}}</div>
+  <button md-raised-button class="auctionButton" [routerLink]="['/auction/current', currentAuction.id]">участвовать</button>
 </div>
-<div>Аукционы сегодня:</div>
-<thead>
+<div class="warnMessage" *ngIf="!auctionsExist()">{{noAuctionsMessage}}</div>
+
+<div *ngIf="auctionsExist()" class="mainTable">
+  <div class="titleColumn">
+    <div class="mainTableHead">
+      <div class="common" style="border-color: #000000">название лота</div>
+      <div class="common" *ngFor="let auction of auctions">{{auction.lot.title}}</div>
+    </div>
+  </div>
+  <div class="priceColumn">
+    <div class="mainTableHead">
+      <div class="common" style="border-color: #000000">цена</div>
+      <div class="common" *ngFor="let auction of auctions">{{auction.lot.startPrice.toFixed(2)}}</div>
+    </div>
+  </div>
+  <div class="timeColumn">
+    <div class="mainTableHead">
+      <div class="common" style="border-color: #000000">старт торгов</div>
+    <div class="common" *ngFor="let auction of auctions">{{auction.startTime | date:'HH:mm'}}</div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div *ngIf="auctionsExist()">
+  <div class="tableHead">
+    <span class="title">Название лота</span>
+    <span class="price">Цена</span>
+    <span class="time">Время старта</span>
+  </div>
+  <div class="tableBody" *ngFor="let auction of auctions">
+    <span class="title">{{auction.lot.title}}</span>
+    <span class="price">{{auction.lot.startPrice}}</span>
+    <span class="time">{{auction.startTime | date:'HH:mm'}}</span>
+  </div>
+</div>
+
+
+
+
+
+
+<div class = 'mat-error' style="font-size: 30px" *ngIf="!auctionsExist()">На сегодня нет доступных аукционов</div>
+<div class="mat-h3" *ngIf="auctionsExist()">Аукционы сегодня:
+<th>
 <tr>
   <th>Лот</th>
   <th>Стартовая цена</th>
   <th>Начало торгов</th>
 </tr>
-</thead>
+</th>
 <tbody>
+<div>
 <tr *ngFor="let auction of auctions">
-    <td *ngIf="isActual(auction)">{{auction.lot.title}}</td>
-    <td *ngIf="isActual(auction)">{{auction.lot.startPrice.toFixed(2)}}</td>
-    <td *ngIf="isActual(auction)">{{auction.startTime | date:'HH:mm'}}</td>
+    <td>{{auction.lot.title}}</td>
+    <td>{{auction.lot.startPrice.toFixed(2)}}</td>
+    <td>{{auction.startTime | date:'HH:mm'}}</td>
 </tr>
+</div>
 </tbody>
+</div>-->

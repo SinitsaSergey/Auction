@@ -30,5 +30,4 @@ export class ManagerComponent implements OnInit {
 this.managerService.getMyDays()
   .then(tradingDays => this.tradingDays = tradingDays);
   }
-
 }

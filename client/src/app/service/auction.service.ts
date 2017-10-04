@@ -14,7 +14,8 @@ export class AuctionService {
 
   getAllForDay(date: string): Promise<Auction[]> {
     return this.http.get<Auction[]>(AUCTION_PATH + '?date=' + date)
-      .toPromise();
+      .toPromise()
+      .catch();
   }
 
   getById(id: number): Promise<Auction> {
@@ -45,6 +46,12 @@ export class AuctionService {
 
   getFinishTime(id: number): Promise<number> {
     return this.http.get<number>(AUCTION_PATH + id + '/finish/')
-      .toPromise();
+      .toPromise()
+      .catch(error => this.errorHandle(error));
+  }
+
+  private errorHandle(error): Promise<any> {
+    console.log(error);
+    return null;
   }
 }

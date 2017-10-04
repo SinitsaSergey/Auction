@@ -7,8 +7,8 @@ import {Lot} from '../model/lot';
 import {LotService} from '../service/lot.service';
 import {AdminService} from "../service/admin.service";
 
-const MAX_AUCTIONS = 2;
-const DURATION = 60000;
+const MAX_AUCTIONS = 4;
+const DURATION = 600000;
 
 @Component({
   selector: 'app-auction',
@@ -19,6 +19,7 @@ export class AuctionComponent implements OnInit, OnDestroy {
 
   private sub: any;
   date: string;
+  loading = false;
   auctions: Auction[] = [];
   queueAuctions: Auction[] = [];
   startTimeString: string;

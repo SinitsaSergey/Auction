@@ -1,5 +1,5 @@
-<h3> Выберите день: </h3>
-<div>
+<div class="tradingDays">
+  <h3> Выберите день: </h3>
   <a *ngFor="let tradingDay of tradingDays"
      [routerLink]="['/auction', tradingDay.tradingDate | date: 'y-MM-dd']">
     {{tradingDay.tradingDate | date:'dd.MM.y'}}<br/>

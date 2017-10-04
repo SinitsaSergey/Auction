@@ -1,57 +1,71 @@
-<div>
-  Аукционы на: {{date}}
-  <div *ngIf="auctions.length>0"> <thead>
-  <tr align="center">
-    <th>Лот</th>
-    <th>Начало</th>
-    <th>Окончание</th>
-    <th>Статус</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let auction of auctions" align="center">
-    <td>{{auction.lot.title}}</td>
-    <td>{{auction.startTime | date:'HH:mm'}}</td>
-    <td>{{auction.finishTime | date:'HH:mm'}}</td>
-    <td *ngIf="auction.lot.status.status === 'onsale'">В продаже</td>
-    <td *ngIf="auction.lot.status.status === 'queue'">В очереди</td>
-    <td *ngIf="auction.lot.status.status === 'saled'">Торги окончены</td>
-    <td *ngIf="auction.lot.status.status === 'confirmed'">Подтверждено</td>
-    <td *ngIf="auction.lot.status.status === 'canceled'">Отменено</td>
-    <td>
-      <button [routerLink]="['/auction/details', auction.id]">детали</button>
-    </td>
-    <td>
-      <button (click)="remove(auction.id)">удалить</button>
-    </td>
-  </tr>
-  </tbody></div>
-</div>
-<div *ngIf="!dayIsFull()">
-  <button (click)="getNewAuction()">Добавить аукцион</button>
-</div>
-<div *ngIf="dayIsFull()">
-  <button (click)="getNewAuction()">Добавить в очередь</button>
-</div>
-<div *ngIf="newAuction">
-  <div *ngIf="!selectedLot">
-    <div *ngFor="let lot of getLots()">
-      <p>
-        <a href="javascript:void(0)" (click)="selectedLot = lot">{{lot.title}}</a>
-        {{lot.added | date: 'dd.MM.y HH:mm:ss'}}
-      </p>
+<div class="auctionsForDay">
+  <div>
+    <h3>Аукционы на: {{date}}</h3>
+    <div *ngIf="auctions.length>0">
+      <thead>
+      <tr align="center">
+        <th>Лот</th>
+        <th>Начало</th>
+        <th>Окончание</th>
+        <th>Статус</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let auction of auctions" align="center">
+        <td>{{auction.lot.title}}</td>
+        <td>{{auction.startTime | date:'HH:mm'}}</td>
+        <td>{{auction.finishTime | date:'HH:mm'}}</td>
+        <td *ngIf="auction.lot.status.status === 'onsale'">В продаже</td>
+        <td *ngIf="auction.lot.status.status === 'queue'">В очереди</td>
+        <td *ngIf="auction.lot.status.status === 'saled'">Торги окончены</td>
+        <td *ngIf="auction.lot.status.status === 'confirmed'">Подтверждено</td>
+        <td *ngIf="auction.lot.status.status === 'canceled'">Отменено</td>
+        <td>
+          <button [routerLink]="['/auction/details', auction.id]">детали</button>
+        </td>
+        <td>
+          <button (click)="remove(auction.id)">удалить</button>
+        </td>
+      </tr>
+      </tbody>
     </div>
   </div>
-  <div *ngIf="selectedLot">
-    <div>
-      {{selectedLot.title}}<br/>
-      {{selectedLot.description}}<br/>
-      {{selectedLot.seller.username}}<br/>
-      {{selectedLot.startPrice.toFixed(2)}}
+  <div>
+    <div *ngIf="!dayIsFull()" class="nestedMenu">
+      <button (click)="getNewAuction()">Добавить аукцион</button>
     </div>
-    <div><input *ngIf="!dayIsFull()" type="time" step="600" [(ngModel)]="startTimeString" (change)="convertToDate()">
+    <div *ngIf="dayIsFull()" class="nestedMenu">
+      <button (click)="getNewAuction()">Добавить в очередь</button>
     </div>
-    <div><input type="number" [(ngModel)]="newAuction.stepPrice" min="0.01" step="0.01"></div>
+    <div *ngIf="newAuction">
+      <div *ngIf="!selectedLot">
+        <div *ngFor="let lot of getLots()">
+          <p>
+            <a href="javascript:void(0)" (click)="selectedLot = lot">{{lot.title}}</a>
+            {{lot.added | date: 'dd.MM.y HH:mm:ss'}}
+          </p>
+        </div>
+      </div>
+      <div *ngIf="selectedLot">
+        <div class="auctionForm">
+          <label>Лот</label>
+          <span>{{selectedLot.title}}</span>
+          <label>Описание</label>
+          <span>{{selectedLot.description}}</span>
+          <label>Продавец</label>
+          <span>{{selectedLot.seller.username}}</span>
+          <label>ЛотСтартовая цена</label>
+          <span>{{selectedLot.startPrice.toFixed(2)}}</span>
+          <label>Начало аукциона</label>
+          <span> <input *ngIf="!dayIsFull()" type="time" step="600" [(ngModel)]="startTimeString"
+                 (change)="convertToDate()"></span>
+          <label>Шаг торгов</label>
+          <span><input type="number" [(ngModel)]="newAuction.stepPrice" min="0.01" step="0.01"></span>
+        </div>
+        <div class="nestedMenu">
+          <button md-raised-button color="primary" (click)="insert()" class="submitButton">Сохранить</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <button (click)="insert()">Сохранить</button>
 </div>
