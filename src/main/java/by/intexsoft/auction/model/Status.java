@@ -13,11 +13,4 @@ public class Status extends AbstractEntity {
 	@Column
     public String status;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */ 
-	@Override
-	public String toString() {
-		return "Status [status=" + status + "]";
-	}
 }

@@ -5,7 +5,7 @@ import {AuctionService} from '../service/auction.service';
 import {DateUtils} from '../utils/date-utils';
 import {Lot} from "../model/lot";
 
-const DURATION = 60000;
+const DURATION = 600000;
 
 @Component({
   selector: 'app-auction-details',

@@ -1,6 +1,6 @@
 <!--<div>Сегодня: {{getNow() | date:'dd.MM.y'}}</div>-->
 <div id="currentAuction" *ngIf="currentAuction">
-  <div>Текущий аукцион: {{currentAuction.lot.title}}<br/>
+  <div class="currentInfo">Текущий аукцион: {{currentAuction.lot.title}}<br/>
   Время окончания: {{currentAuction.finishTime | date:'HH:mm'}}</div>
   <button md-raised-button class="auctionButton" [routerLink]="['/auction/current', currentAuction.id]">участвовать</button>
 </div>
@@ -22,7 +22,12 @@
   <div class="timeColumn">
     <div class="mainTableHead">
       <div class="common" style="border-color: #000000">старт торгов</div>
-    <div class="common" *ngFor="let auction of auctions">{{auction.startTime | date:'HH:mm'}}</div>
+    <div class="common" *ngFor="let auction of auctions">{{auction.startTime | date:'HH:mm'}}<span>
+      <button md-button md-icon-button class="visibility" [routerLink]="['/lot/details', auction.lot.id]">
+          <md-icon>visibility</md-icon>
+        </button>
+    </span>
+    </div>
     </div>
   </div>
 </div>

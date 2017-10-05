@@ -2,9 +2,7 @@ package by.intexsoft.auction.service.impl;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +25,7 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 
 	@Autowired
 	private AuthorityService authorityService;
-
+	
 	@Override
 	public User getUserByUsername(String username) {
 		return repository.findByUsername(username);
@@ -40,9 +38,6 @@ public class UserServiceImpl extends AbstractServiceEntityImpl<User> implements 
 		user.authorities.add(authorityService.findByAuthority("ROLE_USER"));
 		user.registrated = new Date();
 		user.email = user.email.toLowerCase();
-		System.out.println();
-		System.out.println("save "+user);
-		System.out.println();
 		return repository.save(user);
 	}
 

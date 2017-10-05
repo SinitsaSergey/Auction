@@ -17,11 +17,15 @@ repositories {
     mavenCentral()
 }
 
+//war.dependsOn = ['client:buildClient']
+
 war {
 from 'client/dist'
 }
 
 dependencies {
+	testCompile "junit:junit:4.11"
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.10.0'
 	compile 'org.springframework:spring-webmvc:4.3.9.RELEASE'
 	compile 'org.springframework.data:spring-data-jpa:1.11.4.RELEASE'
 	compile 'org.hibernate:hibernate-core:5.2.10.Final'
@@ -36,4 +40,5 @@ dependencies {
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+           
 }

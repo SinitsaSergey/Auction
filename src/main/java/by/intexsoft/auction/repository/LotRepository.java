@@ -13,5 +13,4 @@ public interface LotRepository extends JpaRepository<Lot, Integer> {
 	List<Lot> findByStatus (Status status);
 	
 	List<Lot> findBySeller (User seller);
-
 }

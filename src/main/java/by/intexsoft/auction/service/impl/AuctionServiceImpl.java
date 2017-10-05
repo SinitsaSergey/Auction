@@ -2,11 +2,7 @@ package by.intexsoft.auction.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +23,10 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 
 	@Autowired
 	private AuctionRepository repository;
-
+	
 	@Autowired
 	private LotService lotService;
-
+	
 	@Autowired
 	private BidService bidService;
 
@@ -42,9 +38,8 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 
 	@Override
 	public void delete(int id) {
-		// Auction auction = repository.findOne(id);
-		// auction.lot.status = statusService.getByStatus("registered");
-		lotService.save(repository.findOne(id).lot, "registered");
+		Auction auction = repository.findOne(id);
+		lotService.save(auction.lot, "registered");
 		repository.delete(id);
 	}
 
@@ -54,7 +49,14 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 	}
 
 	@Override
-	public Auction getByLot(Lot lot) {
+	public List<Auction> getOnSaleForDay(TradingDay tradingDay) {
+		return repository.findByTradingDayAndStartTimeAfterOrderByStartTime(tradingDay,
+				new Date(new Date().getTime() - 600000));
+	}
+
+	@Override
+	public Auction getByLot(int lotId) {
+		Lot lot = lotService.find(lotId);
 		return repository.findByLot(lot);
 	}
 
@@ -68,8 +70,11 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 		bidService.save(bid);
 		auction.currentBid = bid.value;
 		auction.bidTime = bid.bidTime;
+		auction.bidholder = bid.bidder;
 		auction.bidList.add(bid);
-		auction.finishTime.setTime(new Date().getTime() + 30000);
+		if ((auction.finishTime.getTime() - new Date().getTime()) > 30000) {
+			auction.finishTime = new Date(new Date().getTime() + 30000);
+		}
 		repository.save(auction);
 		return bid.value;
 	}
@@ -79,47 +84,48 @@ public class AuctionServiceImpl extends AbstractServiceEntityImpl<Auction> imple
 		Auction auction = repository.findOne(id);
 		if (timeExpired(auction) && bidExist(auction)) {
 			lotService.save(repository.findOne(id).lot, "saled");
-			shiftTime(auction);
 		}
 		if (timeIsOver(auction) && !bidExist(auction)) {
 			lotService.save(repository.findOne(id).lot, "canceled");
-			shiftTime(auction);
 		}
-		/*if (noRecentBids(auction) && bidExist(auction)) {
-			lotService.save(repository.findOne(id).lot, "saled");
-			shiftTime(auction);
-			}*/
-	}
-	
-	private void shiftTime(Auction auction) {
-		/*List <Auction> auctionsForDay = getForDay(auction.tradingDay);
-		List <Auction> auctionsOnSale = new LinkedList<Auction>();
-		for (int i=1; i<auctionsForDay.size()-1; i++) {
-			if (!auctionsForDay.get(i).lot.status.status.equals("onsale")) break;
-			Timestamp finishThis = auctionsForDay.get(i).finishTime;
-			Timestamp startNext = auctionsForDay.get(i+1).startTime;
-			long interval = startNext.getTime() - finishThis.getTime();
-			auctionsForDay.get(i+1).startTime = auctionsForDay.get(i).finishTime;
-			Calendar finish = Calendar.getInstance();
-			finish.setTime(new Date());
-			auctionsForDay.get(i+1).finishTime = finish;
-		}*/
-		
 	}
 
-	private boolean timeExpired (Auction auction) {
+	public void replaceFromQueue(Auction auction) {
+		if (auction == null)
+			return;
+		List<Auction> auctions = repository.findByTradingDayAndStartTimeIsNull(auction.tradingDay);
+		auctions.get(0).startTime = auction.startTime;
+		auctions.get(0).finishTime = auction.finishTime;
+		repository.save(auctions.get(0));
+		lotService.save(auctions.get(0).lot, "onsale");
+		repository.delete(auction);
+	}
+
+	private boolean timeExpired(Auction auction) {
 		return (auction.finishTime.compareTo(new Date()) == -1);
 	}
-	
-	private boolean bidExist (Auction auction) {
+
+	private boolean bidExist(Auction auction) {
 		return (!auction.currentBid.equals(auction.lot.startPrice));
 	}
-	
-	private boolean timeIsOver (Auction auction) {
+
+	private boolean timeIsOver(Auction auction) {
 		return auction.startTime.getTime() + 60000 < new Date().getTime();
 	}
-	
-	/*private boolean noRecentBids (Auction auction) {
-		return (new Date().getTime() - auction.bidTime.getTime()>30000);
-	}*/
+
+	@Override
+	public boolean timeIsBusy(Auction auction) {
+		Date start = new Date(auction.startTime.getTime() + 1);
+		Date end = new Date(auction.finishTime.getTime() - 1);
+		List<Auction> auctions = repository.findByStartTimeBetween(start, end);
+		List<Auction> auctions2 = repository.findByFinishTimeBetween(start, end);
+		if (auctions.size() > 0 || auctions2.size() > 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public List<Auction> getByBidholder(User user) {
+		return repository.findByBidholder(user);
+	}
 }

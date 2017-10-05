@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,7 +20,7 @@ public class Auction extends AbstractEntity {
 
 	private static final long serialVersionUID = 2493466916836151381L;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = EAGER)
 	@JoinColumn(name = "day_id")
 	public TradingDay tradingDay;
 	
@@ -37,10 +36,14 @@ public class Auction extends AbstractEntity {
 	@Column (name = "current_bid", scale =2)
 	public BigDecimal currentBid;
 	
+	@ManyToOne(fetch = EAGER)
+	@JoinColumn(name = "bidholder_id")
+	public User bidholder;
+	
 	@Column (name = "bid_time")
 	public Date bidTime;
 
-	@OneToMany(mappedBy = "auction", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "auction", fetch = EAGER)
 	public Set<Bid> bidList;
 	
 	@OneToOne(fetch = EAGER)
@@ -53,11 +56,4 @@ public class Auction extends AbstractEntity {
 	public Auction (Lot lot) {
 		this.lot = lot;
 	}
-	
-	@Override
-	public String toString() {
-		return "Auction [tradingDay=" + tradingDay.tradingDate + ", startTime=" + startTime + ", finishTime=" + finishTime
-				+ ", stepPrice=" + stepPrice + ", bidList=" + bidList + ", lot=" + lot.title + "]";
-	}
-
 }

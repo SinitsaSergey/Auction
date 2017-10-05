@@ -34,21 +34,15 @@ public class Lot extends AbstractEntity{
 	
 	@ManyToOne(fetch = EAGER)
 	@JoinColumn(name = "status_id")
-	public Status status; // registered / on sale / queue / saled / confirmed
+	public Status status;
 	
 	@OneToOne(fetch = LAZY)
 	@JoinColumn(name = "auction_id")
 	public Auction auction;
 	
+	@Column (name = "image_path")
+	public String imagePath;
+	
 	@Column
 	public Timestamp added;
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Lot [title=" + title + ", description=" + description + ", startPrice=" + startPrice + ", seller="
-				+ seller + ", status=" + status + "]";
-	}
 }

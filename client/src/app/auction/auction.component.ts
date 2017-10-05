@@ -6,8 +6,9 @@ import {TradingDay} from '../model/trading-day';
 import {Lot} from '../model/lot';
 import {LotService} from '../service/lot.service';
 import {AdminService} from "../service/admin.service";
+import {parseHttpResponse} from "selenium-webdriver/http";
 
-const MAX_AUCTIONS = 4;
+const MAX_AUCTIONS = 2;
 const DURATION = 600000;
 
 @Component({
@@ -94,17 +95,25 @@ export class AuctionComponent implements OnInit, OnDestroy {
     this.newAuction.bidTime = new Date();
     this.auctionService.insert(this.newAuction, this.dayIsFull())
       .then(() => {
-      this.getNewAuction();
+        this.getNewAuction();
       });
   }
 
   remove(id): void {
     this.auctionService.remove(id)
-      .then(() => {
-      this.getAuctionsForDay();
-      this.getFreeLots();
+      .then(success => {
+        this.getAuctionsForDay();
+        this.getFreeLots();
       });
 
+  }
+
+  confirm(lot: Lot): void {
+    this.lotService.confirm(lot)
+      .then(success => {
+        this.getAuctionsForDay();
+        this.getFreeLots();
+      });
   }
 
   getNewAuction() {

@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
-    "build": "ng build",
+    "build": "ng build --base-href ./ --no-sourcemap && npm run minify_bundle && npm run minify_inline && npm run minify_polyfills&& npm run minify_vendor",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

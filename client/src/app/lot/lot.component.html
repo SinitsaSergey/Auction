@@ -30,39 +30,72 @@
     </form>
   </div>
   <div class="lotContentTable">
+    <h3>Мои лоты</h3>
+  <table class="lotTable">
+    <thead *ngIf="myLots" class="lotTableHead">
+    <tr>
+      <th>лот</th>
+      <th>цена</th>
+      <th>время торгов</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let myLot of myLots" class="lotTableRow">
+      <td style="text-align: start">{{myLot.title}}</td>
+      <td>{{myLot.startPrice.toFixed(2)}}</td>
+      <td *ngIf="myLot.status.status === 'onsale'">
+        {{myLot.auction.startTime | date: 'dd.MM.y HH:mm:ss'}}
+      </td>
+      <td *ngIf="myLot.status.status === 'queue'"> {{myLot.auction.tradingDay.tradingDate | date: 'dd.MM.y'}} в очереди</td>
+      <td *ngIf="myLot.status.status === 'registered'">не назначено</td>
+      <td *ngIf="myLot.status.status === 'saled'">ожидает подтверждения</td>
+      <td *ngIf="myLot.status.status === 'confirmed'">продано {{myLot.auction.finishTime | date: 'dd.MM.y HH:mm:ss'}} </td>
+      <td *ngIf="myLot.status.status === 'canceled'">отменено</td>
+      <td>
+        <button md-button md-icon-button class="visibility" [routerLink]="['/lot/details', myLot.id]">
+          <md-icon>visibility</md-icon>
+        </button>
+      </td>
+      <td>
+        <button md-button md-icon-button class="close" (click)="remove(myLot.id)">
+          <md-icon>close</md-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+    <h3>Выигранные торги</h3>
     <table class="lotTable">
       <thead *ngIf="myLots" class="lotTableHead">
       <tr>
-        <th>Лот</th>
-        <th>Цена</th>
-        <th>Время торгов</th>
+        <th>лот</th>
+        <th>цена</th>
+        <th>время торгов</th>
         <th></th>
         <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let myLot of myLots" class="lotTableRow">
+      <tr *ngFor="let myLot of purchasedLots" class="lotTableRow">
         <td style="text-align: start">{{myLot.title}}</td>
-        <td>{{myLot.startPrice.toFixed(2)}}</td>
+        <td>{{getFinishPrice(myLot)}}</td>
         <td *ngIf="myLot.status.status === 'onsale'">
           {{myLot.auction.startTime | date: 'dd.MM.y HH:mm:ss'}}
         </td>
+        <td *ngIf="myLot.status.status === 'queue'"> {{myLot.auction.tradingDay.tradingDate | date: 'dd.MM.y'}} в очереди</td>
         <td *ngIf="myLot.status.status === 'registered'">не назначено</td>
         <td *ngIf="myLot.status.status === 'saled'">ожидает подтверждения</td>
-        <td *ngIf="myLot.status.status === 'confirmed'">продано</td>
+        <td *ngIf="myLot.status.status === 'confirmed'">продано {{myLot.auction.finishTime | date: 'dd.MM.y HH:mm:ss'}} </td>
         <td *ngIf="myLot.status.status === 'canceled'">отменено</td>
         <td>
-          <button md-button md-icon-button [routerLink]="['/lot/details', myLot.id]">
-            <md-icon>arrow_right</md-icon>
-          </button>
-        </td>
-        <td>
-          <button md-button md-icon-button (click)="remove(myLot.id)">
-            <md-icon>close</md-icon>
+          <button md-button md-icon-button class="visibility" [routerLink]="['/lot/details', myLot.id]">
+            <md-icon>visibility</md-icon>
           </button>
         </td>
       </tr>
       </tbody>
     </table>
-  </div>
+</div>
 </div>

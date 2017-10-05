@@ -1,14 +1,38 @@
-<div class="auctionsForDay">
-<div id="currentDate">{{getNow() | date: 'HH:mm:ss'}}</div>
-<div *ngIf="currentAuction">
-  {{currentAuction.lot.title}}
-  {{currentAuction.lot.description}}
-  {{currentAuction.startTime | date: 'HH:mm:ss'}}
-  {{currentAuction.finishTime | date: 'HH:mm:ss'}}
-  {{currentStatus}}
-  <p *ngIf="enableTrading">Осталось: {{timeToString(getRestTime())}}</p>
-  <p *ngIf="!enableTrading">Аукцион завершен</p>
-  <p>Текущая цена: {{currentPrice}}</p>
-  <button *ngIf="enableTrading" (click)="placeBid()">ставка +{{currentAuction.stepPrice.toFixed(2)}}</button>
-</div>
+<div *ngIf="currentAuction" class="currentAuction">
+  <div class="bidInfo">
+    <div>
+      <p class = "bidLabel">Текущая ставка</p>
+      <p *ngIf="currentPrice" class = "price">{{getBid(currentPrice)}}</p>
+
+    </div>
+    <div>
+      <p class = "bidLabel">Вы можете сделать ставку еще</p>
+      <p class="time">{{timeToString(getRestTime())}}</p>
+    </div>
+  </div>
+  <div class="bidButton">
+    <button *ngIf="enableTrading && anotherUser()" (click)="placeBid()" class="submitButton" md-raised-button color="primary">ставка
+      +{{currentAuction.stepPrice.toFixed(2)}}
+    </button>
+    <label *ngIf="!anotherUser()">Это ваш лот</label>
+    <label *ngIf="!enableTrading">Аукцион завершен!</label>
+  </div>
+  <div class="lotDetailsContent">
+    <div class="lotInfo">
+      <label>Описание</label>
+      <span>{{currentAuction.lot.description}}</span>
+      <label>Продавец</label>
+      <span>{{currentAuction.lot.seller.username}}</span>
+      <label>Стартовая цена</label>
+      <span>{{currentAuction.lot.startPrice.toFixed(2)}}</span>
+      <label>Начало торгов</label>
+      <span>{{currentAuction.startTime | date: 'HH:mm:ss'}}</span>
+      <label>Торги продлятся до</label>
+      <span> {{getTimeLimit() | date: 'HH:mm:ss'}}</span>
+    </div>
+    <div>
+      <img class="lotImage" *ngIf="currentAuction.lot.imagePath" src={{currentAuction.lot.imagePath}}>
+      <img class="lotImage" *ngIf="!currentAuction.lot.imagePath" src="../../assets/img/no-image.jpg">
+    </div>
+  </div>
 </div>

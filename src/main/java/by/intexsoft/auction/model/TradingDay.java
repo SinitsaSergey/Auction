@@ -32,12 +32,4 @@ public class TradingDay extends AbstractEntity{
 	@OneToMany(mappedBy = "tradingDay", fetch = LAZY)
 	public Set<Auction> auctions;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "TradingDay [tradingDate=" + tradingDate + ", manager=" + manager + "]";
-	}
-
 }

@@ -1,6 +1,20 @@
-<div *ngIf="lot">
-  <h3>{{lot.title}}</h3>
+<h3 *ngIf="lot">{{lot.title}}</h3>
+<div class="lotDetailsContent" *ngIf="lot">
+  <div class="lotInfo">
+    <label>Стартовая цена</label>
+    <span>{{lot.startPrice.toFixed(2)}}</span>
+    <label>Описание</label>
+    <span>{{lot.description}}</span>
+    <label>Продавец</label>
+    <span>{{lot.seller.username}}</span>
+    <label>Статус</label>
+    <span>{{lot.status.status}}</span>
+    <label>Добавлен (обновлен)</label>
+    <span>{{lot.added | date:'dd.MM.y HH:mm:ss'}}</span>
+  </div>
   <div>
-    <img src={{lot.imagePath}}>
+    <img class="lotImage" *ngIf="lot.imagePath" src={{lot.imagePath}}>
+    <img class="lotImage" *ngIf="!lot.imagePath" src="../../assets/img/no-image.jpg">
   </div>
 </div>
+<div><button class="submitButton" md-raised-button color="primary" routerLink="/lot">Назад к лотам</button></div>

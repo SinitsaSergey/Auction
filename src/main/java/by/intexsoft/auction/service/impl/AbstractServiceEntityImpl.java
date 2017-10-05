@@ -33,7 +33,5 @@ public class AbstractServiceEntityImpl<T extends AbstractEntity> implements Abst
 	public void delete(int id) {
 		repository.delete(id);
 	}
-	
-	
 
 }

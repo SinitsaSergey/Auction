@@ -14,7 +14,6 @@ export class ManagerService {
   getMyDays (): Promise<TradingDay[]> {
     return this.http.get<TradingDay[]>(TRADING_DAY_PATH + 'my')
       .toPromise();
-     // .then(response => response.json());
   }
 
 }

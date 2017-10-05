@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getAuctionsForDay(): void {
-    this.auctionService.getAllForDay(this.convertToModel(new Date()))
+    this.auctionService.getOnSaleForDay(this.convertToModel(new Date()))
       .then(auctions => {
         this.auctions = auctions;
       });
@@ -53,8 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (!this.auctions) return;
     for (const auction of this.auctions) {
       if (+auction.startTime < this.getNow()
-        && +auction.finishTime > this.getNow()
-        && auction.lot.status.status === 'onsale') {
+        && +auction.finishTime > this.getNow()) {
         this.currentAuction = auction;
       }
     }

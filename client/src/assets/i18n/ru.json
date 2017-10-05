@@ -1,0 +1,13 @@
+{
+  "welcomeMessage": "Добро пожаловать, ",
+  "adminAccount": "Кабинет администратора",
+  "managerAccount": "Кабинет менеджера",
+  "userAccount": "Личный кабинет",
+  "myLots": "Мои лоты",
+  "myProfile": "Мой профиль",
+  "auctions": "Аукционы",
+  "specification": "Правила",
+  "login": "Войти",
+  "registration": "Зарегистрироваться",
+  "logout": "Выйти"
+}

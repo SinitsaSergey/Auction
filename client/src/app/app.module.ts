@@ -14,7 +14,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AdminComponent} from './admin/admin.component';
 import {AuctionComponent} from './auction/auction.component';
 import {LotComponent} from './lot/lot.component';
-import {TradingDayComponent} from './trading-day/trading-day.component';
 import {UserComponent} from './user/user.component';
 import {AccountComponent} from './account/account.component';
 import {LotService} from './service/lot.service';
@@ -28,18 +27,10 @@ import {ManagerService} from './service/manager.service';
 import {JWTInterceptor} from './service/JWTInterceptor';
 import {AuctionDetailsComponent} from './auction-details/auction-details.component';
 import {AuctionCurrentComponent} from './auction-current/auction-current.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {
-  MdButtonModule, MdCardModule, MdDatepickerModule, MdExpansionModule, MdGridListModule, MdIconModule, MdInputModule,
-  MdMenuModule,
-  MdNativeDateModule, MdProgressSpinnerModule, MdSelectModule,
-  MdTabsModule,
-  MdToolbarModule
-} from "@angular/material";
 import {MaterialDesignModule} from "./module/material-design.module";
-import { TimerComponent } from './timer/timer.component';
-import { SpecificationComponent } from './specification/specification.component';
-import { LotDetailsComponent } from './lot-details/lot-details.component';
+import {TimerComponent} from './timer/timer.component';
+import {SpecificationComponent} from './specification/specification.component';
+import {LotDetailsComponent} from './lot-details/lot-details.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +42,6 @@ import { LotDetailsComponent } from './lot-details/lot-details.component';
     AdminComponent,
     AuctionComponent,
     LotComponent,
-    TradingDayComponent,
     UserComponent,
     AccountComponent,
     ManagerComponent,

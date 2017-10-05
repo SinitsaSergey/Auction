@@ -41,13 +41,13 @@ div.common {
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
-  margin-left: 10%;
-  border: solid 2px;
+  border-top: solid 2px;
+  border-bottom: solid 2px;
   border-color: #9c9c9c;
   font-size: 30px;
   align-content: center;
-  background-color: #bdbaba;
-  width: 70%;
+  background-color: #cccccc;
+  width: 100%;
 }
 
 #currentAuction div {
@@ -55,8 +55,12 @@ div.common {
 }
 
 button.auctionButton {
-  background-color: rgba(67, 67, 67, 0.93);
+  background-color: rgba(90, 76, 204, 0.84);
   color: #ffffff;
+}
+
+.currentInfo {
+  margin-left: 10%;
 }
 
 div.tableHead {

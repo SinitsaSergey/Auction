@@ -20,10 +20,6 @@ public class TradingDayServiceImpl extends AbstractServiceEntityImpl<TradingDay>
 	@Autowired
 	private TradingDayRepository repository;
 
-	/* 
-	 * yyyy-mm-dd
-	 */
-	
 	@Override
 	public TradingDay getByTradingDate(String dateString) {
 		Calendar tradingDate = convertToCalendar(dateString);
@@ -41,5 +37,4 @@ public class TradingDayServiceImpl extends AbstractServiceEntityImpl<TradingDay>
 	public List<TradingDay> getByManager(User manager) {
 		return repository.findByManager(manager);
 	}
-
 }

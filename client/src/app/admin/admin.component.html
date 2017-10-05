@@ -1,35 +1,49 @@
-<div class = "adminPanel">
-  <form #userSearchForm="ngForm" (ngSubmit)="selectUser()">
-    <label>Поиск пользователя:</label>
-    <input [(ngModel)]="selectedUsername" name="selectedUsername" required placeholder="имя пользователя">
-    <button class="submitButton" [disabled]="!userSearchForm.valid">Поиск</button>
-  </form>
-  <div class="adminContent" *ngIf="selectedUser">
-    <div><h2>Имя пользователя: {{selectedUser.username}}</h2></div>
-    <div *ngIf="isManager()">Роль: Менеджер
-      <button class="submitButton" (click)="setAs('user')">Убрать роль менеджера</button>
-    </div>
-    <div *ngIf="isUser()">Роль: Пользователь
-      <button class="submitButton" (click)="setAs('manager')">Назначить менеджером</button>
-    </div>
-    <div *ngIf="!selectedUser.isBanned">Не в блоке
-      <button class="submitButton" (click)="banUser(true)">Заблокировать пользователя</button>
-    </div>
-    <div *ngIf="selectedUser.isBanned">В блоке
-      <button class="submitButton" (click)="banUser(false)">Разблокировать пользователя</button>
-    </div>
-    <form *ngIf="isManager()">
-      Назначить распорядителем на:
-      <input type="date" [(ngModel)]="stringDate" (change)="getTradingDay()" name="tradingDate">
-      <div>
-        <img *ngIf="loading"
-             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-        <button [disabled]="loading" class="submitButton" *ngIf="!tradingDay" (click)="createTradingDay()">Назначить</button>
-      </div>
+<div class="adminComponent">
+  <div class="adminPanel">
+    <form #userSearchForm="ngForm" (ngSubmit)="selectUser()">
+      <label>Поиск пользователя:</label>
+      <input [(ngModel)]="selectedUsername" name="selectedUsername" required placeholder="имя пользователя">
+      <button class="submitButton" [disabled]="!userSearchForm.valid">Поиск</button>
     </form>
-    <div *ngIf="tradingDay">
-      На эту дату уже назначен
-      {{tradingDay.manager.username}}
+    <div class="adminContent" *ngIf="selectedUser">
+      <div><h2>Имя пользователя: {{selectedUser.username}}</h2></div>
+      <div><h2>{{selectedUser.firstName}} {{selectedUser.lastName}}</h2></div>
+      <div><h2>Телефон: {{selectedUser.phone}}</h2></div>
+      <div><h2>E-mail: {{selectedUser.email}}</h2></div>
+      <br/>
+      <div *ngIf="isManager()">Роль: Менеджер
+        <button class="submitButton" (click)="setAs('user')">Убрать роль менеджера</button>
+      </div>
+      <div *ngIf="isUser()">Роль: Пользователь
+        <button class="submitButton" (click)="setAs('manager')">Назначить менеджером</button>
+      </div>
+      <div *ngIf="!selectedUser.isBanned">Не в блоке
+        <button class="submitButton" (click)="banUser(true)">Заблокировать пользователя</button>
+      </div>
+      <div *ngIf="selectedUser.isBanned">В блоке
+        <button class="submitButton" (click)="banUser(false)">Разблокировать пользователя</button>
+      </div>
+      <form *ngIf="isManager()">
+        Назначить распорядителем на:
+        <input type="date" [(ngModel)]="stringDate" (change)="getTradingDay()" name="tradingDate">
+        <div>
+          <img *ngIf="loading"
+               src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+          <button [disabled]="loading" class="submitButton" *ngIf="!tradingDay" (click)="createTradingDay()">Назначить
+          </button>
+        </div>
+      </form>
+      <div *ngIf="tradingDay">
+        На эту дату уже назначен
+        {{tradingDay.manager.username}}
+      </div>
+    </div>
+  </div>
+  <div class="confirmedLots">
+  <h3>Подтвержденные лоты:</h3>
+    <div *ngFor="let lot of confirmedLots">
+      <a [routerLink]="['/lot/details', lot.id]">{{lot.title}}</a>
+      <p>{{getBuyer(lot.id)}}</p>
     </div>
   </div>
 </div>
