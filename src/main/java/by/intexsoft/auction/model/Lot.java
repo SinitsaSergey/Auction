@@ -6,7 +6,6 @@ import static javax.persistence.FetchType.LAZY;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -35,7 +34,7 @@ public class Lot extends AbstractEntity{
 	
 	@ManyToOne(fetch = EAGER)
 	@JoinColumn(name = "status_id")
-	public Status status; // registered / on sale / queue / saled / confirmed
+	public Status status;
 	
 	@OneToOne(fetch = LAZY)
 	@JoinColumn(name = "auction_id")
@@ -46,13 +45,4 @@ public class Lot extends AbstractEntity{
 	
 	@Column
 	public Timestamp added;
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Lot [title=" + title + ", description=" + description + ", startPrice=" + startPrice + ", seller="
-				+ seller + ", status=" + status + "]";
-	}
 }

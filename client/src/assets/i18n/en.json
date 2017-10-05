@@ -1,0 +1,13 @@
+{
+  "welcomeMessage": "Welcome, ",
+  "adminAccount": "Admin account",
+  "managerAccount": "Manager account",
+  "userAccount": "User account",
+  "myLots": "My lots",
+  "myProfile": "My profile",
+  "auctions": "Auctions",
+  "specification": "Specification",
+  "login": "Login",
+  "registration": "Registration",
+  "logout": "Logout"
+}

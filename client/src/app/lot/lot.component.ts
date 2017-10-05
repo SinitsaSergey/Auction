@@ -13,13 +13,16 @@ export class LotComponent implements OnInit {
 
   lot: Lot;
   myLots: Lot[];
-  showLots: boolean;
+  purchasedLots: Lot[];
+  purchasedLotBid: string;
 
   constructor(@Inject('lotService') private lotService: LotService,
               @Inject('auctionService') private auctionService: AuctionService) {
   }
 
   ngOnInit() {
+    this.getMyLots();
+    this.getPurchasedLots();
   }
 
   insert(): void {
@@ -36,13 +39,24 @@ export class LotComponent implements OnInit {
       .then(lots => this.myLots = lots);
   }
 
+  getPurchasedLots(): void {
+    this.lotService.getPurchasedLots()
+      .then(lots => this.purchasedLots = lots);
+  }
+
   createLot() {
     this.myLots = null;
     this.lot = new Lot;
   }
 
   remove(id): void {
-    this.lotService.remove(id);
-    this.getMyLots();
+    this.lotService.remove(id)
+      .then(success => this.getMyLots());
+  }
+
+  getFinishPrice(lot) {
+    this.auctionService.getByLot(lot.id)
+      .then(auction => this.purchasedLotBid = (+auction.currentBid).toFixed(2));
+    return this.purchasedLotBid;
   }
 }

@@ -148,35 +148,39 @@ public class Runner {
 		tradingDay.manager = manager;
 		dayService.save(tradingDay);
 
-		Auction auction1 = new Auction(lot2);
+		Auction auction1 = new Auction(lot1);
 		auction1.tradingDay = tradingDay;
 		Calendar calendar = new GregorianCalendar(2017, Calendar.OCTOBER, 2, 9, 0);
-		Calendar finish = new GregorianCalendar (2017, Calendar.OCTOBER, 2, 9, 1);
-		auction1.startTime = new Date();
-		auction1.finishTime = new Date();
-		auction1.currentBid = new BigDecimal(16).setScale(2, RoundingMode.HALF_EVEN);
+		Calendar finish = new GregorianCalendar (2017, Calendar.OCTOBER, 2, 9, 10);
+		auction1.startTime = calendar.getTime();
+		auction1.finishTime = finish.getTime();
+		auction1.currentBid = new BigDecimal(15).setScale(2, RoundingMode.HALF_EVEN);
 		auction1.bidTime = new Timestamp(new Date().getTime());
 		auction1.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
 		auctionService.save(auction1, "onsale");
 		
-		TradingDay tdDay = dayService.getByTradingDate("2017-10-02");
+		Auction auction2 = new Auction(lot2);
+		auction2.tradingDay = tradingDay;
+		Calendar calendar2 = new GregorianCalendar(2017, OCTOBER, 2, 9, 10);
+		Calendar finish2 = new GregorianCalendar (2017, OCTOBER, 2, 9, 20);
+		auction2.startTime = calendar2.getTime();
+		auction2.finishTime = finish2.getTime();
+		auction2.currentBid = new BigDecimal(16).setScale(2, RoundingMode.HALF_EVEN);
+		auction2.bidTime = new Timestamp(new Date().getTime());
+		auction2.stepPrice = new BigDecimal(1).setScale(2, RoundingMode.HALF_EVEN);
+		auctionService.save(auction2, "onsale");
 		
+		Calendar from = new GregorianCalendar(2017, OCTOBER, 2, 9, 19);
+		Calendar to = new GregorianCalendar(2017, OCTOBER, 2, 9, 25);
+		Date start = from.getTime();
+		Date end = to.getTime();
 		
-		auctionService.validIsNotExpired(auction1.getId());
+		System.out.println(auction1.startTime.getTime());
+		System.out.println(auction1.finishTime.getTime());
 		
-		int lotId = lot2.getId();
+		System.out.println(auction2.startTime.getTime());
+		System.out.println(auction2.finishTime.getTime());*/
 		
-		lotService.delete(lotId);
-		//auctionService.delete(auction1.getId());
-		System.out.println(lot2==null);
-		System.out.println(auction1==null);
-		
-		
-		System.out.println(auctionService.getForDay(tdDay));
-		
-		System.out.println(dayService.getByManager(manager));*/
-		
-
 		context.close();
 	}
 }

@@ -1,0 +1,41 @@
+.lotDetailsContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lotInfo {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  margin-left: 30px;
+}
+
+h3 {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+label {
+  font-size: 24px;
+  color: rgba(29, 29, 29, 0.89);
+}
+
+span {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: rgba(47, 47, 47, 0.84);
+}
+
+.lotImage {
+  border: 1px;
+  border-color: rgba(76, 76, 76, 0.76);
+  border-style: solid;
+  width: 360px;
+  margin-right: 50px;
+}
+
+.submitButton {
+  margin-left: 50px;
+}

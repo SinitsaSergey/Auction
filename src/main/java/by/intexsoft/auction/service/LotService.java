@@ -16,4 +16,6 @@ public interface LotService extends AbstractEntityService<Lot> {
 	
 	List<Lot> getByUser (User user);
 
+	List<Lot> getPurchasedByUser(User user);
+
 }

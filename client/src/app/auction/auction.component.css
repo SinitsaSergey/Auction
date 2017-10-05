@@ -8,6 +8,9 @@
 h3 {
   font-size: 24px;
   color: #6e6e6e;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  text-align: center;
 }
 
 label {
@@ -22,6 +25,22 @@ input {
   width: 68px;
 }
 
+.lotList {
+  display: flex;
+  justify-content: space-around;
+  width: 480px;
+}
+
+.lotList p {
+  font-size: 16px;
+  border-bottom: solid 1px;
+  text-align: end;
+}
+
+.lotList a {
+  font-size: 16px;
+}
+
 .nestedMenu button{
   opacity: 0.7;
   width: 160px;
@@ -32,4 +51,30 @@ input {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+}
+
+.auctionsTableHead {
+  border-top: 2px;
+  border-bottom: 2px;
+  border-color:#19053e;
+  border-style: double;
+}
+
+.auctionsTableHead th {
+  font-size: 20px;
+  color: #19053e;
+}
+
+.auctionsTableRow td {
+  border-bottom: solid 1px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.auctionsTable {
+  width: 80%;
+}
+
+.preview {
+  height: 60px;
 }

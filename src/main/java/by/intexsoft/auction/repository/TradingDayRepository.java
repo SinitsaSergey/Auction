@@ -13,5 +13,4 @@ public interface TradingDayRepository extends JpaRepository<TradingDay, Integer>
 	TradingDay findByTradingDate (Calendar tradingDate);
 	
 	List <TradingDay> findByManager (User manager);
-
 }

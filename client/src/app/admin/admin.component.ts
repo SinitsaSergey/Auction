@@ -3,6 +3,10 @@ import {User} from "../model/user";
 import {UserService} from "../service/user.service";
 import {AdminService} from "../service/admin.service";
 import {TradingDay} from "../model/trading-day";
+import {Lot} from "../model/lot";
+import {LotService} from "../service/lot.service";
+import {AuctionService} from "../service/auction.service";
+import {Auction} from "../model/auction";
 
 @Component({
   selector: 'app-admin',
@@ -11,25 +15,31 @@ import {TradingDay} from "../model/trading-day";
 })
 export class AdminComponent implements OnInit {
 
-  users: User[];
+ // users: User[];
   selectedUsername: string;
   selectedUser: User;
   stringDate: string;
   tradingDay: TradingDay;
   loading = false;
+  confirmedLots: Lot[];
+  auction: Auction;
+  auctionBidholderName: string;
 
   constructor(@Inject('userService') private userService: UserService,
+              @Inject('lotService') private lotService: LotService,
+              @Inject('auctionService') private auctionService: AuctionService,
               @Inject('adminService') private adminService: AdminService) {
   }
 
   ngOnInit() {
-    this.getAllUsers();
+    //this.getAllUsers();
+    this.getConfirmedLots();
   }
 
-  getAllUsers(): void {
+  /*getAllUsers(): void {
     this.userService.getAllUsers()
       .then(users => this.users = users);
-  }
+  }*/
 
   setAs(authority: string): void {
     this.userService.setAs(authority, this.selectedUser)
@@ -67,5 +77,16 @@ export class AdminComponent implements OnInit {
     this.adminService.getTradingDay(this.stringDate)
       .then(tradingDay => this.tradingDay = tradingDay);
     this.loading = false;
+  }
+
+  getConfirmedLots() {
+    this.lotService.getByStatus('confirmed')
+      .then(lots => this.confirmedLots = lots);
+  }
+
+  getBuyer (lotId): string {
+    this.auctionService.getByLot(lotId)
+      .then(auction => this.auctionBidholderName = auction.bidholder.username);
+    return this.auctionBidholderName;
   }
 }

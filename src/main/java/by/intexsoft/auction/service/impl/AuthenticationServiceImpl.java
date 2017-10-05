@@ -39,20 +39,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	
 	private User user;
 
-	/*@Override
-	public String generateToken(HttpServletResponse response, Authentication authentication) {
-		Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-		Claims claims = Jwts.claims().setSubject(authentication.getName());
-		claims.put("scopes", authorities);
-		String JWT = Jwts.builder().setClaims(claims)
-				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_HOURS))
-				.signWith(SignatureAlgorithm.HS256, KEY_WORD)
-
-				.compact();
-		response.addHeader(HEADER, JWT_PREFIX + " " + JWT);
-		return JWT_PREFIX + " " + JWT;
-	}*/
-
 	@Override
 	public String generateToken(User user, String password) {
 		if (user == null || password == null)
@@ -71,6 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		return JWT_PREFIX + " " +jwtBuilder.signWith(SignatureAlgorithm.HS512, KEY_WORD).compact();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(HEADER);
@@ -80,13 +67,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		String username = tokenData.getBody().get("username").toString();
 		this.user = userService.getUserByUsername(username);
 		String password = tokenData.getBody().get("password").toString();
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "rawtypes" })
 		List authorities = tokenData.getBody().get("scopes", List.class);
-		//Date tokenExpiration = tokenData.getBody().get("expiration_time", Date.class);
 		return new UsernamePasswordAuthenticationToken(username, password,
 				AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", authorities)));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication getAuthentication(String token) {
 		if (token == null) return null;
@@ -94,7 +81,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		Jws<Claims> tokenData = Jwts.parser().setSigningKey(KEY_WORD).parseClaimsJws(token);
 		String username = tokenData.getBody().get("username").toString();
 		String password = tokenData.getBody().get("password").toString();
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("rawtypes")
 		List authorities = tokenData.getBody().get("scopes", List.class);
 		//Date tokenExpiration = tokenData.getBody().get("expiration_time", Date.class);
 		return new UsernamePasswordAuthenticationToken(username, password,

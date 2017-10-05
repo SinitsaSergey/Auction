@@ -3,7 +3,10 @@
 @import '~https://fonts.googleapis.com/icon?family=Roboto';
 @import url(http://allfont.ru/allfont.css?fonts=a_lcdnovaobl);
 
-
+@font-face {
+  font-family: "Time";
+  src: url(/assets/fonts/a_lcdnovaobl_[allfont.ru].ttf);
+}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -89,6 +92,10 @@ span.common {
   opacity: 0.7;
 }
 
+.time {
+  font-family: Time;
+}
+
 .nestedMenu{
   background-color: transparent;
   display: flex;
@@ -105,4 +112,16 @@ span.common {
 .mat-menu-content {
   width: 190px;
   margin-top: 28px;
+}
+
+.visibility md-icon {
+  color: blue;
+}
+
+.close md-icon {
+  color: red;
+}
+
+.done md-icon {
+  color: green;
 }

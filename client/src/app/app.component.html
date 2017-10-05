@@ -5,27 +5,26 @@
     <img class="langIcon" src="assets/img/UK.png" (click)="switchLanguage('en')">
   </div>
 </div>
-
-<div id="welcomeMessage" *ngIf="isLoggedIn()">Добро пожаловать, {{welcomeName}}!</div>
+<div id="welcomeMessage" *ngIf="isLoggedIn()">{{'welcomeMessage' | translate}}{{welcomeName}}!</div>
 <div>
   <nav class="mainMenu">
-    <button md-raised-button color="primary" *ngIf="isAdmin()" routerLink="/admin"><span>Кабинет администратора</span>
+    <button md-raised-button color="primary" *ngIf="isAdmin()" routerLink="/admin"><span>{{'adminAccount' | translate}}</span>
     </button>
-    <button md-raised-button color="primary" *ngIf="isManager()" routerLink="/manager"><span>Кабинет менеджера</span>
+    <button md-raised-button color="primary" *ngIf="isManager()" routerLink="/manager"><span>{{'managerAccount' | translate}}</span>
     </button>
     <button md-raised-button color="primary" *ngIf="isUser()" [mdMenuTriggerFor]="accountMenu">
-      <span>Личный кабинет</span></button>
+      <span>{{'userAccount' | translate}}</span></button>
     <md-menu class="nestedMenu" #accountMenu="mdMenu">
-      <button routerLink="/lot">Мои лоты</button>
+      <button routerLink="/lot">{{'myLots' | translate}}</button>
       <br/>
-      <button routerLink="/user">Мой профиль</button>
+      <button routerLink="/user">{{'myProfile' | translate}}</button>
     </md-menu>
-    <button md-raised-button color="primary" routerLink="/"><span>Список аукционов</span></button>
-    <button md-raised-button color="primary" routerLink="/specification"><span>Правила торгов</span></button>
-    <button md-raised-button color="primary" *ngIf="!isLoggedIn()" routerLink="/login"><span>Войти</span></button>
-    <button md-raised-button color="primary" *ngIf="!isLoggedIn()" routerLink="/registration"><span>Регистрация</span>
+    <button md-raised-button color="primary" routerLink="/"><span>{{'auctions' | translate}}</span></button>
+    <button md-raised-button color="primary" routerLink="/specification"><span>{{'specification' | translate}}</span></button>
+    <button md-raised-button color="primary" *ngIf="!isLoggedIn()" routerLink="/login"><span>{{'login' | translate}}</span></button>
+    <button md-raised-button color="primary" *ngIf="!isLoggedIn()" routerLink="/registration"><span>{{'registration' | translate}}</span>
     </button>
-    <button md-raised-button color="primary" *ngIf="isLoggedIn()" routerLink="/" (click)="logout()"><span>Выход</span>
+    <button md-raised-button color="primary" *ngIf="isLoggedIn()" routerLink="/" (click)="logout()"><span>{{'logout' | translate}}</span>
     </button>
   </nav>
 </div>

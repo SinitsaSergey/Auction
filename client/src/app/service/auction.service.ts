@@ -14,8 +14,12 @@ export class AuctionService {
 
   getAllForDay(date: string): Promise<Auction[]> {
     return this.http.get<Auction[]>(AUCTION_PATH + '?date=' + date)
-      .toPromise()
-      .catch();
+      .toPromise();
+  }
+
+  getOnSaleForDay(date: string): Promise<Auction[]> {
+    return this.http.get<Auction[]>(AUCTION_PATH + 'onsale' + '?date=' + date)
+      .toPromise();
   }
 
   getById(id: number): Promise<Auction> {
@@ -29,8 +33,8 @@ export class AuctionService {
       .toPromise();
   }
 
-  remove (id): Promise<any> {
-    return this.http.delete(AUCTION_PATH + id)
+  remove (id): Promise<boolean> {
+    return this.http.delete<boolean>(AUCTION_PATH + id)
       .toPromise();
   }
 
@@ -46,12 +50,12 @@ export class AuctionService {
 
   getFinishTime(id: number): Promise<number> {
     return this.http.get<number>(AUCTION_PATH + id + '/finish/')
-      .toPromise()
-      .catch(error => this.errorHandle(error));
+      .toPromise();
   }
 
-  private errorHandle(error): Promise<any> {
-    console.log(error);
-    return null;
+  getByLot (lotId): Promise<Auction> {
+    return this.http.get<Auction>(AUCTION_PATH + 'lot/' + lotId)
+      .toPromise();
   }
+
 }

@@ -7,5 +7,4 @@ import by.intexsoft.auction.model.Status;
 public interface StatusRepository extends JpaRepository<Status, Integer> {
 	
 	Status findByStatus (String status);
-
 }

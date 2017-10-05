@@ -14,7 +14,7 @@ repositories {
 	 mavenCentral()
 }
 
-task buildClient(type: NpmTask, dependsOn: 'npmInstall') {
+task buildClient(type: NpmTask) {
     group = 'build'
     description = 'Compile client side'
     args = ['run', 'build']

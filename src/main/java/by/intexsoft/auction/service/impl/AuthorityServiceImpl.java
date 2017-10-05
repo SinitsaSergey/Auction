@@ -15,10 +15,7 @@ public class AuthorityServiceImpl extends AbstractServiceEntityImpl<Authority> i
 	
 	@Override
 	public Authority findByAuthority(String authority) {
-		System.out.println(repository);
 		return repository.findByAuthority(authority);
 	}
 	
-	
-
 }

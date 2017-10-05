@@ -1,7 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {User} from '../model/user';
 import {UserService} from '../service/user.service';
-import {AlertService} from '../service/alert.service';
 import {Router} from '@angular/router';
 
 @Component({
